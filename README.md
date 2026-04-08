@@ -12,49 +12,76 @@ PhoenixCollab 是 PhoenixTeam 产品的 Demo 实现。它以纯 Prompt Skill 的
 
 ## 安装
 
-### Claude Code（推荐）
+> **不需要发布到任何官方仓库。** 以下所有方式均以 GitHub 作为直接源，只需把本项目推送到你自己的 GitHub 即可。
+
+### 方式一：Claude Code — `.claude/commands/`（最可靠，立即生效）
+
+将 `skills/` 中的每个 SKILL.md 复制到目标项目的 `.claude/commands/` 目录，Claude Code 会自动识别：
 
 ```bash
-# 添加 marketplace
-/plugin marketplace add owner/PhoenixTeam
+# 克隆插件源码
+git clone https://github.com/your-username/PhoenixTeam.git /tmp/phoenix-collab
 
-# 安装插件
+# 复制到目标项目的 commands 目录
+cd your-project
+mkdir -p .claude/commands
+for skill in /tmp/phoenix-collab/skills/*/SKILL.md; do
+  name=$(basename $(dirname $skill))
+  cp "$skill" ".claude/commands/${name}.md"
+done
+```
+
+安装后在 Claude Code 中直接输入 `/phoenix-init`、`/phoenix-status` 等命令即可。
+
+**全局安装（对所有项目生效）：**
+
+```bash
+mkdir -p ~/.claude/commands
+for skill in /tmp/phoenix-collab/skills/*/SKILL.md; do
+  name=$(basename $(dirname $skill))
+  cp "$skill" ~/.claude/commands/${name}.md
+done
+```
+
+### 方式二：Claude Code — `/plugin` marketplace（需要 Claude Code 支持 plugin 系统）
+
+> 无需官方审核，GitHub 仓库本身即 marketplace 源。
+
+```bash
+# 在 Claude Code 中执行（将 your-username 替换为你的 GitHub 用户名）
+/plugin marketplace add your-username/PhoenixTeam
 /plugin install phoenix-collab@PhoenixTeam
 ```
 
-或通过交互 UI：
+### 方式三：Codex CLI — skills 目录
 
 ```bash
-/plugin
-# → Discover tab → phoenix-collab → Install
+# 克隆整个插件到 Codex skills 目录
+git clone https://github.com/your-username/PhoenixTeam.git ~/.codex/skills/phoenix-collab
 ```
 
-安装后即可使用 `/phoenix-init`、`/phoenix-status` 等 slash command。
+Codex CLI 会自动扫描 `~/.codex/skills/` 下的所有 SKILL.md 文件。
 
-### Codex CLI
+### 方式四：任意 AI 工具 — 独立 Prompt 文件
 
-```bash
-# 从 GitHub 安装所有 skills
-cd ~/.codex/skills/
-git clone https://github.com/owner/PhoenixTeam.git phoenix-collab
-```
-
-或使用内置 skill installer（如可用）：
-
-```bash
-scripts/install-skill-from-github.py --repo owner/PhoenixTeam --path skills/phoenix-init
-scripts/install-skill-from-github.py --repo owner/PhoenixTeam --path skills/phoenix-pull
-# ... 对每个 skill 重复
-```
-
-### 手动安装（任何支持 Prompt 的 AI 工具）
-
-将 `PHOENIXCOLLAB.md` 复制到项目根目录，在 AI 工具中输入：
+将 `PHOENIXCOLLAB.md` 复制到目标项目根目录，在 AI 工具中输入：
 
 ```
 你现在是 PhoenixCollab Plugin v1.3，完全遵循 ./PHOENIXCOLLAB.md 中的所有规则。
 Skill: init
 ```
+
+---
+
+**推荐选择：**
+
+| 场景 | 推荐方式 |
+|------|---------|
+| Claude Code 日常使用 | 方式一（`.claude/commands/`） |
+| 团队统一分发 | 方式一（复制脚本写进 onboarding 文档） |
+| Claude Code plugin 系统用户 | 方式二 |
+| Codex CLI 用户 | 方式三 |
+| 其他 AI 工具 / 最简安装 | 方式四 |
 
 ## 快速开始
 
