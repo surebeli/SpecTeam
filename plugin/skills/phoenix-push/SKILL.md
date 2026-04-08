@@ -1,5 +1,5 @@
 ---
-name: phoenix-push
+name: push
 description: "Push .phoenix/ document changes to remote with mandatory diff review. Shows what you're about to push grouped by collaborator, commits only .phoenix/ markdown files, and pushes."
 user-invocable: true
 argument-hint: "[commit message]"

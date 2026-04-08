@@ -1,5 +1,5 @@
 ---
-name: phoenix-parse
+name: parse
 description: "Core skill: scan .phoenix/design/ documents, generate INDEX.md with directory tree and summaries, detect changes via git diff, and provide collaboration suggestions. This is the intelligence layer of PhoenixTeam."
 user-invocable: true
 ---
