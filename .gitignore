@@ -1,0 +1,14 @@
+.claude/settings.local.json
+
+# Phoenix runtime cache
+.phoenix/last-parse.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
