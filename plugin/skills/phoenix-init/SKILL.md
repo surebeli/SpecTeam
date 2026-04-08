@@ -41,6 +41,7 @@ After the user replies:
 - If the reply is **empty or whitespace**, use `{git_name}` (from `git config user.name`) as the member code.
 - If `git config user.name` is also empty, fall back to the output of `git config user.email`, stripping the `@...` domain part.
 - Sanitize the final code: lowercase, replace spaces with `-`, keep only `[a-z0-9_-]`.
+- **Persist identity locally**: Run `git config --local phoenix.member-code {code}` to save the member code into `.git/config`. This is machine-local and not committed to the repo, so each collaborator's clone has their own identity.
 
 ### Step 2 — Ask for project goal (founder mode only)
 
@@ -101,15 +102,11 @@ Output the following block **verbatim**, then **stop and wait**:
 1. Run `git status` and display the result.
 2. Create `.phoenix/` directory if it doesn't exist.
 3. Create/update `.phoenix/COLLABORATORS.md` with:
-   - Current user's member code
+   - Current user's member code appended to the shared registry
    - Source directory → `.phoenix/design/{code}/` mapping
-   - Known collaborators list (append if joining)
-   - Format:
+   - Format (shared file, do NOT include "current session" — identity is in git config):
      ```markdown
      # PhoenixTeam Collaborators
-
-     ## Current Session
-     - Active user: {code}
 
      ## Members
      | Code | Source Directories | Phoenix Path | Joined |

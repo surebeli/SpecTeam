@@ -9,7 +9,7 @@
 - **用户原始设计文档只读**，绝不修改。
 - **Git 是唯一变更记录系统**：使用原生 `git diff`、`git log` 实现最小成本版本跟踪（行级精确、无额外开销）。
 - **协作者身份与目录映射**：必须记录每个协作者的"代号"及其对应的设计文档目录，支持"各自维护"或"共同维护"。
-- 当前运行 Plugin 的用户身份（"我是谁"）必须明确记录在 `.phoenix/COLLABORATORS.md` 中。
+- **身份持久化**：当前用户代号通过 `git config phoenix.member-code` 读取（init 时写入 `.git/config`，本机私有，不进仓库）。`.phoenix/COLLABORATORS.md` 是所有协作者的共享注册表，不作为当前身份来源。
 - 所有操作前必须先执行 `git status` 并在响应中展示结果。
 - 每次 push 前必须先执行 `git diff -- .phoenix/` 并输出摘要。
 - 支持两种仓库模式（init 时指定）：Mode A（独立分支 phoenix-docs，默认）或 Mode B（子模块）。

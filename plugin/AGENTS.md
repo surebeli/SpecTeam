@@ -9,7 +9,7 @@ All PhoenixTeam skills share these core principles. Follow them strictly.
 - **User source documents are READ-ONLY** — never modify files outside `.phoenix/`.
 - **Git is the only change tracking system**: Use native `git diff`, `git log` for minimal-cost version tracking (line-level precision, zero extra overhead).
 - **Collaborator identity & directory mapping**: Each collaborator has a "member code" and a corresponding directory under `.phoenix/design/{code}/`. Record in `.phoenix/COLLABORATORS.md`.
-- **Identity awareness**: The current plugin user ("who am I") must be recorded in `.phoenix/COLLABORATORS.md`. Read it at the start of every skill execution.
+- **Identity awareness**: The current user's member code is stored **locally** in git config (`git config phoenix.member-code`). Run this command at the start of every skill to determine "who am I". `.phoenix/COLLABORATORS.md` is a **shared registry** of all collaborators — never derive current identity from it.
 - **Pre-flight checks**: Run `git status` before all operations and display the result.
 - **Diff gate on push**: Run `git diff -- .phoenix/` before every push and show the summary.
 - **Directory depth limit**: `.phoenix/design/` sub-structure is at most 2 levels deep.
