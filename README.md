@@ -52,6 +52,7 @@ Skill: init
 
 ```bash
 /phoenix-init      # 初始化（首人设定项目目标，后续者确认并加入）
+/phoenix-whoami    # 查看/绑定本机身份（换机器或多机登录时使用）
 /phoenix-status    # 查看全局状态与一致性评分
 /phoenix-pull      # 拉取远程变更 + 自动 diff 解读
 /phoenix-push      # 推送文档变更（强制 diff 检查）
@@ -68,6 +69,7 @@ Skill: init
 | 命令 | 功能 | 参数 |
 |------|------|------|
 | `/phoenix-init` | 初始化（首人设目标 → 后续者确认加入） | 交互式 |
+| `/phoenix-whoami` | 查看/绑定本机身份（换机器/多机时用） | 交互式 |
 | `/phoenix-pull` | 拉取 + 解析 + diff 摘要 | — |
 | `/phoenix-push` | 推送（含强制 diff 检查） | 可选 commit message |
 | `/phoenix-parse` | 扫描文档、生成 INDEX.md | — |
