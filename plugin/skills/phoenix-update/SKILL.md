@@ -54,20 +54,20 @@ Written and maintained exclusively by this skill. Format:
 4. Output a change summary:
 
 ```
-## 【源文档变更检测】
+## Source Document Change Detection
 
-新增: {N} 个文件
-修改: {N} 个文件
-删除: {N} 个文件
-未变: {N} 个文件
+New: {N} file(s)
+Modified: {N} file(s)
+Deleted: {N} file(s)
+Unchanged: {N} file(s)
 
-变更详情:
-+ ./design/new-feature.md (新增)
-~ ./design/spec.md (修改)
-- ./design/old-draft.md (已删除)
+Changes:
++ ./design/new-feature.md (new)
+~ ./design/spec.md (modified)
+- ./design/old-draft.md (deleted)
 ```
 
-5. If no changes → output `"✅ 源文档无变更，.phoenix/ 已是最新状态。"` and stop.
+5. If no changes → output `"✅ No source document changes. .phoenix/ is up to date."` and stop.
 
 ### Step 3 — Divergence impact check
 
@@ -76,33 +76,33 @@ Written and maintained exclusively by this skill. Format:
 
    **`open` divergence impact**:
    ```
-   ⚠️ 修改文件涉及未解决分歧:
-   - ./design/spec.md → 涉及 D-001: API 风格选择 (open, 阻塞性)
-     同步后此文件内容变化，建议同步后重新运行 /phoenix-review。
+   ⚠️ Modified file affects unresolved divergence:
+   - ./design/spec.md → references D-001: API style choice (open, blocking)
+     File content will change after sync. Recommend re-running /phoenix-review after sync.
    ```
 
    **`proposed` divergence impact**:
    ```
-   ⚠️ 修改文件涉及等待确认的提议:
-   - ./design/api.md → 涉及 D-002: 接口设计 (proposed, 您是提议者)
-     您的文档已更新，现有提议可能不再准确。
-     建议同步后撤回提议，更新文档后重新提议。
+   ⚠️ Modified file affects a pending proposal:
+   - ./design/api.md → references D-002: Interface design (proposed, you are the proposer)
+     Your document has been updated; existing proposal may no longer be accurate.
+     Recommend withdrawing the proposal after sync, then re-proposing with updated documents.
    ```
 
    **`resolved` divergence impact**:
    ```
-   ℹ️ 修改文件涉及已解决分歧:
-   - ./design/arch.md → 涉及 D-003: 架构选型 (resolved)
-     请确认此变更符合决策方向，不违背 THESIS Decision Log。
+   ℹ️ Modified file affects a resolved divergence:
+   - ./design/arch.md → references D-003: Architecture selection (resolved)
+     Please verify this change aligns with the decision direction and does not contradict the THESIS Decision Log.
    ```
 
 3. If `--force` flag → skip confirmation, proceed to Step 4.
 4. If there are `proposed` divergence impacts → **stop and wait for confirmation**:
 
    ```
-   是否继续同步？
-   1. 继续同步（我了解影响）
-   2. 取消（我想先处理分歧）
+   Continue with sync?
+   1. Continue (I understand the impact)
+   2. Cancel (I want to handle the divergence first)
    ```
 
    - User confirms → proceed.
@@ -182,16 +182,16 @@ Write updated `.phoenix/last-sync.json` with:
 ### Step 8 — Output and next steps
 
 ```
-## 【同步结果】
+## Sync Result
 
-✅ 已同步 {N} 个文件变更:
+✅ Synced {N} file change(s):
   + design/{me}/new-feature.md
   ~ design/{me}/spec.md
   - design/{me}/old-draft.md
 
-分歧影响:
-  ⚠️ D-001 (open): 受影响，建议重新 review
-  ⚠️ D-002 (proposed): 您的提议可能需要更新
+Divergence impact:
+  ⚠️ D-001 (open): affected — recommend re-running review
+  ⚠️ D-002 (proposed): your proposal may need updating
 
 Commit: {hash}
 ```

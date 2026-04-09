@@ -41,12 +41,12 @@ View precise document changes with collaborator attribution and divergence state
 If `DIVERGENCES.md` appears in the diff:
 
 1. Parse the before/after content to detect state transitions.
-2. Output a dedicated **【分歧状态变更】** section:
+2. Output a dedicated **[Divergence State Transitions]** section:
    ```
-   ### 分歧状态变更
-   - D-001: `open` → `proposed` 🟡 (alice 提议: 采用 REST API)
-   - D-002: `proposed` → `resolved` ✅ (bob 确认, 决策: Kubernetes 部署)
-   - D-003: `proposed` → `open` 🔴 (alice 的提议被 bob 拒绝)
+   ### Divergence State Transitions
+   - D-001: `open` → `proposed` 🟡 (alice proposes: adopt REST API)
+   - D-002: `proposed` → `resolved` ✅ (bob confirmed, decision: Kubernetes deployment)
+   - D-003: `proposed` → `open` 🔴 (alice's proposal rejected by bob)
    ```
 3. If no DIVERGENCES.md changes in the diff, skip this section.
 
@@ -56,4 +56,4 @@ Output:
 - Whose documents were affected by whose changes
 - Potential conflicts or synergies between collaborators
 - Whether any changes conflict with THESIS.md
-- Whether any changes affect open/proposed divergences (e.g., "alice 修改了 design/alice/api.md，该文件涉及 D-001 (open)")
+- Whether any changes affect open/proposed divergences (e.g., "alice modified design/alice/api.md, which is referenced in D-001 (open)")

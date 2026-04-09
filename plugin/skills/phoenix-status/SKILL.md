@@ -18,41 +18,41 @@ None.
 2. Run `git status` and display the result.
 3. Output the following sections:
 
-   **【当前身份】** Current member code + role
+   **[Current Identity]** Current member code + role
 
-   **【COLLABORATORS.md 摘要】** All known collaborators, their directories, last activity
+   **[COLLABORATORS.md Summary]** All known collaborators, their directories, last activity
 
-   **【INDEX.md 摘要】** Document tree overview, total file count per collaborator
+   **[INDEX.md Summary]** Document tree overview, total file count per collaborator
 
-   **【分歧状态】** Read `.phoenix/DIVERGENCES.md`:
+   **[Divergence Status]** Read `.phoenix/DIVERGENCES.md`:
    - Group by status, with approval context for `{me}`:
      ```
-     🟡 等待我确认 ({count}):
-       D-{N}: {title} — {proposer} 提议: {summary} ({date})
+     🟡 Awaiting my confirmation ({count}):
+       D-{N}: {title} — {proposer} proposes: {summary} ({date})
 
-     🔴 未解决 ({count}):
-       D-{N}: {title} — {parties} — 优先级: {priority}
+     🔴 Unresolved ({count}):
+       D-{N}: {title} — {parties} — Priority: {priority}
 
-     ⏳ 等待对方确认 ({count}):
-       D-{N}: {title} — 我的提议等待 {other} 确认
+     ⏳ Awaiting others' confirmation ({count}):
+       D-{N}: {title} — my proposal awaiting {other}
 
-     ✅ 已解决，待文档更新 ({count}):
-       D-{N}: {title} — 决议已达成，{parties} 需更新源文档
-       我的 Action Item: {⏳ 待更新 / ✅ 已完成}
+     ✅ Resolved, pending source doc update ({count}):
+       D-{N}: {title} — decision reached, {parties} need to update source docs
+       My Action Item: {⏳ Pending update / ✅ Complete}
 
-     🔒 完全关闭 ({count}):
-       D-{N}: {title} — 源文档已全部按决议更新
+     🔒 Fully closed ({count}):
+       D-{N}: {title} — all source documents updated per decision
      ```
-   - If no DIVERGENCES.md: `（尚未执行 review）`
-   - If no open/proposed items: `✅ 当前无待处理分歧`
+   - If no DIVERGENCES.md: `(No review has been run yet)`
+   - If no open/proposed items: `✅ No pending divergences`
 
-   **【最近 3 次 diff 摘要】** (grouped by member code):
+   **[Recent 3 Diff Summaries]** (grouped by member code):
    - Run `git log --oneline -3 -- .phoenix/`
    - For each commit, summarize what changed and who changed it
 
-   **【未决阻塞项】** Extract from SIGNALS.md any unresolved blockers
+   **[Unresolved Blockers]** Extract from SIGNALS.md any unresolved blockers
 
-   **【一致性评分 (0-100)】** Evaluate team context consistency:
+   **[Consistency Score (0-100)]** Evaluate team context consistency:
    - 100 = All aligned, no open/proposed divergences
    - 70-99 = Only proposed (awaiting confirmation) or detail-level divergences
    - 40-69 = Open directional divergences, action needed

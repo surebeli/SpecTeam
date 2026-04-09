@@ -17,6 +17,13 @@ All PhoenixTeam skills share these core principles. Follow them strictly.
 - **Diff gate on push**: Run `git diff -- .phoenix/` before every push and show the summary. Also check DIVERGENCES.md for open/proposed items and warn accordingly.
 - **Directory depth limit**: `.phoenix/design/` sub-structure is at most 2 levels deep.
 - **Two repo modes** (set during init): Mode A (dedicated branch `phoenix-docs`, default) or Mode B (git submodule).
+- **Branch guard** (enforced on every skill except `phoenix-init`): After the identity guard, run `git branch --show-current` → `{current_branch}`, then run `git config phoenix.main-branch` → `{main_branch}`. If they differ, **stop immediately** and output:
+  ```
+  ❌ 当前分支 '{current_branch}' 不是 PhoenixTeam 主分支 '{main_branch}'。
+  PhoenixTeam 操作只能在主分支上执行，以防止 .phoenix/ 状态随分支分叉。
+  请切换到主分支后再运行：git checkout {main_branch}
+  ```
+  `phoenix-init` is exempt — it is the skill that establishes the main branch. If `git config phoenix.main-branch` is empty (not yet initialized), skip the check and proceed normally.
 
 ## .phoenix/ Directory Layout
 

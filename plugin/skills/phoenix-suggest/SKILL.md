@@ -31,20 +31,20 @@ Generate **3 collaboration suggestions** (priority ordered).
 **Priority rules** — divergence state takes precedence over diff-only insights:
 
 1. **Highest priority**: `proposed` divergences awaiting `{me}` → suggest confirming/rejecting
-   - E.g., `"🟡 D-002 等待您确认: bob 提议采用 GraphQL。建议运行 /phoenix-align D-002 查看详情并做出决策。"`
+   - E.g., `"🟡 D-002 awaiting your confirmation: bob proposes adopting GraphQL. Recommend running /phoenix-align D-002 to review and decide."`
 
 2. **High priority**: `resolved` divergences with pending Action Items for `{me}` → suggest updating source docs
-   - E.g., `"✅ D-001 已决议采用 REST API，您的源文档 ./design/api-proposal.md 尚未按决议更新。建议运行 /phoenix-update 完成同步。"`
+   - E.g., `"✅ D-001 resolved: adopt REST API. Your source document ./design/api-proposal.md has not been updated per the decision. Recommend running /phoenix-update to sync."`
 
 3. **High priority**: `open` blocking divergences → suggest initiating align
-   - E.g., `"🔴 D-003 (阻塞性) alice vs bob 在 API 风格上分歧未解决。基于 alice 的最新 diff（新增了 REST endpoint 文档），建议尽快运行 /phoenix-align D-003 提出方案。"`
+   - E.g., `"🔴 D-003 (blocking) alice vs bob unresolved on API style. Based on alice's latest diff (added REST endpoint docs), recommend running /phoenix-align D-003 to propose a resolution."`
 
 4. **Normal priority**: Diff-based insights (THESIS conflicts, redundant proposals, missing coverage, merge opportunities)
-   - E.g., `"基于 bob 的 diff（重构了部署方案），发现与 THESIS 中'单机部署'目标偏离，建议确认 THESIS 是否需要更新。"`
+   - E.g., `"Based on bob's diff (refactored deployment plan): diverges from THESIS 'single-machine deployment' goal. Recommend confirming whether THESIS needs updating."`
 
 **Each suggestion must**:
 - Cite a specific collaborator's diff OR a specific divergence ID as evidence
-- Format: `"基于 {code} 的 diff（{具体变更}）/ 基于 D-{N} ({状态})，建议..."`
+- Format: `"Based on {code}'s diff ({specific change}) / Based on D-{N} ({status}), recommend..."`
 - Include a concrete next action (which skill to run, with parameters)
 
 5. If `$ARGUMENTS` provides a specific question, focus all 3 suggestions on that topic but still incorporate divergence awareness.

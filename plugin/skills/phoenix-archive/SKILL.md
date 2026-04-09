@@ -26,12 +26,12 @@ Archive (freeze) a design proposal and record the decision.
 3. If the file is referenced in an **`open` or `proposed`** divergence:
 
    ```
-   ⚠️ 此文件涉及以下未解决分歧:
+   ⚠️ This file is referenced in the following unresolved divergences:
 
    - D-{N}: {title} ({status}) — {parties}
 
-   归档后该分歧可能需要重新评估。
-   是否继续归档？(yes / 取消)
+   Archiving may require re-evaluation of these divergences.
+   Continue with archive? (yes / cancel)
    ```
 
    **Stop and wait for confirmation.**
@@ -55,7 +55,7 @@ Archive (freeze) a design proposal and record the decision.
 4. If the file was part of an open/proposed divergence and user confirmed:
    - Add a note to the divergence entry in DIVERGENCES.md:
      ```
-     **注意**: 涉及文件 `{path}` 已被归档 ({date})，本分歧可能需要重新 review。
+     **Note**: Referenced file `{path}` was archived ({date}). This divergence may need re-review.
      ```
 5. Run `git add .phoenix/` and commit: `"[PhoenixTeam] archive - {code}/{filename} 决策冻结"`
 6. Output: archive result + new diff (preserving member code attribution).

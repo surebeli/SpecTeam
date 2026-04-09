@@ -11,7 +11,7 @@ Push document changes with enforced diff review and divergence gate.
 
 ## Parameters
 
-- `$ARGUMENTS`: Optional custom commit message. Default: `"[PhoenixTeam] {current code} 文档更新"`
+- `$ARGUMENTS`: Optional custom commit message. Default: `"[PhoenixTeam] {code} document update"`
 
 ## Execution Steps
 
@@ -27,13 +27,13 @@ Push document changes with enforced diff review and divergence gate.
 3. If any source files have changed since last sync:
 
 ```
-⚠️ 源文档漂移检测: {N} 个源文件已变更但未同步
+⚠️ Source drift detected: {N} source file(s) changed but not synced
 
-  ~ ./design/spec.md (已修改)
-  + ./design/new-api.md (新增)
+  ~ ./design/spec.md (modified)
+  + ./design/new-api.md (new)
 
-建议先运行 /phoenix-update 同步源文档后再推送。
-是否仍要继续推送？(yes / 先同步)
+Recommend running /phoenix-update to sync source documents before pushing.
+Continue pushing anyway? (yes / sync first)
 ```
 
 **Stop and wait for confirmation.**
@@ -53,32 +53,32 @@ Push document changes with enforced diff review and divergence gate.
 
 **If `proposed` items await `{me}`:**
 ```
-🟡 有 {N} 个分歧提议等待您确认:
+🟡 {N} divergence proposal(s) awaiting your confirmation:
 
-| ID | 标题 | 提议者 | 提议决策 |
-|----|------|--------|----------|
+| ID | Title | Proposer | Proposed decision |
+|----|-------|----------|-------------------|
 | D-{N} | {title} | {proposer} | {summary} |
 
-建议先运行 /phoenix-align D-{N} 完成确认后再推送。
-是否仍要继续推送？(yes / 先确认)
+Recommend running /phoenix-align D-{N} to confirm before pushing.
+Continue pushing anyway? (yes / confirm first)
 ```
 
 **If `open` items exist:**
 ```
-🔴 存在 {N} 个未解决分歧:
+🔴 {N} unresolved divergence(s):
 
-| ID | 标题 | 优先级 |
-|----|------|--------|
+| ID | Title | Priority |
+|----|-------|----------|
 | D-{N} | {title} | {priority} |
 
-推送后其他协作者 pull 时将看到这些未解决的分歧。
-是否继续推送？(yes / 先解决)
+Other collaborators will see these unresolved divergences after pulling.
+Continue pushing? (yes / resolve first)
 ```
 
 **If `proposed` items await others (already pushed by me):**
 ```
-⏳ {N} 个分歧提议等待对方确认: {list}
-（推送后对方 pull 时会收到确认提醒）
+⏳ {N} divergence proposal(s) awaiting others' confirmation: {list}
+(They will receive a confirmation reminder after pulling)
 ```
 → Proceed without blocking.
 
@@ -97,7 +97,7 @@ Push document changes with enforced diff review and divergence gate.
 
 1. Run `git add .phoenix/**/*.md`.
 2. Also add `.phoenix/DIVERGENCES.md`, `.phoenix/last-review.json` if changed.
-3. Commit with the provided message or default: `"[PhoenixTeam] {code} 文档更新"`.
+3. Commit with the provided message or default: `"[PhoenixTeam] {code} document update"`.
 4. Run `git push`.
 5. Output: push result + commit hash + this push's diff summary.
 

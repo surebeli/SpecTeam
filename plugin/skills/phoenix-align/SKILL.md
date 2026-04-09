@@ -54,32 +54,32 @@ Output:
 
 ---
 
-**【提议对齐 — {D-N}: {title}】**
+**[Propose Resolution — {D-N}: {title}]**
 
-**分歧摘要** (from DIVERGENCES.md):
-- 涉及方: {code-1} vs {code-2}
-- 性质: {技术选型 / 架构方向 / 优先级}
-- 发现于: {date}
+**Divergence summary** (from DIVERGENCES.md):
+- Parties: {code-1} vs {code-2}
+- Nature: {technology choice / architecture direction / priority}
+- Found at: {date}
 
-**当前各方方案对比：**
+**Current positions comparison:**
 
 | | {code-1} | {code-2} |
 |--|----------|----------|
-| 方案 | {summary from design/{code-1}/...} | {summary from design/{code-2}/...} |
-| 优势 | {advantage} | {advantage} |
-| 风险 | {risk} | {risk} |
-| THESIS 对齐度 | {assessment} | {assessment} |
+| Position | {summary from design/{code-1}/...} | {summary from design/{code-2}/...} |
+| Advantage | {advantage} | {advantage} |
+| Risk | {risk} | {risk} |
+| THESIS alignment | {assessment} | {assessment} |
 
-**AI 推荐方案：**
+**AI recommended resolution:**
 
 > {Merged or best-choice resolution with reasoning based on THESIS}
 
-请选择您的提议：
-1. 采纳 {code-1} 的方案
-2. 采纳 {code-2} 的方案
-3. 采纳 AI 推荐的合并方案
-4. 自定义决策（请描述）
-5. 跳过，暂不处理此分歧
+Please choose your proposal:
+1. Adopt {code-1}'s position
+2. Adopt {code-2}'s position
+3. Adopt AI-recommended merged resolution
+4. Custom decision (please describe)
+5. Skip — handle this divergence later
 
 ---
 
@@ -91,22 +91,22 @@ After user chooses (skip option 5 to next):
    ```markdown
    ### D-{N}: {title}
 
-   **状态**: `proposed` 🟡
-   **涉及方**: {code-1}, {code-2}
-   **性质**: {classification}
-   **优先级**: {priority}
-   **发现于**: review @ `{original_commit}` ({date})
-   **提议者**: {me}
-   **提议于**: align @ `{current_commit}` ({date})
-   **提议决策**: {chosen resolution summary}
-   **提议理由**: {reasoning}
+   **Status**: `proposed` 🟡
+   **Parties**: {code-1}, {code-2}
+   **Nature**: {classification}
+   **Priority**: {priority}
+   **Found at**: review @ `{original_commit}` ({date})
+   **Proposer**: {me}
+   **Proposed at**: align @ `{current_commit}` ({date})
+   **Proposed decision**: {chosen resolution summary}
+   **Reasoning**: {reasoning}
 
-   _等待 {other_party} 确认_
+   _Awaiting confirmation from {other_party}_
    ```
 2. **Do NOT update THESIS.md** — it is only updated after approval.
-3. Commit: `"[PhoenixTeam] align — D-{N}: {title} 提议由 {me} 提交，等待 {other} 确认"`
+3. Commit: `"[PhoenixTeam] align — D-{N}: {title} proposed by {me}, awaiting {other} confirmation"`
 
-Output: `"✅ 提议已提交。{other_party} 下次 pull 后运行 /phoenix-align D-{N} 即可确认或拒绝。"`
+Output: `"✅ Proposal submitted. {other_party} can run /phoenix-align D-{N} after their next pull to confirm or reject."`
 
 ### Step 3B — Mode B: Review and approve/reject (divergence is `proposed`, awaiting `{me}`)
 
@@ -116,29 +116,29 @@ Output:
 
 ---
 
-**【确认对齐 — {D-N}: {title}】**
+**[Confirm Resolution — {D-N}: {title}]**
 
-**原始分歧：**
-- 涉及方: {code-1} vs {code-2}
-- 性质: {classification}
+**Original divergence:**
+- Parties: {code-1} vs {code-2}
+- Nature: {classification}
 
-**{proposer} 的提议：**
-> 决策: {proposed resolution}
-> 理由: {reasoning}
-> 提议于: {date}
+**{proposer}'s proposal:**
+> Decision: {proposed resolution}
+> Reasoning: {reasoning}
+> Proposed at: {date}
 
-**原始方案对比：**
+**Original positions comparison:**
 
 | | {code-1} | {code-2} |
 |--|----------|----------|
-| 方案 | {summary} | {summary} |
-| THESIS 对齐度 | {assessment} | {assessment} |
+| Position | {summary} | {summary} |
+| THESIS alignment | {assessment} | {assessment} |
 
-请选择：
-1. ✅ 同意此提议
-2. ❌ 拒绝，恢复为 open（请说明拒绝理由）
-3. 🔄 在此基础上修改（提出您的修改版本，将变为您的新提议）
-4. ⏭ 暂不处理
+Please choose:
+1. ✅ Agree with this proposal
+2. ❌ Reject — revert to open (please provide rejection reason)
+3. 🔄 Modify and counter-propose (your modified version becomes the new proposal)
+4. ⏭ Skip for now
 
 ---
 
@@ -158,47 +158,47 @@ Read each involved party's current documents under `.phoenix/design/`. For each 
 Output to the user:
 
 ```
-## 【源文档更新待办】D-{N}: {title}
+## Source Document Action Items — D-{N}: {title}
 
-| 协作者 | 源文件 | 状态 |
-|--------|--------|------|
-| {code-1} | `./design/api.md` | ⏳ 待更新 |
-| {code-2} | `./design/api-proposal.md` | ⏳ 待更新 |
+| Collaborator | Source file | Status |
+|--------------|-------------|--------|
+| {code-1} | `./design/api.md` | ⏳ Pending update |
+| {code-2} | `./design/api-proposal.md` | ⏳ Pending update |
 
 ---
 
-##### 【{code-1}】变更指令
+##### [{code-1}] Change Instructions
 
-**决策背景**: {what the disagreement was — one sentence}
-**决策**: {clear, unambiguous statement of what was decided}
-**理由**: {reasoning — why this choice over the alternative}
+**Background**: {what the disagreement was — one sentence}
+**Decision**: {clear, unambiguous statement of what was decided}
+**Rationale**: {reasoning — why this choice over the alternative}
 
-**文件**: `./design/api.md`
-**需要的变更**:
-- {concrete item 1, e.g. "保留现有 REST endpoint 设计"}
-- {concrete item 2, e.g. "移除第 3 节"备选方案"中 GraphQL 相关描述"}
+**File**: `./design/api.md`
+**Required changes**:
+- {concrete item 1, e.g. "keep existing REST endpoint design"}
+- {concrete item 2, e.g. "remove GraphQL alternative from section 3"}
 - {concrete item 3 if needed}
 
-**验收标准**: {one-sentence check, e.g. "文档中不再出现 GraphQL、resolver、schema 等词"}
+**Acceptance criterion**: {one-sentence check, e.g. "document contains no mention of GraphQL, resolver, or schema"}
 
 ---
 
-##### 【{code-2}】变更指令
+##### [{code-2}] Change Instructions
 
-**决策背景**: {same as above}
-**决策**: {same as above}
-**理由**: {same as above}
+**Background**: {same as above}
+**Decision**: {same as above}
+**Rationale**: {same as above}
 
-**文件**: `./design/api-proposal.md`
-**需要的变更**:
+**File**: `./design/api-proposal.md`
+**Required changes**:
 - {concrete item 1}
 - {concrete item 2}
 
-**验收标准**: {one-sentence check}
+**Acceptance criterion**: {one-sentence check}
 
 ---
 
-完成各自修改后，运行 /phoenix-update 同步并自动验证。
+After completing your changes, run /phoenix-update to sync and auto-verify.
 ```
 
 **Sub-step B — Write to files:**
@@ -276,46 +276,46 @@ Output to the user:
    ```markdown
    ### D-{N}: {title}
 
-   **状态**: `open` 🔴
-   **涉及方**: {code-1}, {code-2}
+   **Status**: `open` 🔴
+   **Parties**: {code-1}, {code-2}
    ...original fields...
 
-   **历史提议**:
-   - [{date}] {proposer} 提议: {resolution} — ❌ 被 {me} 拒绝，理由: {rejection reason}
+   **Proposal history**:
+   - [{date}] {proposer} proposed: {resolution} — ❌ Rejected by {me}, reason: {rejection reason}
    ```
-2. Commit: `"[PhoenixTeam] align — D-{N}: {title} 提议被 {me} 拒绝"`
+2. Commit: `"[PhoenixTeam] align — D-{N}: {title} proposal rejected by {me}"`
 
 **Option 3 — Modify and counter-propose:**
 1. Update DIVERGENCES.md — keep as `proposed` but change proposer to `{me}`:
    ```markdown
-   **提议者**: {me}
-   **提议于**: align @ `{current_commit}` ({date})
-   **提议决策**: {modified resolution}
-   **提议理由**: {new reasoning}
+   **Proposer**: {me}
+   **Proposed at**: align @ `{current_commit}` ({date})
+   **Proposed decision**: {modified resolution}
+   **Reasoning**: {new reasoning}
 
-   _等待 {original_proposer} 确认_
+   _Awaiting confirmation from {original_proposer}_
 
-   **历史提议**:
-   - [{date}] {original_proposer} 提议: {original resolution} — 🔄 被 {me} 修改
+   **Proposal history**:
+   - [{date}] {original_proposer} proposed: {original resolution} — 🔄 Modified by {me}
    ```
-2. Commit: `"[PhoenixTeam] align — D-{N}: {title} 修改提议由 {me} 提交，等待 {original_proposer} 确认"`
+2. Commit: `"[PhoenixTeam] align — D-{N}: {title} modified proposal by {me}, awaiting {original_proposer}"`
 
 ### Step 3C — Proposed by `{me}`, awaiting other party
 
 Output:
 ```
-⏳ D-{N}: {title} — 您的提议等待 {other_party} 确认中。
-   提议内容: {summary}
-   提议于: {date}
+⏳ D-{N}: {title} — Your proposal is awaiting confirmation from {other_party}.
+   Proposed decision: {summary}
+   Proposed at: {date}
 
-   可选操作:
-   1. 撤回提议（恢复为 open）
-   2. 跳过
+   Options:
+   1. Withdraw proposal (revert to open)
+   2. Skip
 ```
 
 If user chooses to withdraw:
 1. Revert status to `open` in DIVERGENCES.md, append withdrawal note.
-2. Commit: `"[PhoenixTeam] align — D-{N}: {title} 提议被 {me} 撤回"`
+2. Commit: `"[PhoenixTeam] align — D-{N}: {title} proposal withdrawn by {me}"`
 
 ### Step 4 — Continue or summarize
 
@@ -323,17 +323,17 @@ If user chooses to withdraw:
 - Output summary:
 
 ```
-## 【对齐摘要】
+## Alignment Summary
 
-本次处理:
-- 🟡 D-{N}: {title} — 已提议，等待 {other} 确认
-- ✅ D-{N}: {title} — 已确认通过
-- ❌ D-{N}: {title} — 已拒绝，恢复为 open
-- ⏭ D-{N}: {title} — 已跳过
+Processed this session:
+- 🟡 D-{N}: {title} — proposed, awaiting {other} confirmation
+- ✅ D-{N}: {title} — confirmed and resolved
+- ❌ D-{N}: {title} — rejected, reverted to open
+- ⏭ D-{N}: {title} — skipped
 
-剩余状态:
-- open: {count} 个
-- proposed (等待他人确认): {count} 个
+Remaining:
+- open: {count}
+- proposed (awaiting others): {count}
 ```
 
 - If proposed items exist → recommend push to notify the other party

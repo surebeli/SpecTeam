@@ -31,21 +31,21 @@ None.
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🟡 有 {N} 个分歧提议等待您确认:
+🟡 {N} divergence proposal(s) awaiting your confirmation:
 
-  D-{N}: {title} — {proposer} 提议: {summary}
-  D-{N}: {title} — {proposer} 提议: {summary}
+  D-{N}: {title} — {proposer} proposes: {summary}
+  D-{N}: {title} — {proposer} proposes: {summary}
 
-运行 /phoenix-align D-{N} 查看详情并确认或拒绝。
+Run /phoenix-align D-{N} to review details and confirm or reject.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
 4. Also note any new `open` divergences and any divergences that moved to `resolved` (requiring source doc updates) since last pull.
 5. For `resolved` divergences with pending Action Items for `{me}`, output a prompt:
    ```
-   📋 有 {N} 个已决议分歧需要您更新源文档:
-     D-{N}: {title} — 需更新 `{source file}`: {change description}
-   运行 /phoenix-update 同步后将自动验证。
+   📋 {N} resolved divergence(s) require source document updates from you:
+     D-{N}: {title} — update `{source file}`: {change description}
+   Run /phoenix-update to sync and auto-verify.
    ```
 
 ### Step 7 — Source drift hint
@@ -55,8 +55,8 @@ None.
 3. If source files have changed locally since last sync, output a soft hint:
 
 ```
-💡 检测到本地源文档有变更 ({N} 个文件)，尚未同步到 .phoenix/。
-   运行 /phoenix-update 将源文档变更同步到工作区。
+💡 Source drift detected: {N} local source file(s) changed since last sync.
+   Run /phoenix-update to sync changes into the workspace.
 ```
 
 4. This is informational only — does not block.

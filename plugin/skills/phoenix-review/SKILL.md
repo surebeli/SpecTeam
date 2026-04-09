@@ -48,10 +48,10 @@ Structured divergence analysis across collaborators. Writes to `.phoenix/DIVERGE
 5. If `last-review.json` does not exist → treat all collaborators as new (full review).
 6. Output:
    ```
-   📋 本次 review 范围:
-     - alice: 重新分析 (design/ 有新提交)
-     - bob: 重新分析 (源文档自上次 review 后有变更)
-     - carol: 跳过 (无新提交，无源文件变更)
+   Review scope:
+     - alice: re-analyze (new commits in design/)
+     - bob: re-analyze (source files changed since last review)
+     - carol: skip (no new commits, no source file changes)
    ```
 
 ### Step 3 — Load baseline and existing divergences
@@ -88,43 +88,43 @@ Perform the following checks:
 ### Step 5 — Output divergence report
 
 ```
-## 【分歧报告】
+## Divergence Report
 
-### 新发现的分歧
+### New divergences
 
-#### D-{N}: {简要标题}
+#### D-{N}: {title}
 
-**涉及方**: {code-1} vs {code-2}
-**{code-1} 的观点**: {具体摘要，引用文档路径和关键段落}
-**{code-2} 的观点**: {具体摘要，引用文档路径和关键段落}
-**与 THESIS 的对齐度**:
-  - {code-1}: {对齐/偏离/无关} — {原因}
-  - {code-2}: {对齐/偏离/无关} — {原因}
-**分歧性质**: {技术选型 / 架构方向 / 优先级 / 范围定义}
-**优先级**: {阻塞性 / 方向性 / 细节性}
+**Parties**: {code-1} vs {code-2}
+**{code-1}'s position**: {specific summary, cite doc path and key passage}
+**{code-2}'s position**: {specific summary, cite doc path and key passage}
+**THESIS alignment**:
+  - {code-1}: {aligned / diverged / unrelated} — {reason}
+  - {code-2}: {aligned / diverged / unrelated} — {reason}
+**Nature**: {technology choice / architecture direction / priority / scope}
+**Priority**: {blocking / directional / detail}
 
-### 等待确认的提议（不干预）
+### Proposals awaiting confirmation (no action)
 
-- D-{N}: {title} — `proposed` 🟡 由 {proposer} 提议，等待 {other} 确认
+- D-{N}: {title} — `proposed` 🟡 by {proposer}, awaiting {other}
 
-### 已知分歧（无新提交，状态不变）
+### Known divergences (no new commits, status unchanged)
 
-- D-{N}: {title} — `open` （{code} 未有新提交）
+- D-{N}: {title} — `open` ({code} has no new commits)
 
-### 自动解决的分歧
+### Auto-resolved divergences
 
-- D-{N}: {title} — `auto-resolved` — {原因}
+- D-{N}: {title} — `auto-resolved` — {reason}
 
-## 【共识区域】
+## Consensus areas
 {Areas where collaborators agree}
 
-## 【空白区域】
+## Gap areas
 {Topics covered by only one collaborator or implied by THESIS but uncovered}
 
-## 【建议处理优先级】
-1. 阻塞性: D-{N}, D-{N}
-2. 方向性: D-{N}
-3. 细节性: D-{N}
+## Recommended handling priority
+1. Blocking: D-{N}, D-{N}
+2. Directional: D-{N}
+3. Detail: D-{N}
 ```
 
 ### Step 6 — Write DIVERGENCES.md
@@ -140,11 +140,11 @@ _Last reviewed: {ISO timestamp} @ {head_commit} by {current_code}_
 
 ### D-{N}: {title}
 
-**状态**: `open` 🔴
-**涉及方**: {code-1}, {code-2}
-**性质**: {技术选型 / 架构方向 / 优先级}
-**优先级**: {阻塞性 / 方向性 / 细节性}
-**发现于**: review @ `{commit_hash}` ({date})
+**Status**: `open` 🔴
+**Parties**: {code-1}, {code-2}
+**Nature**: {technology choice / architecture direction / priority}
+**Priority**: {blocking / directional / detail}
+**Found at**: review @ `{commit_hash}` ({date})
 
 - **{code-1}** (`design/{code-1}/{file}`): {one-line summary of position}
 - **{code-2}** (`design/{code-2}/{file}`): {one-line summary of position}
@@ -156,17 +156,17 @@ _Last reviewed: {ISO timestamp} @ {head_commit} by {current_code}_
 
 ### D-{N}: {title} ✅
 
-**状态**: `resolved`
-**解决于**: {align / auto-resolved} @ `{commit_hash}` ({date})
-**决策**: {summary of decision}
-**决策人**: {code}
+**Status**: `resolved`
+**Resolved at**: {align / auto-resolved} @ `{commit_hash}` ({date})
+**Decision**: {summary of decision}
+**Decided by**: {code}
 ```
 
 Rules:
 - Never delete resolved entries — they are the audit trail.
 - New divergences are appended to the `## Open` section.
 - Auto-resolved divergences move from Open to Resolved automatically.
-- If `## Open` section becomes empty, write: `_（当前无未解决分歧）_`
+- If `## Open` section becomes empty, write: `_(No unresolved divergences)_`
 
 ### Step 7 — Write last-review.json and commit
 
@@ -187,7 +187,7 @@ Rules:
    ```
    For the current user (`{me}`), populate `source_hashes` from `.phoenix/last-sync.json` (if exists) — records the source file state at review time for future drift detection. For other collaborators, omit `source_hashes` (their source files are not locally accessible).
 2. Run `git add .phoenix/DIVERGENCES.md .phoenix/last-review.json` and commit:
-   `"[PhoenixTeam] review — 发现 {N} 个新分歧, {M} 个已知分歧"`
+   `"[PhoenixTeam] review — {N} new divergences, {M} known divergences"`
 
 ### Step 8 — Next step recommendation
 
