@@ -39,4 +39,4 @@ All PhoenixTeam skills share these core principles. Follow them strictly.
 3. **【Diff 感知摘要】** Grouped by member code
 4. **【结果摘要】**
 5. **【关键建议】** (if any)
-6. **【下一步推荐 Skill】**
+6. **【下一步推荐 Skill】** — 使用斜杠命令格式，例如：`/phoenix-status`、`/phoenix-push`
