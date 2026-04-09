@@ -33,10 +33,13 @@ Generate **3 collaboration suggestions** (priority ordered).
 1. **Highest priority**: `proposed` divergences awaiting `{me}` → suggest confirming/rejecting
    - E.g., `"🟡 D-002 等待您确认: bob 提议采用 GraphQL。建议运行 /phoenix-align D-002 查看详情并做出决策。"`
 
-2. **High priority**: `open` blocking divergences → suggest initiating align
-   - E.g., `"🔴 D-001 (阻塞性) alice vs bob 在 API 风格上分歧未解决。基于 alice 的最新 diff（新增了 REST endpoint 文档），建议尽快运行 /phoenix-align D-001 提出方案。"`
+2. **High priority**: `resolved` divergences with pending Action Items for `{me}` → suggest updating source docs
+   - E.g., `"✅ D-001 已决议采用 REST API，您的源文档 ./design/api-proposal.md 尚未按决议更新。建议运行 /phoenix-update 完成同步。"`
 
-3. **Normal priority**: Diff-based insights (THESIS conflicts, redundant proposals, missing coverage, merge opportunities)
+3. **High priority**: `open` blocking divergences → suggest initiating align
+   - E.g., `"🔴 D-003 (阻塞性) alice vs bob 在 API 风格上分歧未解决。基于 alice 的最新 diff（新增了 REST endpoint 文档），建议尽快运行 /phoenix-align D-003 提出方案。"`
+
+4. **Normal priority**: Diff-based insights (THESIS conflicts, redundant proposals, missing coverage, merge opportunities)
    - E.g., `"基于 bob 的 diff（重构了部署方案），发现与 THESIS 中'单机部署'目标偏离，建议确认 THESIS 是否需要更新。"`
 
 **Each suggestion must**:

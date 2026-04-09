@@ -29,17 +29,30 @@ Structured divergence analysis across collaborators. Writes to `.phoenix/DIVERGE
      "reviewed_at": "<ISO timestamp>",
      "head_commit": "<hash>",
      "per_collaborator": {
-       "<code>": "<last-seen commit hash for their design dir>"
+       "<code>": {
+         "commit": "<last-seen commit hash for their design dir>",
+         "source_hashes": {
+           "./design/spec.md": "<hash at review time>"
+         }
+       }
      }
    }
    ```
 2. For each collaborator, run `git log --oneline -1 -- .phoenix/design/{code}/` to get their latest commit.
-3. Compare against stored hashes:
+3. Also read `.phoenix/last-sync.json` for the current user's source file hashes.
+4. Compare against stored hashes — a collaborator needs re-analysis if ANY of the following:
    - **New collaborator** (not in last-review.json) → full analysis
-   - **Commit changed** → re-analyze this collaborator's documents
-   - **No change** → skip re-analysis; carry forward their existing divergences from DIVERGENCES.md
-4. If `last-review.json` does not exist → treat all collaborators as new (full review).
-5. Output: `"📋 本次 review 范围: {list of collaborators being re-analyzed} (其余无新提交，跳过)"`
+   - **Commit changed** in `.phoenix/design/{code}/` → re-analyze
+   - **Source files changed** since last review (compare current source hashes vs `per_collaborator[me].source_hashes`) → re-analyze (source drift since last review means .phoenix/ may be stale)
+   - **No change** in both commit and source hashes → skip
+5. If `last-review.json` does not exist → treat all collaborators as new (full review).
+6. Output:
+   ```
+   📋 本次 review 范围:
+     - alice: 重新分析 (design/ 有新提交)
+     - bob: 重新分析 (源文档自上次 review 后有变更)
+     - carol: 跳过 (无新提交，无源文件变更)
+   ```
 
 ### Step 3 — Load baseline and existing divergences
 
@@ -163,10 +176,16 @@ Rules:
      "reviewed_at": "<ISO timestamp>",
      "head_commit": "<current HEAD hash>",
      "per_collaborator": {
-       "<code>": "<latest commit hash for their design dir or null if no commits>"
+       "<code>": {
+         "commit": "<latest commit hash for their design dir or null if no commits>",
+         "source_hashes": {
+           "<source file path>": "<hash>"
+         }
+       }
      }
    }
    ```
+   For the current user (`{me}`), populate `source_hashes` from `.phoenix/last-sync.json` (if exists) — records the source file state at review time for future drift detection. For other collaborators, omit `source_hashes` (their source files are not locally accessible).
 2. Run `git add .phoenix/DIVERGENCES.md .phoenix/last-review.json` and commit:
    `"[PhoenixTeam] review — 发现 {N} 个新分歧, {M} 个已知分歧"`
 

@@ -20,7 +20,29 @@ Push document changes with enforced diff review and divergence gate.
 1. Read `git config phoenix.member-code` to determine current identity (`{me}`). Apply identity guard.
 2. Run `git status` and display the result.
 
-### Step 2 — Divergence gate
+### Step 2 — Source drift check
+
+1. Read `.phoenix/last-sync.json` if it exists.
+2. For each source file recorded in `last-sync.json`, check if the current file hash differs.
+3. If any source files have changed since last sync:
+
+```
+⚠️ 源文档漂移检测: {N} 个源文件已变更但未同步
+
+  ~ ./design/spec.md (已修改)
+  + ./design/new-api.md (新增)
+
+建议先运行 /phoenix-update 同步源文档后再推送。
+是否仍要继续推送？(yes / 先同步)
+```
+
+**Stop and wait for confirmation.**
+- User confirms → proceed to Step 3.
+- User chooses to sync first → stop, suggest `/phoenix-update`.
+
+4. If no `last-sync.json` or no drift → proceed silently.
+
+### Step 3 — Divergence gate
 
 1. Read `.phoenix/DIVERGENCES.md` if it exists.
 2. Count and classify divergences:
@@ -64,14 +86,14 @@ Push document changes with enforced diff review and divergence gate.
 5. If user confirms or no actionable divergences → proceed to Step 3.
 6. If DIVERGENCES.md does not exist → proceed silently.
 
-### Step 3 — Diff review
+### Step 4 — Diff review
 
 1. Run `git diff -- .phoenix/` and output a **【Diff 感知摘要】** grouped by member code:
    - Changed files per collaborator
    - Lines added/deleted with key content highlights
 2. If no changes and nothing staged → inform and skip push.
 
-### Step 4 — Commit and push
+### Step 5 — Commit and push
 
 1. Run `git add .phoenix/**/*.md`.
 2. Also add `.phoenix/DIVERGENCES.md`, `.phoenix/last-review.json` if changed.
@@ -82,5 +104,5 @@ Push document changes with enforced diff review and divergence gate.
 ## Important
 
 - **Never push non-.phoenix/ files.**
-- The divergence gate is a **soft warning** — user can always choose to push.
-- Pending approvals awaiting `{me}` get higher priority warning than open divergences.
+- Source drift check and divergence gate are both **soft warnings** — user can always choose to push.
+- Warning priority: source drift → pending approvals → open divergences.

@@ -36,8 +36,12 @@ None.
      ⏳ 等待对方确认 ({count}):
        D-{N}: {title} — 我的提议等待 {other} 确认
 
-     ✅ 已解决 ({count}):
-       D-{N}: {title} — {date}
+     ✅ 已解决，待文档更新 ({count}):
+       D-{N}: {title} — 决议已达成，{parties} 需更新源文档
+       我的 Action Item: {⏳ 待更新 / ✅ 已完成}
+
+     🔒 完全关闭 ({count}):
+       D-{N}: {title} — 源文档已全部按决议更新
      ```
    - If no DIVERGENCES.md: `（尚未执行 review）`
    - If no open/proposed items: `✅ 当前无待处理分歧`

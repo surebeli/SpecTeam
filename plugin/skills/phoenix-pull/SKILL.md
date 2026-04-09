@@ -40,6 +40,25 @@ None.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-4. Also note any new `open` divergences added since last pull (compare with previous DIVERGENCES.md state in the diff).
+4. Also note any new `open` divergences and any divergences that moved to `resolved` (requiring source doc updates) since last pull.
+5. For `resolved` divergences with pending Action Items for `{me}`, output a prompt:
+   ```
+   📋 有 {N} 个已决议分歧需要您更新源文档:
+     D-{N}: {title} — 需更新 `{source file}`: {change description}
+   运行 /phoenix-update 同步后将自动验证。
+   ```
 
-7. Output: pull result + diff summary (by collaborator) + parse changes + approval alerts.
+### Step 7 — Source drift hint
+
+1. Read `.phoenix/last-sync.json` if it exists.
+2. For each source file, check if its current hash differs from the stored hash.
+3. If source files have changed locally since last sync, output a soft hint:
+
+```
+💡 检测到本地源文档有变更 ({N} 个文件)，尚未同步到 .phoenix/。
+   运行 /phoenix-update 将源文档变更同步到工作区。
+```
+
+4. This is informational only — does not block.
+
+8. Output: pull result + diff summary (by collaborator) + parse changes + approval alerts + source drift hint.

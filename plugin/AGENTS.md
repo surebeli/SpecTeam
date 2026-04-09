@@ -12,7 +12,7 @@ All PhoenixTeam skills share these core principles. Follow them strictly.
 - **Identity awareness**: The current user's member code is stored **locally** in git config (`git config phoenix.member-code`). Run this command at the start of every skill to determine "who am I". `.phoenix/COLLABORATORS.md` is a **shared registry** of all collaborators — never derive current identity from it.
 - **Identity guard**: If `git config phoenix.member-code` returns empty, **stop immediately** and output: "⚠️ 本机尚未绑定身份，请先运行 `p-team:phoenix-whoami` 完成身份绑定后再继续。" Do not proceed with the skill.
 - **Pre-flight checks**: Run `git status` before all operations and display the result.
-- **Divergence registry**: `DIVERGENCES.md` is the single registry for divergences. Each has a stable ID (D-001, D-002…). Written by review, read by align/push/status. Never delete resolved entries.
+- **Divergence registry**: `DIVERGENCES.md` is the registry for divergence status and summaries. Each has a stable ID (D-001, D-002…). Written by review, read by align/push/status. Never delete resolved entries. Full decision details (per-party instruction blocks, acceptance criteria) live in `.phoenix/decisions/D-{N}.md`, created by align on resolution.
 - **Two-phase divergence resolution (Propose → Approve)**: `align` on an `open` divergence creates a `proposed` resolution — THESIS.md is NOT updated yet. The other party must `align` the same divergence to approve/reject. THESIS.md Decision Log is only updated after approval.
 - **Diff gate on push**: Run `git diff -- .phoenix/` before every push and show the summary. Also check DIVERGENCES.md for open/proposed items and warn accordingly.
 - **Directory depth limit**: `.phoenix/design/` sub-structure is at most 2 levels deep.
@@ -29,10 +29,14 @@ All PhoenixTeam skills share these core principles. Follow them strictly.
 ├── INDEX.md            # Auto-generated document index
 ├── DIVERGENCES.md      # Divergence registry (D-001…): open/resolved, written by review, read by align/push/status
 ├── last-parse.json     # Parse diff cache (file hashes)
-├── last-review.json    # Review anchor: per-collaborator commit hashes at last review time
+├── last-review.json    # Review anchor: per-collaborator commit hashes + source hashes at last review time
+├── last-sync.json      # Source document sync state: source file hashes, written by update skill
 ├── design/             # Normalized design docs
 │   ├── {code}/         # Per-collaborator documents
 │   └── shared/         # Jointly maintained docs (optional)
+├── decisions/          # Per-divergence decision files (created by align on resolution)
+│   ├── D-001.md        # Full decision + per-party instruction blocks + acceptance criteria
+│   └── D-002.md
 └── archive/            # Frozen proposals
 ```
 

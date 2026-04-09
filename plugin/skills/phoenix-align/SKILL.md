@@ -147,7 +147,101 @@ Output:
 Based on user's choice:
 
 **Option 1 — Approve:**
-1. Update DIVERGENCES.md — move from Open to Resolved:
+
+**Sub-step A — Generate Action Items** (before writing to files):
+
+Read each involved party's current documents under `.phoenix/design/`. For each party:
+- Determine whether their source document needs to change to reflect the decision.
+- If already aligned → mark as "无需修改" and skip the instruction block.
+- If changes needed → produce a detailed per-party instruction block (see format below). Be specific: what to add, remove, or rewrite, and in which file. Include a concrete acceptance criterion so `update` can verify automatically.
+
+Output to the user:
+
+```
+## 【源文档更新待办】D-{N}: {title}
+
+| 协作者 | 源文件 | 状态 |
+|--------|--------|------|
+| {code-1} | `./design/api.md` | ⏳ 待更新 |
+| {code-2} | `./design/api-proposal.md` | ⏳ 待更新 |
+
+---
+
+##### 【{code-1}】变更指令
+
+**决策背景**: {what the disagreement was — one sentence}
+**决策**: {clear, unambiguous statement of what was decided}
+**理由**: {reasoning — why this choice over the alternative}
+
+**文件**: `./design/api.md`
+**需要的变更**:
+- {concrete item 1, e.g. "保留现有 REST endpoint 设计"}
+- {concrete item 2, e.g. "移除第 3 节"备选方案"中 GraphQL 相关描述"}
+- {concrete item 3 if needed}
+
+**验收标准**: {one-sentence check, e.g. "文档中不再出现 GraphQL、resolver、schema 等词"}
+
+---
+
+##### 【{code-2}】变更指令
+
+**决策背景**: {same as above}
+**决策**: {same as above}
+**理由**: {same as above}
+
+**文件**: `./design/api-proposal.md`
+**需要的变更**:
+- {concrete item 1}
+- {concrete item 2}
+
+**验收标准**: {one-sentence check}
+
+---
+
+完成各自修改后，运行 /phoenix-update 同步并自动验证。
+```
+
+**Sub-step B — Write to files:**
+
+1. **Create `.phoenix/decisions/D-{N}.md`** — write the full decision + per-party instruction blocks here:
+   ```markdown
+   # D-{N}: {title} — 变更指令
+
+   **决策**: {resolution summary}
+   **提议者**: {proposer} | **确认者**: {me} | **解决于**: {date}
+
+   ---
+
+   ## 【{code-1}】变更指令
+
+   **决策背景**: {background}
+   **决策**: {decision}
+   **理由**: {reasoning}
+
+   **文件**: `{source path}`
+   **需要的变更**:
+   - {item 1}
+   - {item 2}
+
+   **验收标准**: {acceptance criterion}
+
+   ---
+
+   ## 【{code-2}】变更指令
+
+   **决策背景**: {background}
+   **决策**: {decision}
+   **理由**: {reasoning}
+
+   **文件**: `{source path}`
+   **需要的变更**:
+   - {item 1}
+
+   **验收标准**: {acceptance criterion}
+   ```
+   If a party needs no changes → omit their block entirely (their status in the table below will be ✅ 无需修改).
+
+2. **Update DIVERGENCES.md** — move from Open to Resolved. Keep this entry lean (summary + status table + reference to decisions file):
    ```markdown
    ### D-{N}: {title} ✅
 
@@ -156,8 +250,15 @@ Based on user's choice:
    **提议者**: {proposer} | **确认者**: {me}
    **解决于**: align @ `{current_commit}` ({date})
    **决策**: {resolution summary}
-   **决策人**: {proposer} (提议), {me} (确认)
    **理由**: {reasoning}
+   **变更指令**: 见 `.phoenix/decisions/D-{N}.md`
+
+   #### 源文档更新待办
+
+   | 协作者 | 源文件 | 状态 |
+   |--------|--------|------|
+   | {code-1} | `{source path}` | ⏳ 待更新 |
+   | {code-2} | `{source path}` | ✅ 无需修改 |
    ```
 2. **Now update `.phoenix/THESIS.md`** Decision Log:
    ```markdown
