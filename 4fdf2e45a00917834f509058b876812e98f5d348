@@ -1,0 +1,23 @@
+plugin/skills/phoenix-push/SKILL.md
+  448eace63c770b09 107-108
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.7",
+  "base_commit_sha": "4fdf2e45a00917834f509058b876812e98f5d348",
+  "prompts": {
+    "448eace63c770b09": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9311e54c-7ac6-4aef-a659-ce8fa840dd27",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 2,
+      "total_deletions": 0,
+      "accepted_lines": 2,
+      "overriden_lines": 0
+    }
+  }
+}
