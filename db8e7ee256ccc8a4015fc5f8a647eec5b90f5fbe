@@ -1,0 +1,33 @@
+plugin/skills/phoenix-whoami/SKILL.md
+  e31ba3d4e6b8fa74 69,71-79,90
+.codex-plugin/plugin.json
+  e31ba3d4e6b8fa74 3
+plugin/AGENTS.md
+  e31ba3d4e6b8fa74 20-41
+plugin/CLAUDE.md
+  e31ba3d4e6b8fa74 20-41
+.claude-plugin/marketplace.json
+  e31ba3d4e6b8fa74 11
+plugin/.claude-plugin/plugin.json
+  e31ba3d4e6b8fa74 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "db8e7ee256ccc8a4015fc5f8a647eec5b90f5fbe",
+  "prompts": {
+    "e31ba3d4e6b8fa74": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8a20e4b7-42d9-49fb-a051-5091ab9f9b11",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 59,
+      "total_deletions": 18,
+      "accepted_lines": 59,
+      "overriden_lines": 0
+    }
+  }
+}
