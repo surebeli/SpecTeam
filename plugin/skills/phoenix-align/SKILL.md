@@ -42,7 +42,7 @@ Facilitate convergence on specific divergences. Two-phase: **Propose → Approve
 
 1. Read `.phoenix/DIVERGENCES.md`.
    - If the file does not exist or has no actionable items:
-     Output: `✅ 当前无需要处理的分歧。如需重新分析，请先运行 /phoenix-review。`
+     Output: `✅ No actionable divergences. Run /phoenix-review first to re-analyze.`
      Stop.
 2. Parse all divergences. Classify each by what `{me}` can do:
    - **`open`** → `{me}` can propose a resolution (Mode A)
@@ -161,7 +161,7 @@ Based on user's choice:
 
 Read each involved party's current documents under `.phoenix/design/`. For each party:
 - Determine whether their source document needs to change to reflect the decision.
-- If already aligned → mark as "无需修改" and skip the instruction block.
+- If already aligned → mark as "No changes needed" and skip the instruction block.
 - If changes needed → produce a detailed per-party instruction block (see format below). Be specific: what to add, remove, or rewrite, and in which file. Include a concrete acceptance criterion so `update` can verify automatically.
 
 Output to the user:
@@ -214,71 +214,71 @@ After completing your changes, run /phoenix-update to sync and auto-verify.
 
 1. **Create `.phoenix/decisions/D-{N}.md`** — write the full decision + per-party instruction blocks here:
    ```markdown
-   # D-{N}: {title} — 变更指令
+   # D-{N}: {title} — Change Instructions
 
-   **决策**: {resolution summary}
-   **提议者**: {proposer} | **确认者**: {me} | **解决于**: {date}
+   **Decision**: {resolution summary}
+   **Proposer**: {proposer} | **Confirmer**: {me} | **Resolved at**: {date}
 
    ---
 
-   ## 【{code-1}】变更指令
+   ## [{code-1}] Change Instructions
 
-   **决策背景**: {background}
-   **决策**: {decision}
-   **理由**: {reasoning}
+   **Background**: {background}
+   **Decision**: {decision}
+   **Rationale**: {reasoning}
 
-   **文件**: `{source path}`
-   **需要的变更**:
+   **File**: `{source path}`
+   **Required changes**:
    - {item 1}
    - {item 2}
 
-   **验收标准**: {acceptance criterion}
+   **Acceptance criterion**: {acceptance criterion}
 
    ---
 
-   ## 【{code-2}】变更指令
+   ## [{code-2}] Change Instructions
 
-   **决策背景**: {background}
-   **决策**: {decision}
-   **理由**: {reasoning}
+   **Background**: {background}
+   **Decision**: {decision}
+   **Rationale**: {reasoning}
 
-   **文件**: `{source path}`
-   **需要的变更**:
+   **File**: `{source path}`
+   **Required changes**:
    - {item 1}
 
-   **验收标准**: {acceptance criterion}
+   **Acceptance criterion**: {acceptance criterion}
    ```
-   If a party needs no changes → omit their block entirely (their status in the table below will be ✅ 无需修改).
+   If a party needs no changes → omit their block entirely (their status in the table below will be ✅ No changes needed).
 
 2. **Update DIVERGENCES.md** — move from Open to Resolved. Keep this entry lean (summary + status table + reference to decisions file):
    ```markdown
    ### D-{N}: {title} ✅
 
-   **状态**: `resolved`
-   **涉及方**: {code-1}, {code-2}
-   **提议者**: {proposer} | **确认者**: {me}
-   **解决于**: align @ `{current_commit}` ({date})
-   **决策**: {resolution summary}
-   **理由**: {reasoning}
-   **变更指令**: 见 `.phoenix/decisions/D-{N}.md`
+   **Status**: `resolved`
+   **Parties**: {code-1}, {code-2}
+   **Proposer**: {proposer} | **Confirmer**: {me}
+   **Resolved at**: align @ `{current_commit}` ({date})
+   **Decision**: {resolution summary}
+   **Rationale**: {reasoning}
+   **Change Instructions**: see `.phoenix/decisions/D-{N}.md`
 
-   #### 源文档更新待办
+   #### Source Document Action Items
 
-   | 协作者 | 源文件 | 状态 |
-   |--------|--------|------|
-   | {code-1} | `{source path}` | ⏳ 待更新 |
-   | {code-2} | `{source path}` | ✅ 无需修改 |
+   | Collaborator | Source file | Status |
+   |--------------|-------------|--------|
+   | {code-1} | `{source path}` | ⏳ Pending update |
+   | {code-2} | `{source path}` | ✅ No changes needed |
    ```
 2. **Now update `.phoenix/THESIS.md`** Decision Log:
    ```markdown
    ## Decision Log
-   - [{date}] **D-{N}: {title}**: {resolution summary}。
-     - 提议: {proposer} | 确认: {me}
-     - 理由: {reasoning}
+   - [{date}] **D-{N}: {title}**: {resolution summary}.
+     - Proposed by: {proposer} | Confirmed by: {me}
+     - Rationale: {reasoning}
    ```
 3. Archive superseded proposals if applicable (move to `.phoenix/archive/{YYYYMMDD}/`).
 4. Update `.phoenix/SIGNALS.md` — remove blocker, add resolved entry.
-5. Commit: `"[PhoenixTeam] align — D-{N}: {title} 决策达成 ({proposer}提议, {me}确认)"`
+5. Commit: `"[PhoenixTeam] align — D-{N}: {title} decision reached ({proposer} proposed, {me} confirmed)"`
 
 **Option 2 — Reject:**
 1. Update DIVERGENCES.md — revert to `open`, append rejection note:

@@ -287,3 +287,77 @@ jobs:
             exit 1
           fi
           echo "Dependency graph valid ✅"
+
+  validate-locale:
+    name: Validate Locale Consistency
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check skill files for CJK characters
+        run: |
+          echo "=== Checking skill files for Chinese/CJK characters ==="
+          ERRORS=0
+          
+          for skill_file in plugin/skills/phoenix-*/SKILL.md; do
+            skill_name=$(dirname "$skill_file" | xargs basename)
+            
+            # Check for CJK Unified Ideographs (U+4E00-U+9FFF)
+            if grep -Pn '[\x{4e00}-\x{9fff}\x{3400}-\x{4dbf}\x{f900}-\x{faff}]' "$skill_file" > /dev/null 2>&1; then
+              echo "❌ $skill_name/SKILL.md contains CJK characters:"
+              grep -Pn '[\x{4e00}-\x{9fff}\x{3400}-\x{4dbf}\x{f900}-\x{faff}]' "$skill_file" | head -5
+              ERRORS=$((ERRORS + 1))
+            else
+              echo "✅ $skill_name — English only"
+            fi
+          done
+          
+          # Also check shared context files
+          for ctx_file in plugin/SHARED-CONTEXT.md plugin/CLAUDE.md plugin/AGENTS.md plugin/ERRORS.md; do
+            if [ -f "$ctx_file" ]; then
+              if grep -Pn '[\x{4e00}-\x{9fff}]' "$ctx_file" > /dev/null 2>&1; then
+                echo "❌ $ctx_file contains CJK characters"
+                ERRORS=$((ERRORS + 1))
+              else
+                echo "✅ $ctx_file — English only"
+              fi
+            fi
+          done
+          
+          if [ $ERRORS -gt 0 ]; then
+            echo ""
+            echo "::error::$ERRORS file(s) contain CJK characters. All skill prompts and plugin context files must be English-only."
+            echo "See CONTRIBUTING.md Language Policy for details."
+            exit 1
+          fi
+          echo "All skill files are English-only ✅"
+
+      - name: Check PR commit messages for CJK characters
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "=== Checking commit messages for CJK characters ==="
+          ERRORS=0
+          
+          COMMITS=$(git log --format="%H %s" origin/${{ github.base_ref }}..HEAD)
+          
+          while IFS= read -r line; do
+            if [ -z "$line" ]; then continue; fi
+            HASH=$(echo "$line" | cut -d' ' -f1)
+            MSG=$(echo "$line" | cut -d' ' -f2-)
+            
+            if echo "$MSG" | grep -P '[\x{4e00}-\x{9fff}]' > /dev/null 2>&1; then
+              echo "❌ Commit $HASH has CJK in message: $MSG"
+              ERRORS=$((ERRORS + 1))
+            fi
+          done <<< "$COMMITS"
+          
+          if [ $ERRORS -gt 0 ]; then
+            echo ""
+            echo "::error::$ERRORS commit(s) have non-English messages. All commit messages must be in English."
+            echo "Use 'git rebase -i' to amend commit messages before merging."
+            exit 1
+          fi
+          echo "All commit messages are English-only ✅"
+

@@ -52,6 +52,9 @@ This project follows the [Contributor Covenant Code of Conduct](https://www.cont
 git clone https://github.com/surebeli/PhoenixTeam.git
 cd PhoenixTeam
 
+# Enable git hooks (enforces English-only commit messages)
+git config core.hooksPath .githooks
+
 # For Claude Code: install skills as slash commands
 mkdir -p .claude/commands
 for skill in plugin/skills/*/SKILL.md; do
@@ -149,9 +152,10 @@ Brief purpose statement.
 2. **Branch guard**: Always verify current branch matches `phoenix.main-branch`
 3. **Read-only on source**: Never modify files outside `.phoenix/`
 4. **Structured output**: Follow the 6-section output format (see SHARED-CONTEXT.md)
-5. **Commit messages**: Use `[PhoenixTeam]` prefix
+5. **Commit messages**: Use `[PhoenixTeam]` prefix, **must be in English** (enforced by git hook)
 6. **Stop and wait**: Use explicit "Stop and wait for the user to reply" at interaction points
 7. **Divergence-aware**: Check DIVERGENCES.md impact for any file mutations
+8. **English-only**: All skill prompts, output templates, and generated content must be in English. Do not mix Chinese and English in SKILL.md files.
 
 ## Testing
 
@@ -198,10 +202,15 @@ GitHub Actions CI runs on every PR — see `.github/workflows/validate.yml`.
 
 ## Style Guide
 
-### Language
-- Skill prompts: English (primary) with Chinese output templates where user-facing
-- README: Bilingual (English + Chinese)
-- Commit messages: English with `[PhoenixTeam]` prefix
+### Language Policy
+
+> **All code, prompts, and commit messages MUST be in English.** Chinese translations are only permitted in dedicated translation files (e.g., `README.zh-CN.md`).
+
+- **Skill prompts (`SKILL.md`)**: English only — both instructions and output templates
+- **Commit messages**: English only with `[PhoenixTeam]` prefix (enforced by `commit-msg` hook)
+- **README**: English (`README.md`) + dedicated Chinese translation (`README.zh-CN.md`)
+- **Design documents**: English preferred; Chinese-only docs should use `.zh-CN` suffix
+- **Git hooks**: Run `git config core.hooksPath .githooks` after cloning to activate the commit message guard
 
 ### Markdown Formatting
 - Use ATX-style headers (`#`, `##`, `###`)

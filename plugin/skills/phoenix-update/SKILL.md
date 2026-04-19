@@ -141,39 +141,39 @@ For each changed file:
 For each modified file that is part of a `proposed` divergence where `{me}` is the proposer:
 - Add a note to the divergence entry in `DIVERGENCES.md`:
   ```
-  **⚠️ 注意**: 提议者 {me} 的文档 `{file}` 已于 {date} 更新，现有提议可能不再准确。
-  建议提议者确认或撤回并重新提议。
+  **⚠️ Warning**: Proposer {me}'s document `{file}` was updated on {date}; the existing proposal may no longer be accurate.
+  Recommend that the proposer confirm or withdraw and re-propose.
   ```
 
 **B. Action Items verification** (new):
 
-For each modified file, check if it appears in any `resolved` divergence's **源文档更新待办** table where `{me}` has a `⏳ 待更新` status:
+For each modified file, check if it appears in any `resolved` divergence's **Source Document Action Items** table where `{me}` has a `⏳ Pending update` status:
 
 1. Read the current `.phoenix/design/{me}/{file}` content (just synced).
-2. Read `.phoenix/decisions/D-{N}.md` — locate the **【{me}】变更指令** block and extract the **验收标准** field (primary criterion) and **需要的变更** (detail).
-3. AI evaluates: does the updated content satisfy the **验收标准**?
+2. Read `.phoenix/decisions/D-{N}.md` — locate the **[{me}] Change Instructions** block and extract the **Acceptance criterion** field (primary criterion) and **Required changes** (detail).
+3. AI evaluates: does the updated content satisfy the **Acceptance criterion**?
 
    **If satisfied** → update the Action Item row status in DIVERGENCES.md:
    ```
-   | {me} | `{source path}` | ✅ 已更新 ({date}) |
+   | {me} | `{source path}` | ✅ Updated ({date}) |
    ```
 
    **If not satisfied** → output a specific warning referencing the criterion:
    ```
-   ⚠️ D-{N} Action Item 未完成:
-   验收标准: {acceptance criterion from 变更指令}
-   当前文档仍包含: {specific content that violates the criterion}
-   建议: {concrete edit suggestion}
+   ⚠️ D-{N} Action Item incomplete:
+   Acceptance criterion: {acceptance criterion from Change Instructions}
+   Document still contains: {specific content that violates the criterion}
+   Suggestion: {concrete edit suggestion}
    ```
-   Keep the Action Item as `⏳ 待更新`.
+   Keep the Action Item as `⏳ Pending update`.
 
-4. After all Action Items for this divergence are `✅ 已更新` (all parties complete):
+4. After all Action Items for this divergence are `✅ Updated` (all parties complete):
    - Update the divergence status in DIVERGENCES.md from `resolved` to `fully-closed` 🔒:
      ```markdown
-     **状态**: `fully-closed` 🔒
-     **关闭于**: update @ `{commit}` ({date}) — 所有源文档已按决议更新
+     **Status**: `fully-closed` 🔒
+     **Closed at**: update @ `{commit}` ({date}) — all source documents updated per decision
      ```
-   - Add to SIGNALS.md: `- [{date}] 🔒 D-{N}: {title} — 源文档已全部更新，分歧完全关闭`
+   - Add to SIGNALS.md: `- [{date}] 🔒 D-{N}: {title} — all source documents updated, divergence fully closed`
 
 ### Step 6 — Update last-sync.json
 
@@ -185,7 +185,7 @@ Write updated `.phoenix/last-sync.json` with:
 ### Step 7 — Commit and trigger parse
 
 1. Run `git add .phoenix/design/{me}/ .phoenix/last-sync.json .phoenix/DIVERGENCES.md` (if modified).
-2. Commit: `"[PhoenixTeam] update — {me} 源文档同步: +{added} ~{modified} -{deleted}"`
+2. Commit: `"[PhoenixTeam] update — {me} source doc sync: +{added} ~{modified} -{deleted}"`
 3. **Automatically trigger `/phoenix-parse`** to update INDEX.md.
 
 ### Step 8 — Output and next steps

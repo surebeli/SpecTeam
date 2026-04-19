@@ -31,7 +31,7 @@ Fetch external documents (via MCP or HTTP) and normalize them into the PhoenixTe
 ### Step 2 — Fetch Content
 1. If `$ARGUMENTS` is empty, output:
    ```
-   ⚠️ 请提供外部文档的链接或 MCP 资源 ID。例如：/phoenix-import https://notion.so/my-design-doc
+   ⚠️ Please provide an external document URL or MCP resource ID. Example: /phoenix-import https://notion.so/my-design-doc
    ```
    Stop execution.
 2. Use available tools (e.g., MCP readResource, web fetch, or API calls) to retrieve the content of the specified `$ARGUMENTS`.
@@ -48,6 +48,6 @@ Fetch external documents (via MCP or HTTP) and normalize them into the PhoenixTe
 3. Automatically trigger `/phoenix-parse` to update the `INDEX.md`.
 4. Output:
    ```
-   ✅ 外部文档已成功导入到 .phoenix/design/{code}/{filename}
-   建议下一步：运行 /phoenix-review 检查该文档与其他提案是否存在分歧。
+   ✅ External document successfully imported to .phoenix/design/{code}/{filename}
+   Recommended next step: run /phoenix-review to check for divergences with other proposals.
    ```

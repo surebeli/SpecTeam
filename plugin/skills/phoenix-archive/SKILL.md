@@ -66,5 +66,5 @@ Archive (freeze) a design proposal and record the decision.
      ```
      **Note**: Referenced file `{path}` was archived ({date}). This divergence may need re-review.
      ```
-5. Run `git add .phoenix/` and commit: `"[PhoenixTeam] archive - {code}/{filename} 决策冻结"`
+5. Run `git add .phoenix/` and commit: `"[PhoenixTeam] archive - {code}/{filename} decision frozen"`
 6. Output: archive result + new diff (preserving member code attribution).

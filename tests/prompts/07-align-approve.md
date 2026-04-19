@@ -50,4 +50,4 @@ The other party approves a proposed resolution. THESIS.md should now be updated,
 - [ ] Resolved entry added
 
 ### Commit
-- [ ] Message: `[PhoenixTeam] align — D-001: {title} 决策达成 (alice提议, bob确认)`
+- [ ] Message: `[PhoenixTeam] align — D-001: {title} decision reached (alice proposed, bob confirmed)`

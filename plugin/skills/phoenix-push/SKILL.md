@@ -99,7 +99,7 @@ Continue pushing? (yes / resolve first)
 
 1. Run `git diff -- .phoenix/` (unstaged) and `git diff --cached -- .phoenix/` (staged) to check for uncommitted changes.
 2. Run `git log @{u}..HEAD --oneline -- .phoenix/` (or `git log origin/{branch}..HEAD --oneline -- .phoenix/` if upstream not set) to check for **committed but unpushed** .phoenix/ changes.
-3. Combine both sources into a **【Diff 感知摘要】** grouped by member code:
+3. Combine both sources into a **[Diff-Aware Summary]** grouped by member code:
    - Uncommitted changes: files per collaborator, lines added/deleted
    - Unpushed commits: list each commit with summary
 4. If no uncommitted changes AND no unpushed commits → inform and skip push.

@@ -42,4 +42,4 @@ echo "# New Feature Design\n\nThis is a new feature proposal." > ./design/new-fe
 - [ ] `last-parse.json` updated
 
 ### Commit
-- [ ] Commit message: `[PhoenixTeam] update — alice 源文档同步: +1 ~0 -0`
+- [ ] Commit message: `[PhoenixTeam] update — alice source doc sync: +1 ~0 -0`

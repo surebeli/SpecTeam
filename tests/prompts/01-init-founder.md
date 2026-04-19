@@ -42,4 +42,4 @@ Single person initializes PhoenixTeam for the first time on a fresh repository.
 
 ### Output
 - [ ] Output includes branch protection notice (⚠️ [Branch Protection])
-- [ ] Output follows the 6-section format (执行日志 / 当前身份 / Diff感知摘要 / 结果摘要 / 关键建议 / 下一步推荐)
+- [ ] Output follows the 6-section format (Execution Log / Current Identity / Diff-Aware Summary / Result Summary / Key Suggestions / Next Steps Recommended)

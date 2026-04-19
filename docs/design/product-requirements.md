@@ -1,58 +1,58 @@
-# PhoenixTeam 增强产品需求规格 (Enhanced PRD)
+# PhoenixTeam Enhanced Product Requirements Document (PRD)
 
-## 产品定位
+## Product Positioning
 
-PhoenixTeam 是一款分布式 AI 团队上下文一致性基础设施，解决当前多 AI 工具（Claude、Cursor、Copilot 等）碎片化、设计发散、进度黑盒的问题。
+PhoenixTeam is a distributed AI team context consistency infrastructure that solves the current issues of fragmentation, design divergence, and progress black boxes across multiple AI tools (Claude, Cursor, Copilot, etc.).
 
-## 核心价值
+## Core Value
 
-- **设计阶段**：多 Agent 并行脑暴 → 自动仲裁收敛 → 决策冻结并广播（≤5 分钟全工具生效）
-- **开发阶段**：实时进度透视、技术路线同步、阻塞项广播（分钟级）
-- **跨工具/自带 Agent**：以 MCP 为单一事实来源，强制所有工具（Claude 优先级最高）继承 THESIS.md / RULES.md / SIGNALS.md
+- **Design Phase**: Multi-Agent parallel brainstorming → automatic arbitration and convergence → decision freezing and broadcasting (takes effect across all tools in ≤ 5 minutes)
+- **Development Phase**: Real-time progress visibility, technology stack synchronization, blocker broadcasting (minute-level)
+- **Cross-Tool / BYO Agent**: Uses MCP as the single source of truth, forcing all tools (Claude has highest priority) to inherit THESIS.md / RULES.md / SIGNALS.md
 
-## 功能模块
+## Functional Modules
 
-### 1. 人类仲裁中心 UI (Web Dashboard)
+### 1. Human Arbitration Center UI (Web Dashboard)
 
-- 提案可视化对比
-- AI 建议合并 + 一键批准
-- 时间旅行查询
-- 审计日志
+- Visual proposal comparison
+- AI suggestion merging + one-click approval
+- Time travel query
+- Audit log
 
 ### 2. Agent SDK
 
-- 自带 Agent 接入标准（MCP + Yunxin 信令）
-- 个人偏好隔离
-- Agent 状态管理
+- Bring-Your-Own Agent access standards (MCP + Yunxin signaling)
+- Personal preference isolation
+- Agent state management
 
-### 3. 一致性评分
+### 3. Consistency Scoring
 
-- 实时计算团队上下文一致度（0-100 分）
-- 基于 THESIS.md 对比各 Agent 输出
-- 偏差告警
+- Real-time calculation of team context consistency (0-100 points)
+- Compare outputs of various Agents based on THESIS.md
+- Deviation alerts
 
-### 4. 上下文分级
+### 4. Context Grading
 
-- none / summary / recent / full（Token 优化）
-- 按角色、按场景自动切换
+- none / summary / recent / full (Token optimization)
+- Automatic switching by role and scenario
 
-### 5. 扩展接口
+### 5. Extension Interfaces
 
-- Remote Control HTTP 接口（移动端查询）
-- Webhook 通知
-- 自定义仲裁规则
+- Remote Control HTTP interface (mobile query)
+- Webhook notifications
+- Custom arbitration rules
 
-## 单一事实来源
+## Single Source of Truth
 
-Phoenix MCP Server + Yunxin 信令 + Git 仓库
+Phoenix MCP Server + Yunxin signaling + Git repository
 
-## 性能指标
+## Performance Metrics
 
-| 指标 | 目标 |
-|------|------|
-| 同步延迟 | ≤5min（Yunxin 保证） |
-| 新成员接入 | ≤2min（MCP + Git clone） |
-| 一致性差异 | <5% |
-| 收敛速度 | ≤20 分钟 |
-| 离线恢复 | ≤3 分钟 |
-| 团队采用后冲突减少 | ≥70% |
+| Metric | Target |
+|--------|--------|
+| Sync Latency | ≤ 5 min (guaranteed by Yunxin) |
+| New Member Onboarding | ≤ 2 min (MCP + Git clone) |
+| Consistency Variance | < 5% |
+| Convergence Speed | ≤ 20 minutes |
+| Offline Recovery | ≤ 3 minutes |
+| Conflict Reduction after Team Adoption | ≥ 70% |

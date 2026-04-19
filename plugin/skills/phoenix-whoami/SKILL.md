@@ -27,18 +27,18 @@ Run `git config phoenix.member-code` and capture output as `{current_code}`.
 
 ---
 
-**【PhoenixTeam 当前身份】**
+**[PhoenixTeam Current Identity]**
 
-本机绑定的代号：`{current_code}`
+Identity bound on this machine: `{current_code}`
 
-如需切换，请回复新的代号或从以下协作者中选择；直接回车保持不变。
+To switch, reply with a new code or select from the list below; press Enter to keep unchanged.
 
-{列出 COLLABORATORS.md 中所有成员，格式见下}
+{List all members from COLLABORATORS.md, format shown below}
 
 ---
 
 **Stop and wait for the user to reply.**
-- If the user presses Enter (empty reply) → keep `{current_code}`, output "身份未变更：`{current_code}`" and exit.
+- If the user presses Enter (empty reply) → keep `{current_code}`, output `Identity unchanged: {current_code}` and exit.
 - If the user replies with a code → proceed to Step 2.
 
 ---
@@ -47,16 +47,16 @@ Run `git config phoenix.member-code` and capture output as `{current_code}`.
 
 ---
 
-**【PhoenixTeam 身份绑定】**
+**[PhoenixTeam Identity Binding]**
 
-本机尚未绑定协作者身份。请选择您的代号：
+No collaborator identity bound on this machine. Please select your code:
 
-{从 COLLABORATORS.md 读取的成员列表，格式：}
-1. `alice` — .phoenix/design/alice/（加入于 2026-04-08）
-2. `bob`   — .phoenix/design/bob/（加入于 2026-04-08）
-3. 我是新协作者，使用新代号
+{Members loaded from COLLABORATORS.md, format:}
+1. `alice` — .phoenix/design/alice/ (joined 2026-04-08)
+2. `bob`   — .phoenix/design/bob/  (joined 2026-04-08)
+3. I am a new collaborator — use a new code
 
-请输入序号或直接输入代号：
+Enter a number or type your code directly:
 
 ---
 
@@ -91,14 +91,14 @@ Output:
 
 ---
 
-**【身份绑定完成】**
+**[Identity Binding Complete]**
 
-本机已绑定为：`{code}`
+This machine is now bound as: `{code}`
 
-- 来源：`.git/config`（仅本机有效，不进 git 仓库）
-- 主分支：`{main_branch}`（已绑定） / ⚠️ 未绑定，请运行 `/phoenix-init`
-- 后续所有 skill（pull / push / review / align 等）将以此身份执行
+- Source: `.git/config` (local only — not committed to the repository)
+- Main branch: `{main_branch}` (bound) / ⚠️ Not bound — please run `/phoenix-init`
+- All subsequent skills (pull / push / review / align, etc.) will run under this identity
 
-建议下一步：`/phoenix-status` 查看当前工作区状态。
+Recommended next step: run `/phoenix-status` to view workspace state.
 
 ---
