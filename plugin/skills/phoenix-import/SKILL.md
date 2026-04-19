@@ -1,8 +1,17 @@
 ---
 name: phoenix-import
+short-description: "Import external docs via MCP/HTTP"
 description: "Import design documents from external sources (Notion, Figma, linear, etc.) via MCP connectors into the local .phoenix/design/ directory. Use this to sync external context into the Git-native workflow."
 user-invocable: true
 argument-hint: "[source_url or mcp_resource_id]"
+triggers: [phoenix-parse]
+callable-by: []
+estimated-tokens:
+  context: 2500
+  skill: 500
+  data-read: variable
+  output: 400
+  total: ~3400+ (plus ~4700 for auto-triggered parse)
 ---
 
 # Skill: import
