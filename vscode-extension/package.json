@@ -10,6 +10,7 @@
   "categories": [
     "Other"
   ],
+  "icon": "resources/phoenix-icon.png",
   "activationEvents": [
     "onStartupFinished"
   ],
@@ -20,7 +21,7 @@
         {
           "id": "phoenixteam",
           "title": "PhoenixTeam",
-          "icon": "$(git-branch)"
+          "icon": "resources/phoenix-sidebar.svg"
         }
       ]
     },
