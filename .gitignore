@@ -12,3 +12,9 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+
+# Build & Dependencies
+node_modules/
+out/
+dist/
+*.log

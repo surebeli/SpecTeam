@@ -1,0 +1,76 @@
+{
+  "name": "phoenixteam-vscode",
+  "displayName": "PhoenixTeam",
+  "description": "Visual dashboard for PhoenixTeam AI Document Collaboration",
+  "version": "1.0.0",
+  "publisher": "PhoenixTeam",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "phoenixteam",
+          "title": "PhoenixTeam",
+          "icon": "$(git-branch)"
+        }
+      ]
+    },
+    "views": {
+      "phoenixteam": [
+        {
+          "id": "phoenixteam.divergences",
+          "name": "Divergences Status",
+          "type": "tree"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "phoenixteam.refresh",
+        "title": "Refresh PhoenixTeam Status",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "phoenixteam.align",
+        "title": "Resolve Divergence (phoenix-align)",
+        "icon": "$(play)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "phoenixteam.refresh",
+          "when": "view == phoenixteam.divergences",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "phoenixteam.align",
+          "when": "view == phoenixteam.divergences && viewItem == resolvable",
+          "group": "inline"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^16.x",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.1.3"
+  }
+}

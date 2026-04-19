@@ -127,6 +127,7 @@ cd PhoenixTeam
 | `/phoenix-parse` | 扫描文档并更新 `INDEX.md` |
 | `/phoenix-archive` | 冻结并归档设计提案 |
 | `/phoenix-import` | 通过 MCP/HTTP 导入外部文档 |
+| `/phoenix-sos` | 紧急自动解决 `.phoenix/` 目录下的 Git 合并冲突 |
 
 ## 技能依赖图
 
@@ -154,6 +155,7 @@ graph LR
         diff[diff]
         whoami[whoami]
         importSkill[import]
+        sos[sos]
     end
 
     init -->|触发| parse
@@ -305,6 +307,42 @@ Alice (Claude Code)                    Bob (Codex CLI)
 - 🟡 有等待我确认的提议 → 建议先确认
 - 🔴 有未解决的分歧 → 警告并等待
 - 🟡 等待对方确认的提议 → 提示（非阻塞）
+
+## 紧急状态与安全机制
+
+### 冲突降级 (`/phoenix-sos`)
+
+如果您在执行 `/phoenix-pull` 或 `/phoenix-push` 时遇到了 Git 树级合并冲突（即出现了 `<<<<<<< HEAD` 标记），请不要手动修改 `.phoenix/` 目录下的元数据。直接运行 `/phoenix-sos`，AI 会自动解析并智能合并冲突的分歧记录和 JSON 状态缓存。
+
+### 试运行 (`--dry-run`)
+
+对于具有破坏性或全局写入属性的指令，您可以附加 `--dry-run` 参数来安全预览 AI 的执行计划，这不会对文件系统造成任何实质更改：
+
+```bash
+/phoenix-review --dry-run
+/phoenix-align --dry-run D-001
+/phoenix-update --dry-run
+```
+
+## 生态与伴生工具
+
+虽然 PhoenixTeam 遵循“Prompt 优先”原则，但我们提供了一些轻量级的伴生工具来增强您的工作流。
+
+### PhoenixTeam CLI (`cli/`)
+
+一个不包含业务逻辑的 Node.js CLI，用于辅助安装并提供本地状态面板。
+
+- **`phoenix install`**: 自动将技能拷贝到您的 `.claude/commands` 目录。
+- **`phoenix status`**: 显示 `DIVERGENCES.md` 和仓库状态的可视化汇总（零 Token 消耗）。
+- **`phoenix init`**: 搭建 `.phoenix/` 目录骨架，并引导您执行 AI 的 `/phoenix-init` 提示词。
+- **`phoenix sos`**: 检测 Git 树冲突并提供紧急处理指引。
+
+### VS Code 插件 (`vscode-extension/`)
+
+集成在 IDE 侧边栏的可视化看板。
+
+- **侧边栏看板**: 一目了然地查看所有 `Open 🔴`、`Proposed 🟡` 和 `Resolved ✅` 的分歧。
+- **快速操作**: 点击任何未解决分歧旁边的“播放”图标，即可立即打开终端并在 AI 助手中触发 `/phoenix-align`。
 
 ## 源文档同步
 

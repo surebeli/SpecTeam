@@ -131,6 +131,7 @@ cd PhoenixTeam
 | `/phoenix-parse` | Scan documents and update `INDEX.md` |
 | `/phoenix-archive` | Freeze and archive a design proposal |
 | `/phoenix-import` | Import external docs via MCP/HTTP |
+| `/phoenix-sos` | Emergency auto-resolution of Git merge conflicts in `.phoenix/` |
 
 ## Skill Dependency Graph
 
@@ -158,6 +159,7 @@ graph LR
         diff[diff]
         whoami[whoami]
         importSkill[import]
+        sos[sos]
     end
 
     init -->|triggers| parse
@@ -310,6 +312,42 @@ Before pushing, distinguishes:
 - 🟡 Proposals awaiting my confirmation → suggest confirming first
 - 🔴 Unresolved divergences → warn and wait
 - 🟡 Awaiting other party's confirmation → inform (non-blocking)
+
+## Emergency & Safety Mechanisms
+
+### Conflict Fallback (`/phoenix-sos`)
+
+If you encounter a Git tree conflict (e.g., `<<<<<<< HEAD` markers) while running `/phoenix-pull` or `/phoenix-push`, do not manually edit the `.phoenix/` metadata. Simply run `/phoenix-sos` to automatically parse and intelligently merge conflicting divergences and JSON state safely.
+
+### Dry-run (`--dry-run`)
+
+For any destructive or global write actions, you can append `--dry-run` to preview the AI's intended actions without touching the file system:
+
+```bash
+/phoenix-review --dry-run
+/phoenix-align --dry-run D-001
+/phoenix-update --dry-run
+```
+
+## Ecosystem & Companion Tools
+
+While PhoenixTeam is "Prompt-First", we provide lightweight companion tools to enhance your workflow.
+
+### PhoenixTeam CLI (`cli/`)
+
+A zero-logic Node.js CLI that assists with installation and provides a local status dashboard.
+
+- **`phoenix install`**: Auto-copies skills to your `.claude/commands` directory.
+- **`phoenix status`**: Displays a visual summary of `DIVERGENCES.md` and repository state (zero-token cost).
+- **`phoenix init`**: Scaffolds the `.phoenix/` directory and guides you to the AI `/phoenix-init` prompt.
+- **`phoenix sos`**: Detects Git tree conflicts and provides emergency instructions.
+
+### VS Code Extension (`vscode-extension/`)
+
+A visual dashboard integrated into your IDE sidebar.
+
+- **Sidebar Dashboard**: View all `Open 🔴`, `Proposed 🟡`, and `Resolved ✅` divergences at a glance.
+- **Quick Action**: Click the "Play" icon next to any open divergence to instantly open a terminal and trigger `/phoenix-align` in your AI assistant.
 
 ## Source Document Sync
 

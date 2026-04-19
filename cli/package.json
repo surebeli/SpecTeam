@@ -1,0 +1,24 @@
+{
+  "name": "phoenixteam-cli",
+  "version": "1.0.0",
+  "description": "Lightweight companion CLI for PhoenixTeam AI document collaboration.",
+  "main": "index.js",
+  "bin": {
+    "phoenix": "./bin/phoenix.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ai",
+    "collaboration",
+    "git",
+    "prompt"
+  ],
+  "author": "PhoenixTeam",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0"
+  }
+}

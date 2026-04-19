@@ -20,7 +20,7 @@ Structured divergence analysis across collaborators. Writes to `.phoenix/DIVERGE
 
 ## Parameters
 
-- `$ARGUMENTS`: Optional topic or file path to focus the review on. If omitted, review all documents.
+- `$ARGUMENTS`: Optional `--dry-run` flag, followed by an optional topic or file path to focus the review on. If omitted, review all documents. (e.g. `--dry-run API design`)
 
 ## Execution Steps
 
@@ -74,15 +74,17 @@ Structured divergence analysis across collaborators. Writes to `.phoenix/DIVERGE
    - `proposed` divergences are carried forward unchanged — they are in the approval pipeline and should not be disrupted by a new review.
    - `open` divergences for collaborators not being re-analyzed are carried forward unchanged.
 
-### Step 4 — Analyze (only for collaborators in scope)
+### Step 4 — Analyze (Token Optimization: Incremental Mode)
 
-For each in-scope collaborator, read their documents under `.phoenix/design/{code}/`.
+For each in-scope collaborator, **DO NOT** read their full documents under `.phoenix/design/{code}/` unless absolutely necessary to establish context. Instead, strictly use Git diffs to save context tokens.
 
 Determine diff range for recent change context:
-- If `last-review.json` exists and contains `head_commit` → `git diff {head_commit}..HEAD -- .phoenix/` (anchored to last review)
-- Otherwise → `git diff HEAD~3..HEAD -- .phoenix/` (fallback)
+- If `last-review.json` exists and contains `head_commit` → `git diff {head_commit}..HEAD -- .phoenix/design/{code}/`
+- Otherwise → `git diff HEAD~3..HEAD -- .phoenix/design/{code}/` (fallback)
 
-Perform the following checks:
+Only read the full source file if the `git diff` output is insufficient to understand the architectural intent.
+
+Perform the following checks based on the diffs:
 
 **A. Against THESIS**: Does this collaborator's proposal align with the North Star?
 
@@ -139,6 +141,8 @@ Perform the following checks:
 ```
 
 ### Step 6 — Write DIVERGENCES.md
+
+If `--dry-run` was passed, skip writing to the file and skip Step 7, just output the report and say "Dry-run complete. No files were modified."
 
 Write/update `.phoenix/DIVERGENCES.md` with the following format:
 

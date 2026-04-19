@@ -24,7 +24,7 @@ Facilitate convergence on specific divergences. Two-phase: **Propose → Approve
 
 ## Parameters
 
-- `$ARGUMENTS`: **Required.** One of:
+- `$ARGUMENTS`: **Required.** Can optionally start with `--dry-run`, followed by one of:
   - `D-{N}` — resolve a specific divergence by ID (e.g. `D-002`)
   - `{topic keyword}` — fuzzy match against divergence titles in DIVERGENCES.md
   - `all` — iterate through all actionable divergences (open + proposed awaiting current user)
@@ -114,6 +114,8 @@ After user chooses (skip option 5 to next):
    ```
 2. **Do NOT update THESIS.md** — it is only updated after approval.
 3. Commit: `"[PhoenixTeam] align — D-{N}: {title} proposed by {me}, awaiting {other} confirmation"`
+
+*(Note: If `--dry-run` was passed, skip updating files and committing. Just output the proposed file changes.)*
 
 Output: `"✅ Proposal submitted. {other_party} can run /phoenix-align D-{N} after their next pull to confirm or reject."`
 
@@ -279,6 +281,8 @@ After completing your changes, run /phoenix-update to sync and auto-verify.
 3. Archive superseded proposals if applicable (move to `.phoenix/archive/{YYYYMMDD}/`).
 4. Update `.phoenix/SIGNALS.md` — remove blocker, add resolved entry.
 5. Commit: `"[PhoenixTeam] align — D-{N}: {title} decision reached ({proposer} proposed, {me} confirmed)"`
+
+*(Note: If `--dry-run` was passed, skip writing to decisions/D-{N}.md, DIVERGENCES.md, THESIS.md, SIGNALS.md, and skip the commit. Just output the intended action items and file structures.)*
 
 **Option 2 — Reject:**
 1. Update DIVERGENCES.md — revert to `open`, append rejection note:
