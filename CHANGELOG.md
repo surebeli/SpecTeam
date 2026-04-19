@@ -5,6 +5,18 @@ All notable changes to PhoenixTeam will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0] - 2026-04-19
+
+### Added
+- **phoenix-sos Skill**: Emergency fallback to automatically parse and safely resolve Git tree merge conflicts (e.g. `<<<<<<< HEAD`) within the `.phoenix/` metadata directory.
+- **Dry-run Support**: Added `--dry-run` flag to `phoenix-review` and `phoenix-align` for safe previews of AI execution plans without modifying files.
+- **PhoenixTeam Node CLI**: A lightweight companion tool (`cli/`) providing `status`, `install`, `init`, and `sos` commands for zero-token local dashboarding and one-click setup.
+- **VS Code Extension**: A visual dashboard (`vscode-extension/`) integrated into the IDE sidebar to view the team's divergence state (Open, Proposed, Resolved) and launch AI conflict resolution directly from the tree view.
+
+### Changed
+- **Token Optimization**: Updated `phoenix-review` to strictly prefer incremental analysis via `git diff` rather than full document reads, heavily reducing token consumption.
+- Updated plugin version references to `v2.7.0`.
+
 ## [2.6.0] - 2026-04-19
 
 ### Added
