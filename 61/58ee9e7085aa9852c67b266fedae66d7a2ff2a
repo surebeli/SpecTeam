@@ -1,0 +1,36 @@
+README.md
+  d09e2fb33a8ab0fc 2
+docs/images/logo.svg
+  d09e2fb33a8ab0fc 1-73,78,80,84,88,92-93
+  h_7f04b48fd0b771 74-77,79,81-83,85-87,89-91
+docs/design/image2-visual-prompts.md
+  d09e2fb33a8ab0fc 1-94
+docs/images/ui_mockup.svg
+  h_7f04b48fd0b771 92,96-98,100-105,107-113,115-121,123-130,132-135
+  d09e2fb33a8ab0fc 1-91,93-95,99,106,114,122,131,136-137
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "6158ee9e7085aa9852c67b266fedae66d7a2ff2a",
+  "prompts": {
+    "d09e2fb33a8ab0fc": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "98bd1510-c193-4de6-a7b4-296a4d099d92",
+        "model": "copilot/gpt-5.4"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 383,
+      "total_deletions": 13,
+      "accepted_lines": 744,
+      "overriden_lines": 50
+    }
+  },
+  "humans": {
+    "h_7f04b48fd0b771": {
+      "author": "litianyi"
+    }
+  }
+}
