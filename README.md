@@ -1,33 +1,51 @@
 <p align="center">
-  <img src="./docs/images/logo.png" alt="Phoenix Git Logo" width="600">
+  <img src="./docs/images/logo.png" alt="Spec Git Logo" width="600">
 </p>
 
-# PhoenixTeam
+# SpecTeam
 
-Distributed AI team document collaboration plugin — pure prompts, zero code, ready to use immediately.
+SpecTeam keeps specs, decisions, and AI agents aligned.
 
 > 中文文档: [README.zh-CN.md](./README.zh-CN.md)
 
 ## Overview
 
-PhoenixTeam implements collaboration as pure Prompt Skills, letting AI coding tools (Claude Code, Codex CLI) act as a "collaboration plugin" that manages design documents across a multi-person AI team. All operations are triggered by natural language commands — AI automatically calls Git, reads/writes files, and parses documents. No code required.
+SpecTeam is a Git-native workflow for AI-native spec review and decision alignment.
+
+SpecTeam is the current market-facing wedge: AI-native spec review and decision alignment for product and engineering teams using multiple AI tools. It helps teams detect divergence across PRDs, architecture docs, and AI-generated proposals, make decisions quickly, and sync the outcome back into a shared source of truth.
+
+SpecTeam now uses one consistent name across the repository, prompt skills, commands, and product story.
+
+## Product Docs
+
+- [Architecture](./docs/design/architecture.md)
+- [Brand Strategy](./docs/design/brand-strategy.md)
+- [Product Requirements](./docs/design/product-requirements.md)
+- [PMF Validation Loop](./docs/design/pmf-loop.md)
+- [Design Partner Playbook](./docs/design/design-partner-playbook.md)
+- [Design Partner Templates](./docs/design/design-partner-templates.md)
+- [Messaging Kit](./docs/design/messaging-kit.md)
+- [Demo Script](./docs/design/demo-script.md)
+- [Go-to-Market](./docs/design/go-to-market.md)
+- [Dependency-Ordered Roadmap](./docs/design/roadmap.md)
+- [Foundation Execution Plan](./docs/design/execution-plan.md)
 
 ## Installation
 
 ### Claude Code — `.claude/commands/` (recommended)
 
 ```bash
-git clone https://github.com/surebeli/PhoenixTeam.git /tmp/phoenix-team
+git clone https://github.com/surebeli/SpecTeam.git /tmp/spec-team
 
 # Install to current project
 mkdir -p .claude/commands
-for skill in /tmp/phoenix-team/plugin/skills/*/SKILL.md; do
+for skill in /tmp/spec-team/plugin/skills/*/SKILL.md; do
   cp "$skill" ".claude/commands/$(basename $(dirname $skill)).md"
 done
 
 # Or install globally (applies to all projects)
 mkdir -p ~/.claude/commands
-for skill in /tmp/phoenix-team/plugin/skills/*/SKILL.md; do
+for skill in /tmp/spec-team/plugin/skills/*/SKILL.md; do
   cp "$skill" ~/.claude/commands/$(basename $(dirname $skill)).md
 done
 ```
@@ -35,44 +53,44 @@ done
 ### Claude Code — `/plugin` marketplace
 
 ```bash
-/plugin marketplace add surebeli/PhoenixTeam
-/plugin install p-team@PhoenixTeam
+/plugin marketplace add surebeli/SpecTeam
+/plugin install spec-team@SpecTeam
 ```
 
 ### Codex CLI
 
 ```bash
-git clone https://github.com/surebeli/PhoenixTeam.git ~/.codex/skills/phoenix-team
+git clone https://github.com/surebeli/SpecTeam.git ~/.codex/skills/spec-team
 ```
 
 ### Any AI tool — standalone prompt
 
-Copy `PHOENIXTEAM.md` to your project root, then tell your AI tool:
+Copy `SPECTEAM.md` to your project root, then tell your AI tool:
 
 ```
-You are now the PhoenixTeam Plugin. Follow all rules in ./PHOENIXTEAM.md strictly.
+You are now the SpecTeam Workflow. Follow all rules in ./SPECTEAM.md strictly.
 Skill: init
 ```
 
 ## Quick Start
 
 ### 1-minute Demo (Local)
-We provide a simulated scenario to let you experience PhoenixTeam's conflict detection and resolution in 1 minute.
+We provide a simulated scenario to let you experience SpecTeam's conflict detection and resolution in 1 minute.
 
 ```bash
 # 1. Clone and install skills
-git clone https://github.com/surebeli/PhoenixTeam.git
-cd PhoenixTeam
+git clone https://github.com/surebeli/SpecTeam.git
+cd SpecTeam
 
 # 2. Init and point to mock data
 # When asked for document directories, enter: ./tests/mock-scenarios/demo-1-conflict/alice, ./tests/mock-scenarios/demo-1-conflict/bob
-/phoenix-init
+/spec-init
 
 # 3. Detect conflicts between alice (REST) and bob (GraphQL)
-/phoenix-review
+/spec-review
 
 # 4. Resolve a conflict (e.g., D-001)
-/phoenix-align D-001
+/spec-align D-001
 ```
 
 ### Core Workflow
@@ -80,8 +98,8 @@ cd PhoenixTeam
 ```
                         ┌─────────────────────────────────┐
                         │       First use (One-time)      │
-                        │       /phoenix-init             │
-                        │  Create .phoenix/, bind identity│
+                        │       /spec-init             │
+                        │  Create .spec/, bind identity│
                         │  Write THESIS, normalize docs   │
                         └──────────────┬──────────────────┘
                                        │
@@ -89,7 +107,7 @@ cd PhoenixTeam
                   │           Daily Collaboration          │
                   │                                        │
    ┌──────────────▼───────────────┐                       │
-   │ /phoenix-pull               │                       │
+   │ /spec-pull               │                       │
    │ Pull remote + auto-parse    │                       │
    └──────────────┬───────────────┘                       │
                   │                                       │
@@ -99,8 +117,8 @@ cd PhoenixTeam
    └──────────────┬───────────────┘                       │
                   │                                       │
    ┌──────────────▼───────────────┐                       │
-   │ /phoenix-push               │                       │
-   │ Sync to .phoenix/ + push    │                       │
+   │ /spec-push               │                       │
+   │ Sync to .spec/ + push    │                       │
    └──────────────┬───────────────┘                       │
                   │                                       │
                   └───────────────────┬───────────────────┘
@@ -108,9 +126,9 @@ cd PhoenixTeam
               ┌───────────────────────▼───────────────────────┐
               │           Conflict Resolution Flow            │
               │                                               │
-              │ 1. /phoenix-review (Find divergences)         │
-              │ 2. /phoenix-align (Propose/Approve decision)  │
-              │ 3. /phoenix-update (Verify implementation)    │
+              │ 1. /spec-review (Find divergences)         │
+              │ 2. /spec-align (Propose/Approve decision)  │
+              │ 3. /spec-update (Verify implementation)    │
               └───────────────────────────────────────────────┘
 ```
 
@@ -118,20 +136,20 @@ cd PhoenixTeam
 
 | Command | Description |
 |---------|-------------|
-| `/phoenix-init` | Initialize or join a project |
-| `/phoenix-whoami` | Check or bind local identity |
-| `/phoenix-pull` | Pull remote changes and auto-parse |
-| `/phoenix-update` | Sync source documents to `.phoenix/` |
-| `/phoenix-push` | Push changes to remote after divergence check |
-| `/phoenix-review` | Analyze all docs for divergences vs THESIS |
-| `/phoenix-align` | Resolve divergences via Propose → Approve |
-| `/phoenix-status` | Comprehensive collaboration dashboard |
-| `/phoenix-suggest` | AI-driven suggestions based on diffs |
-| `/phoenix-diff` | View structured diff grouped by collaborator |
-| `/phoenix-parse` | Scan documents and update `INDEX.md` |
-| `/phoenix-archive` | Freeze and archive a design proposal |
-| `/phoenix-import` | Import external docs via MCP/HTTP |
-| `/phoenix-sos` | Emergency auto-resolution of Git merge conflicts in `.phoenix/` |
+| `/spec-init` | Initialize or join a project |
+| `/spec-whoami` | Check or bind local identity |
+| `/spec-pull` | Pull remote changes and auto-parse |
+| `/spec-update` | Sync source documents to `.spec/` |
+| `/spec-push` | Push changes to remote after divergence check |
+| `/spec-review` | Analyze all docs for divergences vs THESIS |
+| `/spec-align` | Resolve divergences via Propose → Approve |
+| `/spec-status` | Comprehensive collaboration dashboard |
+| `/spec-suggest` | AI-driven suggestions based on diffs |
+| `/spec-diff` | View structured diff grouped by collaborator |
+| `/spec-parse` | Scan documents and update `INDEX.md` |
+| `/spec-archive` | Freeze and archive a design proposal |
+| `/spec-import` | Import external docs via MCP/HTTP |
+| `/spec-sos` | Emergency auto-resolution of Git merge conflicts in `.spec/` |
 
 ## Skill Dependency Graph
 
@@ -185,35 +203,35 @@ graph LR
 ```
 Alice (Claude Code)                    Bob (Codex CLI)
        │                                     │
- /phoenix-init (founder)              /phoenix-init (join)
+ /spec-init (founder)              /spec-init (join)
  Set project goal → THESIS.md         Review goal → join
        │                                     │
- Edit .phoenix/design/alice/          Edit .phoenix/design/bob/
+ Edit .spec/design/alice/          Edit .spec/design/bob/
        │                                     │
- /phoenix-push ──────→ Git ◄───────── /phoenix-push
+ /spec-push ──────→ Git ◄───────── /spec-push
        │                                     │
- /phoenix-pull                        /phoenix-pull
+ /spec-pull                        /spec-pull
        │                                     │
        └──────────── divergence found ───────→
                           │
-                  /phoenix-review
+                  /spec-review
                   Analyze docs vs THESIS → generate D-001
                   Write DIVERGENCES.md + commit anchors
                           │
   ┌───────────────────────┴────────────────────┐
   │                                            │
-  Alice: /phoenix-align D-001                  │
+  Alice: /spec-align D-001                  │
   Pick resolution → proposed 🟡               │
   ⚠️ THESIS not updated yet                    │
-  /phoenix-push                                │
+  /spec-push                                │
   │                                            │
-  │                             Bob: /phoenix-pull
+  │                             Bob: /spec-pull
   │                             🟡 "D-001 awaiting your confirmation"
-  │                             Bob: /phoenix-align D-001
+  │                             Bob: /spec-align D-001
   │                             → Agree → resolved ✅
   │                             Generate decisions/D-001.md
   │                             Update THESIS Decision Log
-  │                             /phoenix-push
+  │                             /spec-push
   │                                            │
   └────────────────────────────────────────────┘
                           │
@@ -228,7 +246,7 @@ Alice (Claude Code)                    Bob (Codex CLI)
        ║ Pass to own model →              Pass to own model →       ║
        ║ Model edits source doc           Model edits source doc     ║
        ║      │                               │                    ║
-       ║ /phoenix-update                  /phoenix-update            ║
+       ║ /spec-update                  /spec-update            ║
        ║ AI verifies acceptance           AI verifies acceptance     ║
        ║ criterion                        criterion                  ║
        ║ → Pass                           → Pass                    ║
@@ -238,7 +256,7 @@ Alice (Claude Code)                    Bob (Codex CLI)
        ║              D-001 fully-closed 🔒                          ║
        ╚══════════════════╤══════════════════════════════════════════╝
                           │
-              /phoenix-push (no open/proposed, push directly)
+              /spec-push (no open/proposed, push directly)
 ```
 
 ## Divergence Handling
@@ -273,7 +291,7 @@ Proposed decision: adopt Kubernetes (bob's approach) | Reasoning: ...
 ### D-003: Data model ✅
 Status: resolved | Proposer: alice | Confirmer: bob
 Decision: adopt NoSQL | Resolved at: 2026-04-09
-Change instructions: See .phoenix/decisions/D-003.md
+Change instructions: See .spec/decisions/D-003.md
 ```
 
 ### Propose → Approve two-phase confirmation
@@ -289,7 +307,7 @@ Change instructions: See .phoenix/decisions/D-003.md
 
 ### decisions/ — Decision instruction files
 
-When `align` confirms a resolution, it creates `.phoenix/decisions/D-{N}.md` containing:
+When `align` confirms a resolution, it creates `.spec/decisions/D-{N}.md` containing:
 - Full decision + reasoning
 - Per-party change instruction blocks: what to change, in which file, and an **acceptance criterion** for automated verification by `update`
 
@@ -315,54 +333,54 @@ Before pushing, distinguishes:
 
 ## Emergency & Safety Mechanisms
 
-### Conflict Fallback (`/phoenix-sos`)
+### Conflict Fallback (`/spec-sos`)
 
-If you encounter a Git tree conflict (e.g., `<<<<<<< HEAD` markers) while running `/phoenix-pull` or `/phoenix-push`, do not manually edit the `.phoenix/` metadata. Simply run `/phoenix-sos` to automatically parse and intelligently merge conflicting divergences and JSON state safely.
+If you encounter a Git tree conflict (e.g., `<<<<<<< HEAD` markers) while running `/spec-pull` or `/spec-push`, do not manually edit the `.spec/` metadata. Simply run `/spec-sos` to automatically parse and intelligently merge conflicting divergences and JSON state safely.
 
 ### Dry-run (`--dry-run`)
 
 For any destructive or global write actions, you can append `--dry-run` to preview the AI's intended actions without touching the file system:
 
 ```bash
-/phoenix-review --dry-run
-/phoenix-align --dry-run D-001
-/phoenix-update --dry-run
+/spec-review --dry-run
+/spec-align --dry-run D-001
+/spec-update --dry-run
 ```
 
 ## Ecosystem & Companion Tools
 
-While PhoenixTeam is "Prompt-First", we provide lightweight companion tools to enhance your workflow.
+While SpecTeam is "Prompt-First", we provide lightweight companion tools to enhance your workflow.
 
-### PhoenixTeam CLI (`cli/`)
+### SpecTeam CLI (`cli/`)
 
 A zero-logic Node.js CLI that assists with installation and provides a local status dashboard.
 
-- **`phoenix install`**: Auto-copies skills to your `.claude/commands` directory.
-- **`phoenix status`**: Displays a visual summary of `DIVERGENCES.md` and repository state (zero-token cost).
-- **`phoenix init`**: Scaffolds the `.phoenix/` directory and guides you to the AI `/phoenix-init` prompt.
-- **`phoenix sos`**: Detects Git tree conflicts and provides emergency instructions.
+- **`spec install`**: Auto-copies skills to your `.claude/commands` directory.
+- **`spec status`**: Displays a visual summary of `DIVERGENCES.md` and repository state (zero-token cost).
+- **`spec init`**: Scaffolds the `.spec/` directory and guides you to the AI `/spec-init` prompt.
+- **`spec sos`**: Detects Git tree conflicts and provides emergency instructions.
 
 ### VS Code Extension (`vscode-extension/`)
 
 A visual dashboard integrated into your IDE sidebar.
 
 - **Sidebar Dashboard**: View all `Open 🔴`, `Proposed 🟡`, and `Resolved ✅` divergences at a glance.
-- **Quick Action**: Click the "Play" icon next to any open divergence to instantly open a terminal and trigger `/phoenix-align` in your AI assistant.
+- **Quick Action**: Click the "Play" icon next to any open divergence to instantly open a terminal and trigger `/spec-align` in your AI assistant.
 
 ## Source Document Sync
 
 ### Background
 
-`init` does a one-time copy. If source documents (e.g. `./design/spec.md`) change afterward, the copies in `.phoenix/design/{code}/` are not automatically updated.
+`init` does a one-time copy. If source documents (e.g. `./design/spec.md`) change afterward, the copies in `.spec/design/{code}/` are not automatically updated.
 
-### phoenix-update solution
+### spec-update solution
 
 `update` records source file hashes in `last-sync.json`, detecting changes incrementally on each run:
 
 ```bash
-/phoenix-update           # Detect and sync all changes
-/phoenix-update --dry-run # Preview changes without writing
-/phoenix-update --force   # Skip divergence confirmation, force sync
+/spec-update           # Detect and sync all changes
+/spec-update --dry-run # Preview changes without writing
+/spec-update --force   # Skip divergence confirmation, force sync
 ```
 
 ### Post-resolution source document updates (Action Items)
@@ -384,19 +402,19 @@ After each party updates their source documents and runs `update`, AI auto-verif
 
 ### Branch protection
 
-`init` records the current branch as the protected PhoenixTeam main branch (`git config phoenix.main-branch`). All other skills enforce a **branch guard** — operations on any other branch are rejected:
+`init` records the current branch as the protected SpecTeam main branch (`git config spec.main-branch`). All other skills enforce a **branch guard** — operations on any other branch are rejected:
 
 ```
-❌ Current branch 'feature-x' is not the PhoenixTeam main branch 'main'.
+❌ Current branch 'feature-x' is not the SpecTeam main branch 'main'.
    Switch with: git checkout main
 ```
 
-## .phoenix/ Directory Structure
+## .spec/ Directory Structure
 
 Generated in the target project after initialization:
 
 ```
-.phoenix/
+.spec/
 ├── COLLABORATORS.md    # Identity map: member codes → doc directories; Main Branch metadata
 ├── THESIS.md           # Project design constitution (North Star) + Decision Log
 ├── RULES.md            # Code conventions
@@ -419,29 +437,29 @@ Generated in the target project after initialization:
 ## Repository Structure
 
 ```
-PhoenixTeam/
+SpecTeam/
 ├── .claude-plugin/
 │   ├── marketplace.json          # Marketplace manifest
 │   └── plugin.json               # Claude Code plugin definition
 ├── .codex-plugin/plugin.json     # Codex CLI plugin manifest
 ├── plugin/                       # Plugin core
 │   ├── skills/                   # 13 Skills (shared across platforms)
-│   │   ├── phoenix-init/
-│   │   ├── phoenix-whoami/
-│   │   ├── phoenix-pull/
-│   │   ├── phoenix-push/
-│   │   ├── phoenix-update/
-│   │   ├── phoenix-parse/
-│   │   ├── phoenix-status/
-│   │   ├── phoenix-suggest/
-│   │   ├── phoenix-diff/
-│   │   ├── phoenix-review/
-│   │   ├── phoenix-align/
-│   │   ├── phoenix-archive/
-│   │   └── phoenix-import/
+│   │   ├── spec-init/
+│   │   ├── spec-whoami/
+│   │   ├── spec-pull/
+│   │   ├── spec-push/
+│   │   ├── spec-update/
+│   │   ├── spec-parse/
+│   │   ├── spec-status/
+│   │   ├── spec-suggest/
+│   │   ├── spec-diff/
+│   │   ├── spec-review/
+│   │   ├── spec-align/
+│   │   ├── spec-archive/
+│   │   └── spec-import/
 │   ├── CLAUDE.md                 # Shared context (Claude Code)
 │   └── AGENTS.md                 # Shared context (Codex CLI)
-├── PHOENIXTEAM.md                # Standalone prompt version (manual mode)
+├── SPECTEAM.md                # Standalone prompt version (manual mode)
 ├── README.md                     # This file (English)
 ├── README.zh-CN.md               # Chinese translation
 └── docs/design/                  # Example design documents

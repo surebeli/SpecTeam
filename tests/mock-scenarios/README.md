@@ -1,6 +1,6 @@
-# Mock Scenarios for PhoenixTeam
+# Mock Scenarios for SpecTeam
 
-This directory contains test data to help you quickly understand how PhoenixTeam works, especially how it handles conflicts and divergences between different AI agents or collaborators.
+This directory contains test data to help you quickly understand SpecTeam, especially how it detects divergences and helps teams close decisions across multiple collaborators.
 
 ## Demo 1: API Design Conflict (2-Person)
 
@@ -11,24 +11,24 @@ In `demo-1-conflict/`, we have two collaborators (`alice` and `bob`) who have de
 ### How to run this demo:
 
 1. Copy the `demo-1-conflict` folder to a new workspace.
-2. Run `/phoenix-init`. When asked for document directories, provide the paths to both `alice` and `bob`'s folders.
-3. Once initialized, run `/phoenix-review`.
+2. Run `/spec-init`. When asked for document directories, provide the paths to both `alice` and `bob`'s folders.
+3. Once initialized, run `/spec-review`.
 4. Observe how the AI automatically detects the divergence (REST vs GraphQL) and generates a `DIVERGENCES.md` report.
-5. Run `/phoenix-align D-001` to resolve the conflict!
+5. Run `/spec-align D-001` to resolve the conflict!
 
 ## Demo 2: Solo Mode (1-Person)
 
 In `demo-2-solo/`, we have a single collaborator (`dev-solo`) working alone.
-- Tests that PhoenixTeam works correctly with only one collaborator.
+- Tests that the SpecTeam workflow works correctly with only one collaborator.
 - Review should find no divergences (nothing to compare against).
 - Validates the full init → update → parse → push workflow without conflicts.
 
 ### How to run this demo:
 
 1. Copy `demo-2-solo` to a new workspace.
-2. Run `/phoenix-init` with member code `dev-solo` and document directory `./demo-2-solo/dev-solo`.
-3. Run `/phoenix-review` — should report no divergences.
-4. Run `/phoenix-status` — consistency score should be 100.
+2. Run `/spec-init` with member code `dev-solo` and document directory `./demo-2-solo/dev-solo`.
+3. Run `/spec-review` — should report no divergences.
+4. Run `/spec-status` — consistency score should be 100.
 
 ## Demo 3: Payment Architecture Conflict (3-Person)
 
@@ -46,10 +46,11 @@ In `demo-3-three-way/`, we have three collaborators with conflicting proposals f
 ### How to run this demo:
 
 1. Copy `demo-3-three-way` to a new workspace.
-2. Run `/phoenix-init` three times (once per collaborator) to join all three.
-3. Run `/phoenix-review` — should detect multiple divergences across all three parties.
-4. Observe how the AI handles 3-way conflicts (compared to simpler 2-way in Demo 1).
-5. Run `/phoenix-align all` to resolve divergences one by one.
+2. Run `/spec-init` three times (once per collaborator) to join all three.
+3. Run `/spec-review` — should detect multiple divergences across all three parties.
+4. Run `/spec-align all` to submit proposals and record approvals across the open divergences.
+5. Have the relevant proposer re-run `/spec-align D-00N` to finalize once consensus is reached.
+6. Observe how the AI handles 3-way conflicts and Lead finalization (compared to the simpler 2-way flow in Demo 1).
 
 ### Expected divergences:
 - D-001: Architecture style (alice: microservices vs bob: monolith vs carol: serverless) — **blocking**

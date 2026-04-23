@@ -1,6 +1,6 @@
-# Contributing to PhoenixTeam
+# Contributing to SpecTeam
 
-Thank you for your interest in contributing to PhoenixTeam! This guide will help you get started.
+Thank you for your interest in contributing to SpecTeam! This guide will help you get started.
 
 ## Table of Contents
 - [Code of Conduct](#code-of-conduct)
@@ -45,12 +45,12 @@ This project follows the [Contributor Covenant Code of Conduct](https://www.cont
 ### Prerequisites
 - Git 2.30+
 - An AI coding tool: Claude Code, Codex CLI, Gemini CLI, or any LLM with tool-use capability
-- No additional dependencies — PhoenixTeam is pure prompts
+- No additional dependencies — SpecTeam is pure prompts
 
 ### Quick Start
 ```bash
-git clone https://github.com/surebeli/PhoenixTeam.git
-cd PhoenixTeam
+git clone https://github.com/surebeli/SpecTeam.git
+cd SpecTeam
 
 # Enable git hooks (enforces English-only commit messages)
 git config core.hooksPath .githooks
@@ -62,30 +62,30 @@ for skill in plugin/skills/*/SKILL.md; do
 done
 
 # For Codex CLI: link the plugin
-ln -s $(pwd)/plugin ~/.codex/skills/phoenix-team
+ln -s $(pwd)/plugin ~/.codex/skills/spec-team
 
-# For any tool: use PHOENIXTEAM.md as a standalone prompt
+# For any tool: use SPECTEAM.md as a standalone prompt
 ```
 
 ### Verify Installation
 ```
-/phoenix-init
+/spec-init
 # Follow the interactive prompts
-/phoenix-status
+/spec-status
 # Should show the full dashboard
 ```
 
 ## Project Structure
 
 ```
-PhoenixTeam/
+SpecTeam/
 ├── plugin/                        # The plugin package
 │   ├── SHARED-CONTEXT.md          # Common context for all platforms
 │   ├── CLAUDE.md                  # Claude Code specific overrides
 │   ├── AGENTS.md                  # Codex CLI specific overrides
 │   ├── .claude-plugin/            # Claude plugin manifest
 │   └── skills/                    # Skill definitions (13 skills)
-│       └── phoenix-{name}/
+│       └── spec-{name}/
 │           └── SKILL.md           # Skill prompt definition
 ├── mcp-connectors/                # MCP connector definitions
 │   └── notion/                    # Notion connector
@@ -93,7 +93,7 @@ PhoenixTeam/
 │   ├── prompts/                   # Structured test scenarios (10 tests)
 │   └── mock-scenarios/            # Mock data (3 demos)
 ├── docs/design/                   # Example design documents
-├── PHOENIXTEAM.md                 # Standalone all-in-one prompt
+├── SPECTEAM.md                 # Standalone all-in-one prompt
 ├── CHANGELOG.md                   # Version history
 └── README.md / README.zh-CN.md   # Documentation (EN + CN)
 ```
@@ -102,17 +102,17 @@ PhoenixTeam/
 
 ### Anatomy of a Skill
 
-Each skill lives in `plugin/skills/phoenix-{name}/SKILL.md` and must follow this structure:
+Each skill lives in `plugin/skills/spec-{name}/SKILL.md` and must follow this structure:
 
 ```markdown
 ---
-name: phoenix-{name}
+name: spec-{name}
 short-description: "≤80 chars for UI display"
 description: "Full description with 'Use this when...' trigger guidance"
 user-invocable: true
 argument-hint: "[optional argument format]"
-triggers: [phoenix-parse]         # Skills auto-triggered by this skill
-callable-by: [phoenix-init]       # Skills that auto-trigger this skill
+triggers: [spec-parse]         # Skills auto-triggered by this skill
+callable-by: [spec-init]       # Skills that auto-trigger this skill
 ---
 
 # Skill: {name}
@@ -126,7 +126,7 @@ Brief purpose statement.
 ## Execution Steps
 
 ### Step 1 — Identity & pre-flight
-1. Read `git config phoenix.member-code`... (identity guard)
+1. Read `git config spec.member-code`... (identity guard)
 2. Run `git status`... (pre-flight)
 
 ### Step N — {action}
@@ -148,11 +148,11 @@ Brief purpose statement.
 
 ### Rules for Skill Authors
 
-1. **Identity guard first**: Always start with `git config phoenix.member-code` check
-2. **Branch guard**: Always verify current branch matches `phoenix.main-branch`
-3. **Read-only on source**: Never modify files outside `.phoenix/`
+1. **Identity guard first**: Always start with `git config spec.member-code` check
+2. **Branch guard**: Always verify current branch matches `spec.main-branch`
+3. **Read-only on source**: Never modify files outside `.spec/`
 4. **Structured output**: Follow the 6-section output format (see SHARED-CONTEXT.md)
-5. **Commit messages**: Use `[PhoenixTeam]` prefix, **must be in English** (enforced by git hook)
+5. **Commit messages**: Use `[SpecTeam]` prefix, **must be in English** (enforced by git hook)
 6. **Stop and wait**: Use explicit "Stop and wait for the user to reply" at interaction points
 7. **Divergence-aware**: Check DIVERGENCES.md impact for any file mutations
 8. **English-only**: All skill prompts, output templates, and generated content must be in English. Do not mix Chinese and English in SKILL.md files.
@@ -198,7 +198,7 @@ GitHub Actions CI runs on every PR — see `.github/workflows/validate.yml`.
 - [ ] `triggers` and `callable-by` are correctly declared
 - [ ] Test prompt created for new/changed behavior
 - [ ] CHANGELOG.md updated
-- [ ] No files outside `.phoenix/` are modified by the skill
+- [ ] No files outside `.spec/` are modified by the skill
 
 ## Style Guide
 
@@ -207,7 +207,7 @@ GitHub Actions CI runs on every PR — see `.github/workflows/validate.yml`.
 > **All code, prompts, and commit messages MUST be in English.** Chinese translations are only permitted in dedicated translation files (e.g., `README.zh-CN.md`).
 
 - **Skill prompts (`SKILL.md`)**: English only — both instructions and output templates
-- **Commit messages**: English only with `[PhoenixTeam]` prefix (enforced by `commit-msg` hook)
+- **Commit messages**: English only with `[SpecTeam]` prefix (enforced by `commit-msg` hook)
 - **README**: English (`README.md`) + dedicated Chinese translation (`README.zh-CN.md`)
 - **Design documents**: English preferred; Chinese-only docs should use `.zh-CN` suffix
 - **Git hooks**: Run `git config core.hooksPath .githooks` after cloning to activate the commit message guard
@@ -220,11 +220,11 @@ GitHub Actions CI runs on every PR — see `.github/workflows/validate.yml`.
 
 ### Versioning
 - Follow [Semantic Versioning](https://semver.org/):
-  - **Major**: Breaking changes to skill behavior or .phoenix/ format
+  - **Major**: Breaking changes to skill behavior or .spec/ format
   - **Minor**: New skills, new frontmatter fields, new features
   - **Patch**: Bug fixes, documentation improvements
-- Keep PHOENIXTEAM.md version in sync with plugin manifests
+- Keep SPECTEAM.md version in sync with plugin manifests
 
 ---
 
-Thank you for contributing to PhoenixTeam! 🎉
+Thank you for contributing to SpecTeam! 🎉

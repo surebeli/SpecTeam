@@ -1,12 +1,12 @@
 # Test 03: Update — New File Sync
 
 ## Scenario
-A collaborator adds a new design document to their source directory after initialization, then runs update to sync it into `.phoenix/`.
+A collaborator adds a new design document to their source directory after initialization, then runs update to sync it into `.spec/`.
 
 ## Prerequisites
-- PhoenixTeam initialized with member code `alice`
+- SpecTeam workflow initialized with member code `alice`
 - Source directory: `./design/`
-- `.phoenix/design/alice/` already has previously synced files
+- `.spec/design/alice/` already has previously synced files
 - A NEW file `./design/new-feature.md` has been created since last init/update
 
 ## Setup Steps
@@ -17,7 +17,7 @@ echo "# New Feature Design\n\nThis is a new feature proposal." > ./design/new-fe
 
 ## Test Prompt
 ```
-/phoenix-update
+/spec-update
 ```
 
 ## Verification Checklist
@@ -28,12 +28,12 @@ echo "# New Feature Design\n\nThis is a new feature proposal." > ./design/new-fe
 - [ ] Existing unchanged files listed with correct count
 
 ### Sync Execution
-- [ ] `.phoenix/design/alice/new-feature.md` created
-- [ ] File has `<!-- Phoenix Normalized Document -->` header prepended
+- [ ] `.spec/design/alice/new-feature.md` created
+- [ ] File has `<!-- Spec Normalized Document -->` header prepended
 - [ ] Content matches source file (minus the header)
 
 ### State Files
-- [ ] `.phoenix/last-sync.json` updated with new file entry
+- [ ] `.spec/last-sync.json` updated with new file entry
 - [ ] New file has a hash recorded in `last-sync.json`
 - [ ] `synced_at` timestamp updated
 
@@ -42,4 +42,4 @@ echo "# New Feature Design\n\nThis is a new feature proposal." > ./design/new-fe
 - [ ] `last-parse.json` updated
 
 ### Commit
-- [ ] Commit message: `[PhoenixTeam] update — alice source doc sync: +1 ~0 -0`
+- [ ] Commit message: `[SpecTeam] update — alice source doc sync: +1 ~0 -0`

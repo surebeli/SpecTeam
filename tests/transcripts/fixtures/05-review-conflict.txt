@@ -1,0 +1,12 @@
+Review complete.
+
+D-001: API Direction
+
+Consensus areas
+- Both collaborators agree on a shared public API.
+
+Gap areas
+- alice prefers REST-first, bob prefers GraphQL-first.
+
+Recommended handling priority
+- blocking

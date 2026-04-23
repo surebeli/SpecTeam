@@ -1,17 +1,17 @@
 # Test 02: Init — Join Mode
 
 ## Scenario
-A second collaborator joins an existing PhoenixTeam project.
+A second collaborator joins an existing SpecTeam workflow.
 
 ## Prerequisites
-- `.phoenix/` directory already exists (created by founder)
-- `.phoenix/COLLABORATORS.md` has at least one existing member (e.g., `alice`)
-- `.phoenix/THESIS.md` has an existing project goal
+- `.spec/` directory already exists (created by founder)
+- `.spec/COLLABORATORS.md` has at least one existing member (e.g., `alice`)
+- `.spec/THESIS.md` has an existing project goal
 - The joining person has their own design document directory
 
 ## Test Prompt
 ```
-/phoenix-init
+/spec-init
 ```
 
 ## Expected Interactions
@@ -23,14 +23,14 @@ A second collaborator joins an existing PhoenixTeam project.
 ## Verification Checklist
 
 ### Join Behavior
-- [ ] AI detected `.phoenix/` exists → entered join mode (not founder mode)
+- [ ] AI detected `.spec/` exists → entered join mode (not founder mode)
 - [ ] Project goal step was skipped
 - [ ] Existing THESIS.md content was displayed
 
 ### Directory Structure
-- [ ] `.phoenix/design/bob/` created with copied documents
-- [ ] `.phoenix/design/alice/` untouched (existing member's files preserved)
-- [ ] Each copied file has `<!-- Phoenix Normalized Document -->` header
+- [ ] `.spec/design/bob/` created with copied documents
+- [ ] `.spec/design/alice/` untouched (existing member's files preserved)
+- [ ] Each copied file has `<!-- Spec Normalized Document -->` header
 
 ### COLLABORATORS.md
 - [ ] `bob` row appended to members table
@@ -38,9 +38,9 @@ A second collaborator joins an existing PhoenixTeam project.
 - [ ] `Main Branch` field preserved from founder's init
 
 ### Git State
-- [ ] `git config phoenix.member-code` returns `bob`
-- [ ] `git config phoenix.main-branch` matches the value in COLLABORATORS.md
-- [ ] Commit message: `[PhoenixTeam] init — bob joined collaboration...`
+- [ ] `git config spec.member-code` returns `bob`
+- [ ] `git config spec.main-branch` matches the value in COLLABORATORS.md
+- [ ] Commit message: `[SpecTeam] init — bob joined workflow...`
 
 ### INDEX.md
 - [ ] Updated by auto-triggered parse

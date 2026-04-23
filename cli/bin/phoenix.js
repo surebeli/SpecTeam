@@ -11,7 +11,7 @@ const DIVERGENCES_FILE = path.join(PHOENIX_DIR, 'DIVERGENCES.md');
 
 program
   .name('phoenix')
-  .description('Companion CLI for PhoenixTeam AI Document Collaboration Plugin')
+  .description('CLI for the PhoenixTeam workflow behind SpecTeam spec review and decision alignment')
   .version('1.0.0');
 
 // Helper to run commands
@@ -26,10 +26,10 @@ function runCmd(cmd) {
 // 1. Install Command
 program
   .command('install')
-  .description('Installs PhoenixTeam AI skills to your local Claude Code commands')
+  .description('Installs PhoenixTeam workflow skills for local SpecTeam-style review and alignment flows')
   .option('-g, --global', 'Install globally to ~/.claude/commands')
   .action((options) => {
-    console.log(chalk.cyan('🚀 Installing PhoenixTeam skills...'));
+    console.log(chalk.cyan('🚀 Installing PhoenixTeam workflow skills...'));
     const sourceDir = path.resolve(__dirname, '../../plugin/skills');
     
     if (!fs.existsSync(sourceDir)) {
@@ -66,7 +66,7 @@ program
   .command('status')
   .description('View a quick local summary of DIVERGENCES and repo state')
   .action(() => {
-    console.log(chalk.cyan('\n=== PhoenixTeam Collaboration Status ===\n'));
+    console.log(chalk.cyan('\n=== PhoenixTeam Workflow Status ===\n'));
 
     // Check Git
     const gitStatus = runCmd('git status --short');
@@ -90,7 +90,7 @@ program
 
     // Parse Divergences
     if (!fs.existsSync(DIVERGENCES_FILE)) {
-      console.log(chalk.green('✅ No DIVERGENCES.md found. Team is perfectly aligned!'));
+      console.log(chalk.green('✅ No DIVERGENCES.md found. No tracked divergences yet.'));
       return;
     }
 
@@ -144,7 +144,7 @@ program
   .command('init')
   .description('Setup basic Git repository and guide AI initialization')
   .action(() => {
-    console.log(chalk.cyan('🚀 Preparing PhoenixTeam Environment...'));
+    console.log(chalk.cyan('🚀 Preparing PhoenixTeam Workflow Environment...'));
     
     const isGit = runCmd('git rev-parse --is-inside-work-tree');
     if (!isGit) {

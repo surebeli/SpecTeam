@@ -1,0 +1,11 @@
+**[Propose Resolution — D-001: API Direction]**
+
+AI recommended resolution:
+Keep a REST-first API and defer GraphQL to a later compatibility layer.
+
+Please choose your proposal:
+1. Adopt alice's position
+2. Adopt bob's position
+3. Adopt AI-recommended merged resolution
+
+✅ Proposal submitted.

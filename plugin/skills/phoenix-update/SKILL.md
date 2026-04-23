@@ -16,7 +16,7 @@ estimated-tokens:
 
 # Skill: update
 
-Detect and sync source document changes into the PhoenixTeam workspace.
+Detect and sync source document changes into the PhoenixTeam workflow state.
 
 ## Parameters
 
@@ -76,7 +76,7 @@ Changes:
 - ./design/old-draft.md (deleted)
 ```
 
-5. If no changes → output `"✅ No source document changes. .phoenix/ is up to date."` and stop.
+5. If no changes → output `"✅ No source document changes. PhoenixTeam workflow state is up to date."` and stop.
 
 ### Step 3 — Divergence impact check
 

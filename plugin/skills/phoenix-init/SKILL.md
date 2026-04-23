@@ -1,7 +1,7 @@
 ---
 name: phoenix-init
-short-description: "Initialize or join a PhoenixTeam project"
-description: "Initialize PhoenixTeam: set up collaborator identity, normalize design documents into .phoenix/, create core files, and establish Git diff baseline. Use this when starting PhoenixTeam for the first time or onboarding a new collaborator."
+short-description: "Initialize or join the PhoenixTeam workflow"
+description: "Initialize PhoenixTeam: set up collaborator identity, normalize source design docs into .phoenix/, create core files, and establish Git diff baseline. Use this when starting the PhoenixTeam workflow for the first time or onboarding a new collaborator."
 user-invocable: true
 argument-hint: "[--branch=phoenix-docs | --submodule]"
 triggers: [phoenix-parse]
@@ -16,7 +16,7 @@ estimated-tokens:
 
 # Skill: init
 
-Initialize the PhoenixTeam workspace for the current collaborator.
+Initialize the PhoenixTeam workflow state for the current collaborator.
 
 ## Parameters
 
@@ -51,7 +51,7 @@ Output the following block **verbatim** (substituting `{git_name}`), then **stop
 **[PhoenixTeam init — Step 1]**
 
 Please provide your member code (nickname / collaborator ID, e.g. alice, bob, dev-007).
-This code identifies your documents across the collaboration.
+This code identifies your documents across the shared workflow.
 (Press Enter to use your Git username automatically: `{git_name}`)
 
 ---
@@ -70,7 +70,7 @@ After the user replies:
 
 **[PhoenixTeam init — Step 2: Set project goal]**
 
-You are the first to initialize PhoenixTeam on this project. Please briefly describe the collaboration goal / mission (1–3 sentences).
+You are the first to initialize PhoenixTeam on this project. Please briefly describe the shared project goal / mission (1–3 sentences).
 This will be written to THESIS.md as the North Star — all future collaborators will align to it.
 
 Example:
@@ -118,7 +118,7 @@ Current project North Star (set by {founder_code}):
 {If DIVERGENCES.md does not exist:}
 _(No divergence records yet)_
 
-Please confirm you have reviewed the project goal and current collaboration state. Your documents will be aligned to this baseline.
+Please confirm you have reviewed the project goal and current workflow state. Your documents will be aligned to this baseline.
 
 ---
 
@@ -156,11 +156,11 @@ Please confirm you have reviewed the project goal and current collaboration stat
    - `.phoenix/SIGNALS.md` — Runtime status (create if not exists)
 6. Run `git add .phoenix/` and commit:
    - Founder: `"[PhoenixTeam] init — {code} created project and normalized design documents"`
-   - Join: `"[PhoenixTeam] init — {code} joined collaboration and normalized design documents"`
+   - Join: `"[PhoenixTeam] init — {code} joined workflow and normalized design documents"`
 7. **Automatically trigger `/phoenix-parse`** (execute the parse skill inline).
 8. Output:
    - Founder: `"Initialization complete! You are the project founder. Project goal written to THESIS.md, documents normalized to .phoenix/design/{code}/, Git diff baseline established."`
-   - Join: `"Initialization complete! You have joined the collaboration. Identity recorded as {code}, documents normalized to .phoenix/design/{code}/. See THESIS.md for the project goal."`
+   - Join: `"Initialization complete! You have joined the workflow. Identity recorded as {code}, documents normalized to .phoenix/design/{code}/. See THESIS.md for the project goal."`
 9. Output branch protection notice:
 
 ```

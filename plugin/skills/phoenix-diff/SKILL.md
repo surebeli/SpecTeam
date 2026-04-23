@@ -1,7 +1,7 @@
 ---
 name: phoenix-diff
 short-description: "View structured diff grouped by collaborator"
-description: "View structured git diff for .phoenix/ documents grouped by collaborator. Supports --last, --commit=abc123, --against=origin/main for flexible diff ranges. Highlights DIVERGENCES.md state transitions (open→proposed→resolved). Shows collaboration impact analysis."
+description: "View structured git diff for .phoenix/ documents grouped by collaborator. Supports --last, --commit=abc123, --against=origin/main for flexible diff ranges. Highlights DIVERGENCES.md state transitions (open→proposed→resolved). Shows workflow impact analysis."
 user-invocable: true
 argument-hint: "[--last | --commit=abc123 | --against=origin/main]"
 triggers: []
@@ -16,7 +16,7 @@ estimated-tokens:
 
 # Skill: diff (Diff Awareness)
 
-View precise document changes with collaborator attribution and divergence state tracking.
+View precise .phoenix/ changes with collaborator attribution and divergence state tracking.
 
 ## Parameters
 
@@ -65,7 +65,7 @@ If `DIVERGENCES.md` appears in the diff:
    ```
 3. If no DIVERGENCES.md changes in the diff, skip this section.
 
-### Step 7 — Collaboration impact analysis
+### Step 7 — Workflow impact analysis
 
 Output:
 - Whose documents were affected by whose changes

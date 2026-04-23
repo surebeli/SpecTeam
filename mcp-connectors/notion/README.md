@@ -1,13 +1,13 @@
-# PhoenixTeam — Notion MCP Connector
+# SpecTeam — Notion MCP Connector
 
-Import Notion pages and databases into your PhoenixTeam workspace via the Model Context Protocol (MCP).
+Import Notion pages and databases into your SpecTeam workspace via the Model Context Protocol (MCP).
 
 ## Overview
 
-This connector enables `phoenix-import` to fetch design documents directly from Notion, converting them to normalized Markdown files in `.phoenix/design/{code}/`.
+This connector enables `spec-import` to fetch design documents directly from Notion, converting them to normalized Markdown files in `.spec/design/{code}/`.
 
 ```
-Notion Page → MCP notion_read_page → Markdown → phoenix-import → .phoenix/design/{code}/
+Notion Page → MCP notion_read_page → Markdown → spec-import → .spec/design/{code}/
 ```
 
 ## Setup
@@ -16,7 +16,7 @@ Notion Page → MCP notion_read_page → Markdown → phoenix-import → .phoeni
 
 1. Go to [https://www.notion.so/my-integrations](https://www.notion.so/my-integrations)
 2. Click **"New integration"**
-3. Name it `PhoenixTeam`
+3. Name it `SpecTeam`
 4. Select your workspace
 5. Copy the **Internal Integration Token**
 
@@ -24,7 +24,7 @@ Notion Page → MCP notion_read_page → Markdown → phoenix-import → .phoeni
 
 1. Open the Notion page you want to import
 2. Click **"..."** → **"Connections"** → **"Add connections"**
-3. Select **PhoenixTeam**
+3. Select **SpecTeam**
 
 ### 3. Set the API Key
 
@@ -36,9 +36,9 @@ Or add to your MCP client configuration:
 ```json
 {
   "mcpServers": {
-    "phoenix-notion": {
+    "spec-notion": {
       "command": "node",
-      "args": ["path/to/phoenix-notion-server/index.js"],
+      "args": ["path/to/spec-notion-server/index.js"],
       "env": {
         "NOTION_API_KEY": "ntn_xxxxxxxxxxxxxxxxxxxx"
       }
@@ -47,22 +47,22 @@ Or add to your MCP client configuration:
 }
 ```
 
-## Usage with PhoenixTeam
+## Usage with SpecTeam
 
 ### Import a Notion Page
 ```
-/phoenix-import https://www.notion.so/My-Design-Doc-abc123def456
+/spec-import https://www.notion.so/My-Design-Doc-abc123def456
 ```
 
 ### Import by Page ID
 ```
-/phoenix-import notion://page/abc123def456789012345678901234
+/spec-import notion://page/abc123def456789012345678901234
 ```
 
 ### Browse a Notion Database First
 The connector exposes a `notion_list_database` tool to browse available pages:
 ```
-/phoenix-import notion://database/xyz789...
+/spec-import notion://database/xyz789...
 ```
 
 ## Tools
@@ -103,6 +103,6 @@ index.js              — Server implementation (TODO: reference implementation)
 ## Limitations
 
 - **Inline databases** within pages are exported as simplified tables (no filters/views)
-- **File & media blocks** export as links (files are not downloaded into .phoenix/)
+- **File & media blocks** export as links (files are not downloaded into .spec/)
 - **Synced blocks** are resolved to their source content at fetch time
 - **Rate limiting**: Notion API allows 3 requests/second — batch imports should use `max_results` pagination

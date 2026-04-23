@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# PhoenixTeam E2E Test Runner v1.0
+# SpecTeam Workflow E2E Test Runner v1.0
 set -euo pipefail
 
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; BLUE='\033[0;34m'; NC='\033[0m'
@@ -26,68 +26,112 @@ assert_commit_pattern() {
 
 test_init_founder() {
   log_section "Test 01: Init — Founder"
-  assert_dir_exists ".phoenix"
-  assert_dir_exists ".phoenix/design"
-  assert_file_exists ".phoenix/COLLABORATORS.md"
-  assert_file_exists ".phoenix/THESIS.md"
-  assert_file_exists ".phoenix/RULES.md"
-  assert_file_exists ".phoenix/SIGNALS.md"
-  assert_file_exists ".phoenix/INDEX.md"
-  assert_git_config_set "phoenix.member-code"
-  assert_git_config_set "phoenix.main-branch"
-  assert_commit_pattern "\[PhoenixTeam\]"
-  assert_file_contains ".phoenix/COLLABORATORS.md" "Main Branch"
+  assert_dir_exists ".spec"
+  assert_dir_exists ".spec/design"
+  assert_file_exists ".spec/COLLABORATORS.md"
+  assert_file_exists ".spec/THESIS.md"
+  assert_file_exists ".spec/RULES.md"
+  assert_file_exists ".spec/SIGNALS.md"
+  assert_file_exists ".spec/INDEX.md"
+  assert_git_config_set "spec.member-code"
+  assert_git_config_set "spec.main-branch"
+  assert_commit_pattern "\[SpecTeam\]"
+  assert_file_contains ".spec/COLLABORATORS.md" "Main Branch"
 }
 
 test_init_join() {
   log_section "Test 02: Init — Join"
-  local n; n=$(find .phoenix/design -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l)
+  local n; n=$(find .spec/design -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l)
   [ "$n" -ge 2 ] && log_pass "Collaborators: $n" || log_skip "Only $n collaborator(s)"
 }
 
 test_update_new() {
   log_section "Test 03: Update — New File"
-  local mc; mc=$(git config phoenix.member-code 2>/dev/null || echo "")
+  local mc; mc=$(git config spec.member-code 2>/dev/null || echo "")
   [ -z "$mc" ] && { log_skip "No identity"; return; }
-  local d=".phoenix/design/$mc"
+  local d=".spec/design/$mc"
   [ -d "$d" ] && { local c; c=$(find "$d" -name "*.md" | wc -l); [ "$c" -gt 0 ] && log_pass "$c file(s) in $d" || log_fail "Empty: $d"; } || log_fail "Missing: $d"
-  assert_file_exists ".phoenix/last-sync.json"
+  assert_file_exists ".spec/last-sync.json"
 }
 
 test_review_conflict() {
   log_section "Test 05: Review — Conflict"
-  [ ! -f ".phoenix/DIVERGENCES.md" ] && { log_skip "No DIVERGENCES.md"; return; }
-  assert_file_contains ".phoenix/DIVERGENCES.md" "D-001"
-  assert_file_exists ".phoenix/last-review.json"
+  [ ! -f ".spec/DIVERGENCES.md" ] && { log_skip "No DIVERGENCES.md"; return; }
+  assert_file_contains ".spec/DIVERGENCES.md" "D-001"
+  assert_file_exists ".spec/last-review.json"
 }
 
 test_align_propose() {
   log_section "Test 06: Align — Propose"
-  [ ! -f ".phoenix/DIVERGENCES.md" ] && { log_skip "No DIVERGENCES.md"; return; }
-  grep -q "proposed" ".phoenix/DIVERGENCES.md" 2>/dev/null && { log_pass "Proposed found"; assert_file_contains ".phoenix/DIVERGENCES.md" "Proposer"; } || log_skip "No proposed divergences"
+  [ ! -f ".spec/DIVERGENCES.md" ] && { log_skip "No DIVERGENCES.md"; return; }
+  grep -q "proposed" ".spec/DIVERGENCES.md" 2>/dev/null && { log_pass "Proposed found"; assert_file_contains ".spec/DIVERGENCES.md" "Proposer"; } || log_skip "No proposed divergences"
 }
 
 test_align_approve() {
-  log_section "Test 07: Align — Approve"
-  [ ! -f ".phoenix/DIVERGENCES.md" ] && { log_skip "No DIVERGENCES.md"; return; }
-  if grep -q "resolved" ".phoenix/DIVERGENCES.md" 2>/dev/null; then
-    log_pass "Resolved found"; assert_dir_exists ".phoenix/decisions"
-    local dc; dc=$(find .phoenix/decisions -name "D-*.md" 2>/dev/null | wc -l)
+  log_section "Test 07: Align — Approve Proposal"
+  [ ! -f ".spec/DIVERGENCES.md" ] && { log_skip "No DIVERGENCES.md"; return; }
+  if grep -q "proposed" ".spec/DIVERGENCES.md" 2>/dev/null; then
+    log_pass "Proposed divergence found"
+    assert_file_contains ".spec/DIVERGENCES.md" "Votes"
+    assert_file_contains ".spec/DIVERGENCES.md" "approve"
+    [ ! -d ".spec/decisions" ] && log_pass "No decision files before Lead finalization" || log_fail "Decision files exist before Lead finalization"
+  else
+    log_skip "No proposed divergences"
+  fi
+}
+
+test_align_finalize() {
+  log_section "Test 11: Align — Lead Finalize"
+  [ ! -f ".spec/DIVERGENCES.md" ] && { log_skip "No DIVERGENCES.md"; return; }
+  if grep -q "resolved" ".spec/DIVERGENCES.md" 2>/dev/null; then
+    log_pass "Resolved divergence found"; assert_dir_exists ".spec/decisions"
+    local dc; dc=$(find .spec/decisions -name "D-*.md" 2>/dev/null | wc -l)
     [ "$dc" -gt 0 ] && log_pass "Decision files: $dc" || log_fail "No decision files"
-    assert_file_contains ".phoenix/THESIS.md" "Decision Log"
-  else log_skip "No resolved divergences"; fi
+    assert_file_contains ".spec/THESIS.md" "Decision Log"
+  else
+    log_skip "No resolved divergences"
+  fi
 }
 
 test_status() {
   log_section "Test 10: Status — Dashboard inputs"
-  assert_file_exists ".phoenix/COLLABORATORS.md"
-  assert_file_exists ".phoenix/INDEX.md"
+  assert_file_exists ".spec/COLLABORATORS.md"
+  assert_file_exists ".spec/INDEX.md"
 }
 
 test_push_drift() {
   log_section "Test 09: Push — Drift"
-  [ ! -f ".phoenix/last-sync.json" ] && { log_skip "No last-sync.json"; return; }
-  python3 -c "import json; json.load(open('.phoenix/last-sync.json'))" 2>/dev/null && log_pass "Valid JSON" || log_fail "Invalid JSON"
+  [ ! -f ".spec/last-sync.json" ] && { log_skip "No last-sync.json"; return; }
+  python3 -c "import json; json.load(open('.spec/last-sync.json'))" 2>/dev/null && log_pass "Valid JSON" || log_fail "Invalid JSON"
+}
+
+test_divergence_fixtures() {
+  log_section "Test 12: Divergence Fixture Structure"
+  node tests/validate-divergences.js tests/fixtures/divergences-proposed.md proposed >/dev/null 2>&1 \
+    && log_pass "Proposed divergence fixture validated" \
+    || log_fail "Proposed divergence fixture invalid"
+  node tests/validate-divergences.js tests/fixtures/divergences-resolved.md resolved >/dev/null 2>&1 \
+    && log_pass "Resolved divergence fixture validated" \
+    || log_fail "Resolved divergence fixture invalid"
+}
+
+test_transcript_fixtures() {
+  log_section "Test 13: Transcript Marker Fixtures"
+  node tests/validate-divergences.js transcript 01-init-founder tests/transcripts/fixtures/01-init-founder.txt >/dev/null 2>&1 \
+    && log_pass "Init founder transcript fixture validated" \
+    || log_fail "Init founder transcript fixture invalid"
+  node tests/validate-divergences.js transcript 05-review-conflict tests/transcripts/fixtures/05-review-conflict.txt >/dev/null 2>&1 \
+    && log_pass "Review conflict transcript fixture validated" \
+    || log_fail "Review conflict transcript fixture invalid"
+  node tests/validate-divergences.js transcript 06-align-propose tests/transcripts/fixtures/06-align-propose.txt >/dev/null 2>&1 \
+    && log_pass "Align propose transcript fixture validated" \
+    || log_fail "Align propose transcript fixture invalid"
+  node tests/validate-divergences.js transcript 07-align-approve tests/transcripts/fixtures/07-align-approve.txt >/dev/null 2>&1 \
+    && log_pass "Align approve transcript fixture validated" \
+    || log_fail "Align approve transcript fixture invalid"
+  node tests/validate-divergences.js transcript 11-align-finalize tests/transcripts/fixtures/11-align-finalize.txt >/dev/null 2>&1 \
+    && log_pass "Align finalize transcript fixture validated" \
+    || log_fail "Align finalize transcript fixture invalid"
 }
 
 setup_mock() {
@@ -99,7 +143,7 @@ setup_mock() {
   cp "$RR/tests/mock-scenarios/demo-1-conflict/alice/"*.md design-alice/
   cp "$RR/tests/mock-scenarios/demo-1-conflict/bob/"*.md design-bob/
   git add . && git commit -m "add mock docs"
-  echo -e "\n  ${YELLOW}Next: cd $WD && run /phoenix-init${NC}"
+  echo -e "\n  ${YELLOW}Next: cd $WD && run /spec-init${NC}"
 }
 
 print_summary() {
@@ -110,10 +154,10 @@ print_summary() {
 }
 
 main() {
-  echo -e "${BLUE}PhoenixTeam E2E Test Runner v1.0${NC}\n"
+  echo -e "${BLUE}SpecTeam Workflow E2E Test Runner v1.0${NC}\n"
   case "${1:---assert-only}" in
     --setup) setup_mock; exit 0 ;;
-    --assert-only) [ ! -d ".phoenix" ] && { echo -e "${RED}No .phoenix/ — use --setup first${NC}"; exit 1; } ;;
+    --assert-only) [ ! -d ".spec" ] && { echo -e "${RED}No .spec/ — use --setup first${NC}"; exit 1; } ;;
     --test) [ -z "${2:-}" ] && { echo "Usage: $0 --test <name>"; exit 1; } ;;
     *) echo "Usage: $0 [--setup|--assert-only|--test <name>]"; exit 1 ;;
   esac
@@ -123,12 +167,15 @@ main() {
       init-founder) test_init_founder ;; init-join) test_init_join ;;
       update-new) test_update_new ;; review-conflict) test_review_conflict ;;
       align-propose) test_align_propose ;; align-approve) test_align_approve ;;
+      align-finalize) test_align_finalize ;;
+      divergence-fixtures) test_divergence_fixtures ;;
+      transcript-fixtures) test_transcript_fixtures ;;
       status) test_status ;; push-drift) test_push_drift ;;
       *) echo "Unknown: $2"; exit 1 ;;
     esac
   else
     test_init_founder; test_init_join; test_update_new; test_review_conflict
-    test_align_propose; test_align_approve; test_status; test_push_drift
+    test_align_propose; test_align_approve; test_align_finalize; test_status; test_push_drift; test_divergence_fixtures; test_transcript_fixtures
   fi
   print_summary
 }

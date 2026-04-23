@@ -1,25 +1,28 @@
-# PhoenixTeam VS Code Extension
+# SpecTeam VS Code Extension
 
-> **Zero-logic visual dashboard for the PhoenixTeam AI Collaboration Protocol**
+> **Visual divergence dashboard for SpecTeam**
 
-PhoenixTeam is a pure-prompt, zero-code collaboration framework for AI teams. This extension provides a stunning visual dashboard inside your IDE side-panel to instantly grasp the team's divergence state without needing to read markdown or ask an LLM.
+SpecTeam is a Git-native workflow for AI-native spec review and decision alignment.
+
+SpecTeam is focused on AI-native spec review and decision alignment. This extension gives product and engineering teams a fast visual view of divergence state inside VS Code, so they can see what is still open, what is awaiting confirmation, and what has already been resolved without reading raw markdown first.
 
 ## Features
 
-- **Sidebar Dashboard**: Registers a new icon in the VS Code Activity Bar.
-- **Real-time Status Tracking**: Instantly parses your local `.phoenix/DIVERGENCES.md` and displays:
+- **Sidebar Dashboard**: Registers a SpecTeam icon in the VS Code Activity Bar.
+- **Divergence Visibility**: Reads your local `.spec/DIVERGENCES.md` and displays:
   - 🔴 **Open** divergences (needs resolution)
   - 🟡 **Proposed** divergences (awaiting confirmation)
   - ✅ **Resolved** decisions (archived audit trail)
-- **Zero Business Logic**: True to the PhoenixTeam philosophy, this IDE extension *only renders UI*. All the heavy lifting of conflict detection, decision logging, and document parsing remains entirely prompt-driven in your AI assistant (e.g. Claude Code).
+- **Action Hand-off**: Lets you trigger the `spec-align` flow directly from resolvable items.
+- **Zero Business Logic**: True to the SpecTeam approach, the extension only renders UI and hands actions back to the prompt-driven workflow.
 
 ## How it works
 
-Whenever you run `/phoenix-pull` or `/phoenix-review` via your AI assistant, the `DIVERGENCES.md` file is automatically updated. Simply click the "Refresh" button in this extension to see the newest state of your team's collaboration.
+Whenever you run `/spec-review`, `/spec-pull`, or a related workflow via your AI assistant, `.spec/DIVERGENCES.md` is updated. This extension refreshes that shared state into a side-panel view so a human can inspect what still needs review and where a decision is waiting to be aligned.
 
 ## Getting Started
 
-1. Ensure your project is initialized with PhoenixTeam (contains a `.phoenix/` folder).
+1. Ensure your project is initialized with SpecTeam (contains a `.spec/` folder).
 2. Install this extension.
-3. Click the PhoenixTeam (Branch) icon in the VS Code Activity Bar.
-4. Enjoy a clear visual representation of your team's alignment!
+3. Click the SpecTeam (Branch) icon in the VS Code Activity Bar.
+4. Review divergence status and hand off resolution into the existing `spec-*` workflow.

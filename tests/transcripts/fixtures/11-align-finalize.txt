@@ -1,0 +1,10 @@
+⏳ D-001: API Direction — You are the Proposer (Lead).
+Current Votes:
+- alice: propose
+- bob: approve
+
+## Source Document Action Items — D-001: API Direction
+- Update bob's proposal to align with the shared REST-first decision.
+
+## Alignment Summary
+- D-001 finalized and resolved.

@@ -1,15 +1,16 @@
-# PhoenixTeam Plugin — Shared Context
+# SpecTeam Workflow — Shared Context
 
-You are operating as part of the PhoenixTeam Plugin, a distributed AI team document collaboration system.
-All PhoenixTeam skills share these core principles. Follow them strictly.
+You are operating as part of the SpecTeam workflow.
+SpecTeam is used consistently as the product name, protocol name, and command surface.
+All SpecTeam skills share these core principles. Follow them strictly.
 
 ## Configuration
 
-- **Config file**: If `.phoenix/config.json` exists, read it at skill startup. Schema:
+- **Config file**: If `.spec/config.json` exists, read it at skill startup. Schema:
   ```json
   {
     "locale": "en",
-    "phoenix_dir": ".phoenix",
+    "spec_dir": ".spec",
     "output_format": "structured"
   }
   ```
@@ -31,40 +32,40 @@ All PhoenixTeam skills share these core principles. Follow them strictly.
 
 ## Core Principles
 
-- **Single source of truth**: Only maintain standardized Phoenix documents under `.phoenix/` (THESIS.md, RULES.md, SIGNALS.md, INDEX.md, etc.).
-- **User source documents are READ-ONLY** — never modify files outside `.phoenix/`.
+- **Single source of truth**: Only maintain standardized Spec documents under `.spec/` (THESIS.md, RULES.md, SIGNALS.md, INDEX.md, etc.).
+- **User source documents are READ-ONLY** — never modify files outside `.spec/`.
 - **Git is the only change tracking system**: Use native `git diff`, `git log` for minimal-cost version tracking (line-level precision, zero extra overhead).
-- **Collaborator identity & directory mapping**: Each collaborator has a "member code" and a corresponding directory under `.phoenix/design/{code}/`. Record in `.phoenix/COLLABORATORS.md`.
-- **Identity awareness**: The current user's member code is stored **locally** in git config (`git config phoenix.member-code`). Run this command at the start of every skill to determine "who am I". `.phoenix/COLLABORATORS.md` is a **shared registry** of all collaborators — never derive current identity from it.
-- **Identity guard**: If `git config phoenix.member-code` returns empty, **stop immediately** and output the identity-not-bound error (see platform-specific context file for exact message format). Do not proceed with the skill.
+- **Collaborator identity & directory mapping**: Each collaborator has a "member code" and a corresponding directory under `.spec/design/{code}/`. Record in `.spec/COLLABORATORS.md`.
+- **Identity awareness**: The current user's member code is stored **locally** in git config (`git config spec.member-code`). Run this command at the start of every skill to determine "who am I". `.spec/COLLABORATORS.md` is a **shared registry** of all collaborators — never derive current identity from it.
+- **Identity guard**: If `git config spec.member-code` returns empty, **stop immediately** and output the identity-not-bound error (see platform-specific context file for exact message format). Do not proceed with the skill.
 - **Pre-flight checks**: Run `git status` before all operations and display the result.
-- **Divergence registry**: `DIVERGENCES.md` is the registry for divergence status and summaries. Each has a stable ID (D-001, D-002…). Written by review, read by align/push/status. Never delete resolved entries. Full decision details (per-party instruction blocks, acceptance criteria) live in `.phoenix/decisions/D-{N}.md`, created by align on resolution.
+- **Divergence registry**: `DIVERGENCES.md` is the registry for divergence status and summaries. Each has a stable ID (D-001, D-002…). Written by review, read by align/push/status. Never delete resolved entries. Full decision details (per-party instruction blocks, acceptance criteria) live in `.spec/decisions/D-{N}.md`, created by align on resolution.
 - **Two-phase divergence resolution (Propose → Approve)**: `align` on an `open` divergence creates a `proposed` resolution — THESIS.md is NOT updated yet. The other party must `align` the same divergence to approve/reject. THESIS.md Decision Log is only updated after approval.
-- **Diff gate on push**: Run `git diff -- .phoenix/` before every push and show the summary. Also check DIVERGENCES.md for open/proposed items and warn accordingly.
-- **Directory depth limit**: `.phoenix/design/` sub-structure is at most 2 levels deep.
-- **Two repo modes** (set during init): Mode A (dedicated branch `phoenix-docs`, default) or Mode B (git submodule).
-- **Branch guard** (enforced on every skill except `phoenix-init`): After the identity guard, run `git branch --show-current` → `{current_branch}`, then run `git config phoenix.main-branch` → `{main_branch}`. Handle the result as follows:
+- **Diff gate on push**: Run `git diff -- .spec/` before every push and show the summary. Also check DIVERGENCES.md for open/proposed items and warn accordingly.
+- **Directory depth limit**: `.spec/design/` sub-structure is at most 2 levels deep.
+- **Two repo modes** (set during init): Mode A (dedicated branch `spec-docs`, default) or Mode B (git submodule).
+- **Branch guard** (enforced on every skill except `spec-init`): After the identity guard, run `git branch --show-current` → `{current_branch}`, then run `git config spec.main-branch` → `{main_branch}`. Handle the result as follows:
   - **`{main_branch}` is set and matches `{current_branch}`** → pass, proceed normally.
   - **`{main_branch}` is set and differs from `{current_branch}`** → stop immediately and output:
     ```
-    ❌ Current branch '{current_branch}' is not the PhoenixTeam main branch '{main_branch}'.
-    PhoenixTeam operations must run on the main branch to prevent .phoenix/ state divergence.
+    ❌ Current branch '{current_branch}' is not the SpecTeam main branch '{main_branch}'.
+    SpecTeam operations must run on the main branch to prevent .spec/ state divergence.
     Please switch to the main branch before running: git checkout {main_branch}
     ```
-  - **`{main_branch}` is empty AND `.phoenix/` does NOT exist** → first-time init, skip the check and proceed (init will establish the binding).
-  - **`{main_branch}` is empty AND `.phoenix/` EXISTS** → user cloned the repo but never ran `phoenix-init`. Auto-recover:
-    1. Read `Main Branch` field from `.phoenix/COLLABORATORS.md`.
-    2. If found → run `git config --local phoenix.main-branch {main_branch}` silently, then output:
+  - **`{main_branch}` is empty AND `.spec/` does NOT exist** → first-time init, skip the check and proceed (init will establish the binding).
+  - **`{main_branch}` is empty AND `.spec/` EXISTS** → user cloned the repo but never ran `spec-init`. Auto-recover:
+    1. Read `Main Branch` field from `.spec/COLLABORATORS.md`.
+    2. If found → run `git config --local spec.main-branch {main_branch}` silently, then output:
        ```
        ℹ️ Automatically bound to main branch: {main_branch} (read from COLLABORATORS.md)
        ```
        Then apply the branch check with the recovered value (block if current branch differs).
     3. If `COLLABORATORS.md` has no `Main Branch` field → output the init-required error (see platform-specific context file). Stop. Do not proceed.
 
-## .phoenix/ Directory Layout
+## .spec/ Directory Layout
 
 ```
-.phoenix/
+.spec/
 ├── config.json         # Optional: locale, output format settings
 ├── COLLABORATORS.md    # Identity map: member codes, roles → doc directories
 ├── THESIS.md           # Project design constitution (North Star)

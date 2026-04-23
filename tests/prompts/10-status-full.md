@@ -4,14 +4,14 @@
 Run status to get a comprehensive dashboard of the workspace state, including divergence status with approval context, consistency score, and recent activity.
 
 ## Prerequisites
-- PhoenixTeam initialized with at least 2 members
+- SpecTeam workflow initialized with at least 2 members
 - At least one divergence exists (any state: open, proposed, or resolved)
-- At least 3 commits exist in `.phoenix/` history
+- At least 3 commits exist in `.spec/` history
 - SIGNALS.md has at least one entry
 
 ## Test Prompt
 ```
-/phoenix-status
+/spec-status
 ```
 
 ## Verification Checklist
@@ -42,7 +42,7 @@ Run status to get a comprehensive dashboard of the workspace state, including di
 - [ ] If no actionable items → shows "✅ No pending divergences"
 
 ### Recent Diffs
-- [ ] Last 3 commits from `.phoenix/` shown
+- [ ] Last 3 commits from `.spec/` shown
 - [ ] Each commit attributed to the correct collaborator
 - [ ] Changes summarized by member code
 

@@ -1,11 +1,11 @@
 # Test 04: Update — Deleted File Cleanup
 
 ## Scenario
-A collaborator deletes a design document from their source directory, then runs update. The corresponding file in `.phoenix/design/` should be removed.
+A collaborator deletes a design document from their source directory, then runs update. The corresponding file in `.spec/design/` should be removed.
 
 ## Prerequisites
-- PhoenixTeam initialized with member code `alice`
-- `.phoenix/design/alice/old-draft.md` exists (was synced in a previous update)
+- SpecTeam workflow initialized with member code `alice`
+- `.spec/design/alice/old-draft.md` exists (was synced in a previous update)
 - `./design/old-draft.md` has been DELETED from the source directory
 
 ## Setup Steps
@@ -16,7 +16,7 @@ rm ./design/old-draft.md
 
 ## Test Prompt
 ```
-/phoenix-update
+/spec-update
 ```
 
 ## Verification Checklist
@@ -26,11 +26,11 @@ rm ./design/old-draft.md
 - [ ] `./design/old-draft.md` listed with `-` (deleted) marker
 
 ### Sync Execution
-- [ ] `.phoenix/design/alice/old-draft.md` removed from workspace
-- [ ] File is NOT moved to `.phoenix/archive/` (deletion tracked by git diff, not archived)
+- [ ] `.spec/design/alice/old-draft.md` removed from workspace
+- [ ] File is NOT moved to `.spec/archive/` (deletion tracked by git diff, not archived)
 
 ### State Files
-- [ ] `.phoenix/last-sync.json` no longer contains entry for `old-draft.md`
+- [ ] `.spec/last-sync.json` no longer contains entry for `old-draft.md`
 - [ ] Other file entries in `last-sync.json` preserved
 
 ### INDEX.md

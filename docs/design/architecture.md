@@ -1,8 +1,8 @@
-# PhoenixTeam 技术架构设计
+# SpecTeam 技术架构设计
 
 ## North Star
 
-让每一个 Agent，都在同一页上。PhoenixTeam 是分布式 AI 团队的上下文一致性基础设施。
+让每一个 Agent，都在同一页上。SpecTeam 是分布式 AI 团队的上下文一致性基础设施。
 
 ## 三层架构
 

@@ -4,9 +4,9 @@
 Two collaborators have contradictory design proposals. Running review should detect the divergence and generate a structured report in DIVERGENCES.md.
 
 ## Prerequisites
-- PhoenixTeam initialized with two members: `alice` and `bob`
-- `alice` proposes REST API (`.phoenix/design/alice/api-design.md`)
-- `bob` proposes GraphQL API (`.phoenix/design/bob/api-design.md`)
+- SpecTeam workflow initialized with two members: `alice` and `bob`
+- `alice` proposes REST API (`.spec/design/alice/api-design.md`)
+- `bob` proposes GraphQL API (`.spec/design/bob/api-design.md`)
 - THESIS.md has a relevant North Star goal
 - No existing DIVERGENCES.md (first review)
 
@@ -15,8 +15,26 @@ Use `tests/mock-scenarios/demo-1-conflict/` — copy alice and bob folders to so
 
 ## Test Prompt
 ```
-/phoenix-review
+/spec-review
 ```
+
+## Golden Dialogue Checkpoints
+
+### Checkpoint 1 — Review report identifies the conflict
+- Output explicitly references at least one divergence id such as `D-001`
+- alice and bob are both present in the review scope
+
+### Checkpoint 2 — Structured report sections
+```text
+Consensus areas
+Gap areas
+Recommended handling priority
+```
+
+### Checkpoint 3 — Divergence metadata in output
+- Nature is described as a technology choice
+- Priority is visible
+- Positions include doc-path-based evidence or summaries grounded in each collaborator's document
 
 ## Verification Checklist
 
@@ -38,7 +56,7 @@ Use `tests/mock-scenarios/demo-1-conflict/` — copy alice and bob folders to so
 - [ ] Assessment is specific (aligned / diverged / unrelated) with reasoning
 
 ### DIVERGENCES.md
-- [ ] File created at `.phoenix/DIVERGENCES.md`
+- [ ] File created at `.spec/DIVERGENCES.md`
 - [ ] Contains `## Open` section with D-001
 - [ ] Status marked as `open` 🔴
 - [ ] `Found at` field includes commit hash and date
@@ -50,10 +68,10 @@ Use `tests/mock-scenarios/demo-1-conflict/` — copy alice and bob folders to so
 - [ ] "Recommended handling priority" section present
 
 ### State Files
-- [ ] `.phoenix/last-review.json` created with:
+- [ ] `.spec/last-review.json` created with:
   - `reviewed_at` timestamp
   - `head_commit` hash
   - Per-collaborator commit hashes
 
 ### Commit
-- [ ] Commit message: `[PhoenixTeam] review — 1 new divergences, 0 known divergences`
+- [ ] Commit message: `[SpecTeam] review — 1 new divergences, 0 known divergences`

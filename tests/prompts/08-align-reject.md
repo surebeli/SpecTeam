@@ -4,13 +4,13 @@
 The approving party rejects a proposed resolution. The divergence should revert to `open` status with rejection history recorded.
 
 ## Prerequisites
-- PhoenixTeam with two members: `alice` and `bob`
+- SpecTeam workflow with two members: `alice` and `bob`
 - D-002 in `proposed` 🟡 state, proposed by `alice`, awaiting `bob`
 - Current identity: `bob`
 
 ## Test Prompt
 ```
-/phoenix-align D-002
+/spec-align D-002
 ```
 
 ## Expected Interactions
@@ -32,10 +32,10 @@ The approving party rejects a proposed resolution. The divergence should revert 
 - [ ] ⚠️ THESIS.md was NOT updated (rejected proposals don't affect THESIS)
 
 ### No Decision File
-- [ ] `.phoenix/decisions/D-002.md` was NOT created (only created on approval)
+- [ ] `.spec/decisions/D-002.md` was NOT created (only created on approval)
 
 ### Commit
-- [ ] Message: `[PhoenixTeam] align — D-002: {title} proposal rejected by bob`
+- [ ] Message: `[SpecTeam] align — D-002: {title} proposal rejected by bob`
 
 ### Output
 - [ ] Clear rejection confirmation

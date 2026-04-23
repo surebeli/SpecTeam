@@ -1,7 +1,7 @@
 ---
 name: phoenix-suggest
-short-description: "AI-driven collaboration suggestions"
-description: "Generate 3 prioritized collaboration suggestions based on recent git diffs, THESIS alignment, divergence state (DIVERGENCES.md), and cross-collaborator document analysis. Divergence-aware: prioritizes open/proposed divergences in suggestions."
+short-description: "AI-driven workflow suggestions"
+description: "Generate 3 prioritized workflow suggestions based on recent git diffs, THESIS alignment, divergence state (DIVERGENCES.md), and cross-collaborator document analysis. Divergence-aware: prioritizes open/proposed divergences in suggestions."
 user-invocable: true
 argument-hint: "[specific question or topic]"
 triggers: []
@@ -16,7 +16,7 @@ estimated-tokens:
 
 # Skill: suggest (Diff-based, Divergence-aware)
 
-Provide intelligent collaboration suggestions grounded in real changes and divergence state.
+Provide intelligent workflow suggestions grounded in real changes and divergence state.
 
 ## Parameters
 
@@ -40,7 +40,7 @@ Provide intelligent collaboration suggestions grounded in real changes and diver
 
 ### Step 4 — Divergence-aware suggestion generation
 
-Generate **3 collaboration suggestions** (priority ordered).
+Generate **3 workflow suggestions** (priority ordered).
 
 **Priority rules** — divergence state takes precedence over diff-only insights:
 

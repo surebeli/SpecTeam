@@ -4,21 +4,21 @@
 A collaborator modifies their source documents but runs push WITHOUT running update first. The push skill should detect the drift and warn.
 
 ## Prerequisites
-- PhoenixTeam initialized with member code `alice`
-- `.phoenix/last-sync.json` exists with recorded file hashes
+- SpecTeam workflow initialized with member code `alice`
+- `.spec/last-sync.json` exists with recorded file hashes
 - Source file `./design/spec.md` has been modified AFTER the last sync
-- At least one `.phoenix/` change exists to push
+- At least one `.spec/` change exists to push
 
 ## Setup Steps
 ```bash
 # Modify a source file without running update
 echo "\n## Added Section\nNew content here." >> ./design/spec.md
-# Make a minor .phoenix/ change (e.g., manually touch a file)
+# Make a minor .spec/ change (e.g., manually touch a file)
 ```
 
 ## Test Prompt
 ```
-/phoenix-push
+/spec-push
 ```
 
 ## Verification Checklist
@@ -26,17 +26,17 @@ echo "\n## Added Section\nNew content here." >> ./design/spec.md
 ### Source Drift Detection (Step 2)
 - [ ] Output shows: `⚠️ Source drift detected: 1 source file(s) changed but not synced`
 - [ ] `./design/spec.md` listed as modified
-- [ ] Recommendation to run `/phoenix-update` shown
+- [ ] Recommendation to run `/spec-update` shown
 - [ ] AI stops and asks: `Continue pushing anyway? (yes / sync first)`
 
 ### User Choice: "sync first"
-- [ ] If user replies "sync first" → AI stops and suggests `/phoenix-update`
+- [ ] If user replies "sync first" → AI stops and suggests `/spec-update`
 - [ ] Push does NOT proceed
 
 ### User Choice: "yes" (continue anyway)
 - [ ] Diff review proceeds normally
 - [ ] Push completes with drift warning noted in output
-- [ ] `.phoenix/` changes are pushed
+- [ ] `.spec/` changes are pushed
 - [ ] Source drift is NOT resolved (still drifted after push)
 
 ### Divergence Gate (Step 3)

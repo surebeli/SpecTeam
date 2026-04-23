@@ -1,29 +1,47 @@
-# PhoenixTeam
+# SpecTeam
 
-分布式 AI 团队文档协作插件 — 纯 Prompt，零代码，即装即用。
+SpecTeam 让 specs、decisions 和 AI agents 保持对齐。
 
 > English docs: [README.md](./README.md)
 
 ## 概述
 
-PhoenixTeam 将协作实现为纯 Prompt Skill，让 AI 编码工具（Claude Code、Codex CLI）充当 "协作插件"，在多人 AI 团队中管理设计文档。所有操作通过自然语言命令触发 — AI 自动调用 Git、读写文件和解析文档。无需编写代码。
+SpecTeam 是一套 Git-native 的规格评审与决策对齐工作流。
+
+SpecTeam 是当前面向市场的产品楔子：面向同时使用多个 AI 工具的产品与工程团队，提供 AI-native spec review 和 decision alignment。它帮助团队发现 PRD、架构文档和 AI 生成方案之间的分歧，更快形成决策，并把结果同步回共享事实来源。
+
+现在仓库、prompt skills、命令和对外叙事统一使用 `SpecTeam` 命名，不再保留过渡期兼容说法。
+
+## 产品文档
+
+- [技术架构](./docs/design/architecture.md)
+- [品牌重构方案](./docs/design/brand-strategy.zh-CN.md)
+- [产品需求](./docs/design/product-requirements.zh-CN.md)
+- [PMF 验证循环](./docs/design/pmf-loop.zh-CN.md)
+- [Design Partner Playbook](./docs/design/design-partner-playbook.zh-CN.md)
+- [Design Partner Templates](./docs/design/design-partner-templates.zh-CN.md)
+- [Messaging Kit](./docs/design/messaging-kit.zh-CN.md)
+- [Demo Script](./docs/design/demo-script.zh-CN.md)
+- [推广方案](./docs/design/go-to-market.zh-CN.md)
+- [依赖式 Roadmap](./docs/design/roadmap.zh-CN.md)
+- [基础执行计划](./docs/design/execution-plan.zh-CN.md)
 
 ## 安装
 
 ### Claude Code — `.claude/commands/` (推荐)
 
 ```bash
-git clone https://github.com/surebeli/PhoenixTeam.git /tmp/phoenix-team
+git clone https://github.com/surebeli/SpecTeam.git /tmp/spec-team
 
 # 安装到当前项目
 mkdir -p .claude/commands
-for skill in /tmp/phoenix-team/plugin/skills/*/SKILL.md; do
+for skill in /tmp/spec-team/plugin/skills/*/SKILL.md; do
   cp "$skill" ".claude/commands/$(basename $(dirname $skill)).md"
 done
 
 # 或全局安装（适用于所有项目）
 mkdir -p ~/.claude/commands
-for skill in /tmp/phoenix-team/plugin/skills/*/SKILL.md; do
+for skill in /tmp/spec-team/plugin/skills/*/SKILL.md; do
   cp "$skill" ~/.claude/commands/$(basename $(dirname $skill)).md
 done
 ```
@@ -31,44 +49,44 @@ done
 ### Claude Code — `/plugin` 市场
 
 ```bash
-/plugin marketplace add surebeli/PhoenixTeam
-/plugin install p-team@PhoenixTeam
+/plugin marketplace add surebeli/SpecTeam
+/plugin install spec-team@SpecTeam
 ```
 
 ### Codex CLI
 
 ```bash
-git clone https://github.com/surebeli/PhoenixTeam.git ~/.codex/skills/phoenix-team
+git clone https://github.com/surebeli/SpecTeam.git ~/.codex/skills/spec-team
 ```
 
 ### 任意 AI 工具 — 独立 Prompt 模式
 
-将 `PHOENIXTEAM.md` 复制到项目根目录，然后告诉你的 AI 工具：
+将 `SPECTEAM.md` 复制到项目根目录，然后告诉你的 AI 工具：
 
 ```
-You are now the PhoenixTeam Plugin. Follow all rules in ./PHOENIXTEAM.md strictly.
+You are now the SpecTeam Workflow. Follow all rules in ./SPECTEAM.md strictly.
 Skill: init
 ```
 
 ## 快速上手
 
 ### 1 分钟 Demo（本地运行）
-我们提供了一个模拟场景，让你在 1 分钟内体验 PhoenixTeam 的冲突发现与解决工作流。
+我们提供了一个模拟场景，让你在 1 分钟内体验 SpecTeam 的冲突发现与解决工作流。
 
 ```bash
 # 1. 克隆仓库并安装 skills（参考上方安装指南）
-git clone https://github.com/surebeli/PhoenixTeam.git
-cd PhoenixTeam
+git clone https://github.com/surebeli/SpecTeam.git
+cd SpecTeam
 
 # 2. 初始化并指定模拟数据目录
 # 当被询问 document directories 时，输入：./tests/mock-scenarios/demo-1-conflict/alice, ./tests/mock-scenarios/demo-1-conflict/bob
-/phoenix-init
+/spec-init
 
 # 3. 自动检测 alice (REST) 与 bob (GraphQL) 的设计分歧
-/phoenix-review
+/spec-review
 
 # 4. 解决检测到的冲突 (例如 D-001)
-/phoenix-align D-001
+/spec-align D-001
 ```
 
 ### 核心工作流
@@ -76,8 +94,8 @@ cd PhoenixTeam
 ```
                         ┌─────────────────────────────────┐
                         │       首次使用（一次性）        │
-                        │       /phoenix-init             │
-                        │  创建 .phoenix/、绑定身份       │
+                        │       /spec-init             │
+                        │  创建 .spec/、绑定身份       │
                         │  写入 THESIS、归一化文档        │
                         └──────────────┬──────────────────┘
                                        │
@@ -85,7 +103,7 @@ cd PhoenixTeam
                   │           日常协作循环                 │
                   │                                        │
    ┌──────────────▼───────────────┐                       │
-   │ /phoenix-pull               │                       │
+   │ /spec-pull               │                       │
    │ 拉取远端 + 自动 parse        │                       │
    └──────────────┬───────────────┘                       │
                   │                                       │
@@ -95,8 +113,8 @@ cd PhoenixTeam
    └──────────────┬───────────────┘                       │
                   │                                       │
    ┌──────────────▼───────────────┐                       │
-   │ /phoenix-push               │                       │
-   │ 同步至 .phoenix/ + 推送      │                       │
+   │ /spec-push               │                       │
+   │ 同步至 .spec/ + 推送      │                       │
    └──────────────┬───────────────┘                       │
                   │                                       │
                   └───────────────────┬───────────────────┘
@@ -104,9 +122,9 @@ cd PhoenixTeam
               ┌───────────────────────▼───────────────────────┐
               │           冲突解决流程                        │
               │                                               │
-              │ 1. /phoenix-review (发现分歧)                 │
-              │ 2. /phoenix-align (提议/批准决策)             │
-              │ 3. /phoenix-update (验证实施)                 │
+              │ 1. /spec-review (发现分歧)                 │
+              │ 2. /spec-align (提议/批准决策)             │
+              │ 3. /spec-update (验证实施)                 │
               └───────────────────────────────────────────────┘
 ```
 
@@ -114,20 +132,20 @@ cd PhoenixTeam
 
 | 命令 | 说明 |
 |---------|-------------|
-| `/phoenix-init` | 初始化或加入项目 |
-| `/phoenix-whoami` | 检查或绑定本地身份 |
-| `/phoenix-pull` | 拉取远端更改并自动解析 |
-| `/phoenix-update` | 将源文档同步至 `.phoenix/` |
-| `/phoenix-push` | 冲突检测后推送更改至远端 |
-| `/phoenix-review` | 分析所有文档，检查与 THESIS 的分歧 |
-| `/phoenix-align` | 通过 "提议 → 批准" 解决分歧 |
-| `/phoenix-status` | 完整的协作状态仪表盘 |
-| `/phoenix-suggest` | 基于 diff 的 AI 驱动建议 |
-| `/phoenix-diff` | 查看按协作者分组的结构化 diff |
-| `/phoenix-parse` | 扫描文档并更新 `INDEX.md` |
-| `/phoenix-archive` | 冻结并归档设计提案 |
-| `/phoenix-import` | 通过 MCP/HTTP 导入外部文档 |
-| `/phoenix-sos` | 紧急自动解决 `.phoenix/` 目录下的 Git 合并冲突 |
+| `/spec-init` | 初始化或加入项目 |
+| `/spec-whoami` | 检查或绑定本地身份 |
+| `/spec-pull` | 拉取远端更改并自动解析 |
+| `/spec-update` | 将源文档同步至 `.spec/` |
+| `/spec-push` | 冲突检测后推送更改至远端 |
+| `/spec-review` | 分析所有文档，检查与 THESIS 的分歧 |
+| `/spec-align` | 通过 "提议 → 批准" 解决分歧 |
+| `/spec-status` | 完整的协作状态仪表盘 |
+| `/spec-suggest` | 基于 diff 的 AI 驱动建议 |
+| `/spec-diff` | 查看按协作者分组的结构化 diff |
+| `/spec-parse` | 扫描文档并更新 `INDEX.md` |
+| `/spec-archive` | 冻结并归档设计提案 |
+| `/spec-import` | 通过 MCP/HTTP 导入外部文档 |
+| `/spec-sos` | 紧急自动解决 `.spec/` 目录下的 Git 合并冲突 |
 
 ## 技能依赖图
 
@@ -181,35 +199,35 @@ graph LR
 ```
 Alice (Claude Code)                    Bob (Codex CLI)
        │                                     │
- /phoenix-init (创始人)               /phoenix-init (加入)
+ /spec-init (创始人)               /spec-init (加入)
  设定项目目标 → THESIS.md             评审目标 → 加入
        │                                     │
- 编辑 .phoenix/design/alice/          编辑 .phoenix/design/bob/
+ 编辑 .spec/design/alice/          编辑 .spec/design/bob/
        │                                     │
- /phoenix-push ──────→ Git ◄───────── /phoenix-push
+ /spec-push ──────→ Git ◄───────── /spec-push
        │                                     │
- /phoenix-pull                        /phoenix-pull
+ /spec-pull                        /spec-pull
        │                                     │
        └──────────── 发现分歧 ───────────────→
                           │
-                  /phoenix-review
+                  /spec-review
                   分析文档 vs THESIS → 生成 D-001
                   写入 DIVERGENCES.md + 提交锚点
                           │
   ┌───────────────────────┴────────────────────┐
   │                                            │
-  Alice: /phoenix-align D-001                  │
+  Alice: /spec-align D-001                  │
   选择方案 → 已提议 🟡                         │
   ⚠️ THESIS 尚未更新                            │
-  /phoenix-push                                │
+  /spec-push                                │
   │                                            │
-  │                             Bob: /phoenix-pull
+  │                             Bob: /spec-pull
   │                             🟡 "D-001 等待您的确认"
-  │                             Bob: /phoenix-align D-001
+  │                             Bob: /spec-align D-001
   │                             → 同意 → 已解决 ✅
   │                             生成 decisions/D-001.md
   │                             更新 THESIS 决策日志
-  │                             /phoenix-push
+  │                             /spec-push
   │                                            │
   └────────────────────────────────────────────┘
                           │
@@ -224,7 +242,7 @@ Alice (Claude Code)                    Bob (Codex CLI)
        ║ 传给自己的模型 →                 传给自己的模型 →           ║
        ║ 模型修改源文档                   模型修改源文档             ║
        ║      │                               │                    ║
-       ║ /phoenix-update                  /phoenix-update            ║
+       ║ /spec-update                  /spec-update            ║
        ║ AI 验证验收标准                  AI 验证验收标准            ║
        ║ → 通过                           → 通过                    ║
        ║      │                               │                    ║
@@ -233,7 +251,7 @@ Alice (Claude Code)                    Bob (Codex CLI)
        ║              D-001 已完全关闭 🔒                            ║
        ╚══════════════════╤══════════════════════════════════════════╝
                           │
-              /phoenix-push (无待处理分歧，直接推送)
+              /spec-push (无待处理分歧，直接推送)
 ```
 
 ## 分歧处理
@@ -268,7 +286,7 @@ Alice (Claude Code)                    Bob (Codex CLI)
 ### D-003: 数据模型 ✅
 状态: resolved | 提议方: alice | 确认方: bob
 决策: 采用 NoSQL | 解决时间: 2026-04-09
-更改指令: 见 .phoenix/decisions/D-003.md
+更改指令: 见 .spec/decisions/D-003.md
 ```
 
 ### 提议 → 批准 两阶段确认
@@ -284,7 +302,7 @@ Alice (Claude Code)                    Bob (Codex CLI)
 
 ### decisions/ — 决策指令文件
 
-当 `align` 确认解决后，会创建 `.phoenix/decisions/D-{N}.md`，包含：
+当 `align` 确认解决后，会创建 `.spec/decisions/D-{N}.md`，包含：
 - 完整决策 + 理由
 - 各方的更改指令块：修改什么、在哪个文件、以及用于 `update` 自动验证的 **验收标准**
 
@@ -310,54 +328,54 @@ Alice (Claude Code)                    Bob (Codex CLI)
 
 ## 紧急状态与安全机制
 
-### 冲突降级 (`/phoenix-sos`)
+### 冲突降级 (`/spec-sos`)
 
-如果您在执行 `/phoenix-pull` 或 `/phoenix-push` 时遇到了 Git 树级合并冲突（即出现了 `<<<<<<< HEAD` 标记），请不要手动修改 `.phoenix/` 目录下的元数据。直接运行 `/phoenix-sos`，AI 会自动解析并智能合并冲突的分歧记录和 JSON 状态缓存。
+如果您在执行 `/spec-pull` 或 `/spec-push` 时遇到了 Git 树级合并冲突（即出现了 `<<<<<<< HEAD` 标记），请不要手动修改 `.spec/` 目录下的元数据。直接运行 `/spec-sos`，AI 会自动解析并智能合并冲突的分歧记录和 JSON 状态缓存。
 
 ### 试运行 (`--dry-run`)
 
 对于具有破坏性或全局写入属性的指令，您可以附加 `--dry-run` 参数来安全预览 AI 的执行计划，这不会对文件系统造成任何实质更改：
 
 ```bash
-/phoenix-review --dry-run
-/phoenix-align --dry-run D-001
-/phoenix-update --dry-run
+/spec-review --dry-run
+/spec-align --dry-run D-001
+/spec-update --dry-run
 ```
 
 ## 生态与伴生工具
 
-虽然 PhoenixTeam 遵循“Prompt 优先”原则，但我们提供了一些轻量级的伴生工具来增强您的工作流。
+虽然 SpecTeam 遵循“Prompt 优先”原则，但我们提供了一些轻量级的伴生工具来增强您的工作流。
 
-### PhoenixTeam CLI (`cli/`)
+### SpecTeam CLI (`cli/`)
 
 一个不包含业务逻辑的 Node.js CLI，用于辅助安装并提供本地状态面板。
 
-- **`phoenix install`**: 自动将技能拷贝到您的 `.claude/commands` 目录。
-- **`phoenix status`**: 显示 `DIVERGENCES.md` 和仓库状态的可视化汇总（零 Token 消耗）。
-- **`phoenix init`**: 搭建 `.phoenix/` 目录骨架，并引导您执行 AI 的 `/phoenix-init` 提示词。
-- **`phoenix sos`**: 检测 Git 树冲突并提供紧急处理指引。
+- **`spec install`**: 自动将技能拷贝到您的 `.claude/commands` 目录。
+- **`spec status`**: 显示 `DIVERGENCES.md` 和仓库状态的可视化汇总（零 Token 消耗）。
+- **`spec init`**: 搭建 `.spec/` 目录骨架，并引导您执行 AI 的 `/spec-init` 提示词。
+- **`spec sos`**: 检测 Git 树冲突并提供紧急处理指引。
 
 ### VS Code 插件 (`vscode-extension/`)
 
 集成在 IDE 侧边栏的可视化看板。
 
 - **侧边栏看板**: 一目了然地查看所有 `Open 🔴`、`Proposed 🟡` 和 `Resolved ✅` 的分歧。
-- **快速操作**: 点击任何未解决分歧旁边的“播放”图标，即可立即打开终端并在 AI 助手中触发 `/phoenix-align`。
+- **快速操作**: 点击任何未解决分歧旁边的“播放”图标，即可立即打开终端并在 AI 助手中触发 `/spec-align`。
 
 ## 源文档同步
 
 ### 背景
 
-`init` 执行一次性拷贝。如果此后源文档（如 `./design/spec.md`）发生变化，`.phoenix/design/{code}/` 中的副本不会自动更新。
+`init` 执行一次性拷贝。如果此后源文档（如 `./design/spec.md`）发生变化，`.spec/design/{code}/` 中的副本不会自动更新。
 
-### phoenix-update 解决方案
+### spec-update 解决方案
 
 `update` 在 `last-sync.json` 中记录源文件 hash，每次运行时执行增量检测：
 
 ```bash
-/phoenix-update           # 检测并同步所有更改
-/phoenix-update --dry-run # 预览更改而不写入
-/phoenix-update --force   # 跳过分歧确认，强制同步
+/spec-update           # 检测并同步所有更改
+/spec-update --dry-run # 预览更改而不写入
+/spec-update --force   # 跳过分歧确认，强制同步
 ```
 
 ### 解决后的源文档更新 (Action Items)
@@ -379,19 +397,19 @@ Alice (Claude Code)                    Bob (Codex CLI)
 
 ### 分支保护
 
-`init` 会将当前分支记录为受保护的 PhoenixTeam 主分支 (`git config phoenix.main-branch`)。所有其他技能都会强制执行 **分支守护** — 拒绝在其他分支上进行操作：
+`init` 会将当前分支记录为受保护的 SpecTeam 主分支 (`git config spec.main-branch`)。所有其他技能都会强制执行 **分支守护** — 拒绝在其他分支上进行操作：
 
 ```
-❌ 当前分支 'feature-x' 不是 PhoenixTeam 主分支 'main'。
+❌ 当前分支 'feature-x' 不是 SpecTeam 主分支 'main'。
    请切换分支：git checkout main
 ```
 
-## .phoenix/ 目录结构
+## .spec/ 目录结构
 
 初始化后在目标项目中生成：
 
 ```
-.phoenix/
+.spec/
 ├── COLLABORATORS.md    # 身份映射：成员代码 → 文档目录；主分支元数据
 ├── THESIS.md           # 项目设计宪法 (North Star) + 决策日志
 ├── RULES.md            # 代码规范
@@ -414,29 +432,29 @@ Alice (Claude Code)                    Bob (Codex CLI)
 ## 仓库结构
 
 ```
-PhoenixTeam/
+SpecTeam/
 ├── .claude-plugin/
 │   ├── marketplace.json          # 市场清单
 │   └── plugin.json               # Claude Code 插件定义
 ├── .codex-plugin/plugin.json     # Codex CLI 插件清单
 ├── plugin/                       # 插件核心
 │   ├── skills/                   # 13 个技能 (跨平台共享)
-│   │   ├── phoenix-init/
-│   │   ├── phoenix-whoami/
-│   │   ├── phoenix-pull/
-│   │   ├── phoenix-push/
-│   │   ├── phoenix-update/
-│   │   ├── phoenix-parse/
-│   │   ├── phoenix-status/
-│   │   ├── phoenix-suggest/
-│   │   ├── phoenix-diff/
-│   │   ├── phoenix-review/
-│   │   ├── phoenix-align/
-│   │   ├── phoenix-archive/
-│   │   └── phoenix-import/
+│   │   ├── spec-init/
+│   │   ├── spec-whoami/
+│   │   ├── spec-pull/
+│   │   ├── spec-push/
+│   │   ├── spec-update/
+│   │   ├── spec-parse/
+│   │   ├── spec-status/
+│   │   ├── spec-suggest/
+│   │   ├── spec-diff/
+│   │   ├── spec-review/
+│   │   ├── spec-align/
+│   │   ├── spec-archive/
+│   │   └── spec-import/
 │   ├── CLAUDE.md                 # 共享上下文 (Claude Code)
 │   └── AGENTS.md                 # 共享上下文 (Codex CLI)
-├── PHOENIXTEAM.md                # 独立 Prompt 版本 (手动模式)
+├── SPECTEAM.md                # 独立 Prompt 版本 (手动模式)
 ├── README.md                     # 此文件 (英文)
 ├── README.zh-CN.md               # 中文翻译
 └── docs/design/                  # 示例设计文档

@@ -1,0 +1,13 @@
+**[SpecTeam init — Step 1]**
+Please provide your member code.
+
+**[SpecTeam init — Step 2: Set project goal]**
+You are the first to initialize SpecTeam on this project.
+
+**[SpecTeam init — Step 3: Specify document directories]**
+Please provide the local design document directories.
+
+Initialization complete! You are the project founder.
+
+[Branch Protection]
+Do not push directly to `main`.

@@ -16,7 +16,7 @@ estimated-tokens:
 
 # Skill: import
 
-Fetch external documents (via MCP or HTTP) and normalize them into the PhoenixTeam local workspace.
+Fetch external documents (via MCP or HTTP) and normalize them into the local PhoenixTeam workflow state.
 
 ## Parameters
 

@@ -25,11 +25,11 @@ export class DivergenceProvider implements vscode.TreeDataProvider<DivergenceIte
     if (element) {
       return Promise.resolve([]); // Flat list for now
     } else {
-      const divergencesPath = path.join(this.workspaceRoot, '.phoenix', 'DIVERGENCES.md');
+      const divergencesPath = path.join(this.workspaceRoot, '.spec', 'DIVERGENCES.md');
       if (this.pathExists(divergencesPath)) {
         return Promise.resolve(this.getDivergencesInFile(divergencesPath));
       } else {
-        vscode.window.showInformationMessage('Workspace has no .phoenix/DIVERGENCES.md');
+        vscode.window.showInformationMessage('Workspace has no .spec/DIVERGENCES.md');
         return Promise.resolve([new DivergenceItem('No DIVERGENCES.md found', '', 'none', vscode.TreeItemCollapsibleState.None)]);
       }
     }

@@ -1,0 +1,8 @@
+**[Confirm Resolution — D-001: API Direction]**
+
+Please choose:
+1. ✅ Agree with this proposal
+2. ❌ Reject
+3. 🔄 Modify and counter-propose
+
+✅ Approval recorded. The original proposer (Lead) will finalize the resolution once consensus is reached.

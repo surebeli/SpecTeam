@@ -1,8 +1,8 @@
 /**
- * PhoenixTeam Notion MCP Server — Reference Implementation
+ * SpecTeam Notion MCP Server — Reference Implementation
  *
  * A Model Context Protocol server that bridges Notion pages/databases
- * with PhoenixTeam's phoenix-import skill.
+ * with SpecTeam's spec-import skill.
  *
  * Prerequisites:
  *   npm install @modelcontextprotocol/sdk @notionhq/client
@@ -147,7 +147,7 @@ async function pageToMarkdown(pageId, includeChildren = false) {
 // --- MCP Server Setup ---
 
 const server = new Server(
-  { name: "phoenix-notion-connector", version: "0.1.0" },
+  { name: "spec-notion-connector", version: "0.1.0" },
   { capabilities: { resources: {}, tools: {} } }
 );
 
@@ -158,7 +158,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
     {
       name: "notion_read_page",
       description:
-        "Fetch a Notion page and convert to Markdown for PhoenixTeam import.",
+        "Fetch a Notion page and convert to Markdown for SpecTeam import.",
       inputSchema: {
         type: "object",
         properties: {
@@ -281,7 +281,7 @@ server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error("PhoenixTeam Notion MCP Server running on stdio");
+  console.error("SpecTeam Notion MCP Server running on stdio");
 }
 
 main().catch(console.error);

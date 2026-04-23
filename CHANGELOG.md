@@ -1,20 +1,31 @@
 # Changelog
 
-All notable changes to PhoenixTeam will be documented in this file.
+All notable changes to SpecTeam will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-04-23
+
+### Added
+- **Dialogue Validation Fixtures**: Added transcript fixtures and validation coverage for manual prompt flows, including align propose, approve, and finalize checkpoints.
+- **Windows E2E Runner**: Added a Windows-only PowerShell wrapper for fixture validation, targeted workflow tests, and repeatable smoke workspaces.
+
+### Changed
+- **SpecTeam Release Alignment**: Unified plugin, CLI, and VS Code extension release metadata under a single `3.0.0` version.
+- **Alignment Workflow**: Finalized the three-phase `spec-align` flow of propose, review or approve, and lead finalize across skills, prompts, and test scenarios.
+- **Validation Coverage**: Extended divergence validation to cover proposed and resolved `.spec/DIVERGENCES.md` structures and transcript-based assertions.
+
 ## [2.7.0] - 2026-04-19
 
 ### Added
-- **phoenix-sos Skill**: Emergency fallback to automatically parse and safely resolve Git tree merge conflicts (e.g. `<<<<<<< HEAD`) within the `.phoenix/` metadata directory.
-- **Dry-run Support**: Added `--dry-run` flag to `phoenix-review` and `phoenix-align` for safe previews of AI execution plans without modifying files.
-- **PhoenixTeam Node CLI**: A lightweight companion tool (`cli/`) providing `status`, `install`, `init`, and `sos` commands for zero-token local dashboarding and one-click setup.
+- **spec-sos Skill**: Emergency fallback to automatically parse and safely resolve Git tree merge conflicts (e.g. `<<<<<<< HEAD`) within the `.spec/` metadata directory.
+- **Dry-run Support**: Added `--dry-run` flag to `spec-review` and `spec-align` for safe previews of AI execution plans without modifying files.
+- **SpecTeam Node CLI**: A lightweight companion tool (`cli/`) providing `status`, `install`, `init`, and `sos` commands for zero-token local dashboarding and one-click setup.
 - **VS Code Extension**: A visual dashboard (`vscode-extension/`) integrated into the IDE sidebar to view the team's divergence state (Open, Proposed, Resolved) and launch AI conflict resolution directly from the tree view.
 
 ### Changed
-- **Token Optimization**: Updated `phoenix-review` to strictly prefer incremental analysis via `git diff` rather than full document reads, heavily reducing token consumption.
+- **Token Optimization**: Updated `spec-review` to strictly prefer incremental analysis via `git diff` rather than full document reads, heavily reducing token consumption.
 - Updated plugin version references to `v2.7.0`.
 
 ## [2.6.0] - 2026-04-19
@@ -52,48 +63,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Large document protection**: Context budget warning (PX-W005) for documents exceeding 50KB
 
 ### Changed
-- **PHOENIXTEAM.md**: Synced version from v2.3 to v2.5
-- **phoenix-parse**: Added incremental INDEX.md update guidance (section-based updates vs full rewrite)
+- **SPECTEAM.md**: Synced version from v2.3 to v2.5
+- **spec-parse**: Added incremental INDEX.md update guidance (section-based updates vs full rewrite)
 - **CLAUDE.md / AGENTS.md**: Refactored to reference SHARED-CONTEXT.md, only platform-specific differences remain
 
 ### Fixed
-- Version number mismatch between PHOENIXTEAM.md (v2.3) and plugin manifests (v2.5)
+- Version number mismatch between SPECTEAM.md (v2.3) and plugin manifests (v2.5)
 
 ## [2.3.0] - 2026-04-08
 
 ### Added
-- **phoenix-import**: New skill for importing external documents via MCP connectors
+- **spec-import**: New skill for importing external documents via MCP connectors
 - **Codex CLI support**: `.codex-plugin/plugin.json` with full skill mapping
-- **PHOENIXTEAM.md**: Standalone all-in-one prompt file for any AI tool
-- **Collaboration flow diagram**: ASCII art workflow in PHOENIXTEAM.md
+- **SPECTEAM.md**: Standalone all-in-one prompt file for any AI tool
+- **Collaboration flow diagram**: ASCII art workflow in SPECTEAM.md
 
 ### Changed
-- **phoenix-align**: Added `fully-closed` 🔒 state (all source docs updated per decision)
-- **phoenix-update**: Added Action Items verification with acceptance criteria from `decisions/D-{N}.md`
-- **phoenix-review**: Anchor-based scope with source file drift detection via `last-sync.json`
+- **spec-align**: Added `fully-closed` 🔒 state (all source docs updated per decision)
+- **spec-update**: Added Action Items verification with acceptance criteria from `decisions/D-{N}.md`
+- **spec-review**: Anchor-based scope with source file drift detection via `last-sync.json`
 - **DIVERGENCES.md format**: Added `Source document action items` table per resolved divergence
 
 ## [2.0.0] - 2026-03-25
 
 ### Added
 - **Two-phase divergence resolution**: Propose → Approve workflow
-- **phoenix-align**: Full Mode A (propose) / Mode B (approve/reject/modify) / Mode C (withdraw) support
+- **spec-align**: Full Mode A (propose) / Mode B (approve/reject/modify) / Mode C (withdraw) support
 - **decisions/ directory**: Per-divergence instruction files with acceptance criteria
-- **Branch guard**: Protect against cross-branch .phoenix/ state corruption
-- **Identity guard**: Require `git config phoenix.member-code` before any operation
+- **Branch guard**: Protect against cross-branch .spec/ state corruption
+- **Identity guard**: Require `git config spec.member-code` before any operation
 - **last-review.json**: Anchor-based review scope to avoid redundant analysis
 
 ### Changed
 - **DIVERGENCES.md**: Four-state lifecycle (open → proposed → resolved → fully-closed)
-- **phoenix-push**: Added divergence gate and source drift check
-- **phoenix-pull**: Smart diff with reflog fallback for prior `git pull` detection
+- **spec-push**: Added divergence gate and source drift check
+- **spec-pull**: Smart diff with reflog fallback for prior `git pull` detection
 
 ## [1.0.0] - 2026-03-15
 
 ### Added
 - Initial release with 11 skills: init, whoami, pull, push, parse, status, suggest, diff, review, align, archive
-- `.phoenix/` directory structure with COLLABORATORS.md, THESIS.md, RULES.md, SIGNALS.md, INDEX.md
+- `.spec/` directory structure with COLLABORATORS.md, THESIS.md, RULES.md, SIGNALS.md, INDEX.md
 - Claude Code `.claude-plugin/marketplace.json` support
-- Design document normalization (source → `.phoenix/design/{code}/`)
+- Design document normalization (source → `.spec/design/{code}/`)
 - Git-native diff tracking with `last-parse.json` caching
 - Dual README (English + Chinese)

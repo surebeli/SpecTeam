@@ -1,6 +1,6 @@
-# PhoenixTeam MCP Connectors
+# SpecTeam MCP Connectors
 
-This directory contains Model Context Protocol (MCP) connector definitions for integrating PhoenixTeam with external document sources.
+This directory contains Model Context Protocol (MCP) connector definitions for integrating SpecTeam with external document sources.
 
 ## Available Connectors
 
@@ -14,13 +14,13 @@ This directory contains Model Context Protocol (MCP) connector definitions for i
 ## How Connectors Work
 
 ```
-External Source → MCP Connector → Markdown → phoenix-import → .phoenix/design/{code}/
+External Source → MCP Connector → Markdown → spec-import → .spec/design/{code}/
 ```
 
 1. **Connector** defines MCP resources and tools (in `connector.json`)
-2. **`phoenix-import`** calls the connector's tools to fetch content
-3. Content is converted to Markdown and normalized with Phoenix headers
-4. File is saved to `.phoenix/design/{code}/` and committed
+2. **`spec-import`** calls the connector's tools to fetch content
+3. Content is converted to Markdown and normalized with Spec headers
+4. File is saved to `.spec/design/{code}/` and committed
 
 ## Creating a New Connector
 

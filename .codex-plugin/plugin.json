@@ -1,16 +1,16 @@
 {
-  "name": "p-team",
-  "version": "2.7.0",
-  "description": "Distributed AI team document collaboration plugin — pure prompt, zero code. Manage design docs across multiple AI agents with Git-native diff awareness and collaborator identity tracking.",
+  "name": "spec-team",
+  "version": "3.0.0",
+  "description": "SpecTeam: AI-native spec review and decision alignment for product and engineering teams.",
   "skills": "../skills/",
   "interface": {
-    "displayName": "PhoenixTeam",
-    "shortDescription": "AI team document collaboration via Git",
-    "longDescription": "PhoenixTeam manages distributed AI team design documents with Git-native diff tracking, collaborator identity mapping, and automatic document normalization. Works as a pure prompt plugin — zero code required.",
-    "developerName": "PhoenixTeam",
+    "displayName": "SpecTeam",
+    "shortDescription": "Spec divergence review and decision alignment via Git",
+    "longDescription": "SpecTeam helps teams detect divergence across specs and proposals, align on decisions, and keep humans and AI tools working from the same source of truth.",
+    "developerName": "SpecTeam",
     "category": "Productivity",
     "capabilities": ["Interactive", "Write"],
-    "defaultPrompt": ["phoenix-init"],
+    "defaultPrompt": ["spec-init"],
     "brandColor": "#E55B3C"
   }
 }

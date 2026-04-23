@@ -1,16 +1,21 @@
 {
-  "name": "phoenixteam-vscode",
-  "displayName": "PhoenixTeam",
-  "description": "Visual dashboard for PhoenixTeam AI Document Collaboration",
-  "version": "1.0.0",
-  "publisher": "PhoenixTeam",
+  "name": "specteam-vscode",
+  "displayName": "SpecTeam",
+  "description": "Visual dashboard for spec divergence review and decision alignment in SpecTeam.",
+  "version": "3.0.0",
+  "publisher": "SpecTeam",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/surebeli/SpecTeam.git"
+  },
+  "license": "MIT",
   "engines": {
     "vscode": "^1.80.0"
   },
   "categories": [
     "Other"
   ],
-  "icon": "resources/phoenix-icon.png",
+  "icon": "resources/spec-icon.png",
   "activationEvents": [
     "onStartupFinished"
   ],
@@ -19,45 +24,45 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "phoenixteam",
-          "title": "PhoenixTeam",
-          "icon": "resources/phoenix-sidebar.svg"
+          "id": "specteam",
+          "title": "SpecTeam",
+          "icon": "resources/spec-sidebar.svg"
         }
       ]
     },
     "views": {
-      "phoenixteam": [
+      "specteam": [
         {
-          "id": "phoenixteam.divergences",
-          "name": "Divergences Status",
+          "id": "specteam.divergences",
+          "name": "Divergence Review",
           "type": "tree"
         }
       ]
     },
     "commands": [
       {
-        "command": "phoenixteam.refresh",
-        "title": "Refresh PhoenixTeam Status",
+        "command": "specteam.refresh",
+        "title": "Refresh Divergence Status",
         "icon": "$(refresh)"
       },
       {
-        "command": "phoenixteam.align",
-        "title": "Resolve Divergence (phoenix-align)",
+        "command": "specteam.align",
+        "title": "Align Divergence (spec-align)",
         "icon": "$(play)"
       }
     ],
     "menus": {
       "view/title": [
         {
-          "command": "phoenixteam.refresh",
-          "when": "view == phoenixteam.divergences",
+          "command": "specteam.refresh",
+          "when": "view == specteam.divergences",
           "group": "navigation"
         }
       ],
       "view/item/context": [
         {
-          "command": "phoenixteam.align",
-          "when": "view == phoenixteam.divergences && viewItem == resolvable",
+          "command": "specteam.align",
+          "when": "view == specteam.divergences && viewItem == resolvable",
           "group": "inline"
         }
       ]
