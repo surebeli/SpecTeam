@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./docs/images/logo.png" alt="Spec Git Logo" width="600">
+  <img src="./docs/images/logo.svg" alt="SpecTeam logo" width="600">
 </p>
 
 # SpecTeam

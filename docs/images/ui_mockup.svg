@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="96" y1="60" x2="928" y2="964" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#121825"/>
+      <stop offset="48%" stop-color="#0d1220"/>
+      <stop offset="100%" stop-color="#080d17"/>
+    </linearGradient>
+    <radialGradient id="orangeGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(806 242) rotate(90) scale(260)">
+      <stop offset="0%" stop-color="#ff7d34" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#ff7d34" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="purpleGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(176 818) rotate(90) scale(220)">
+      <stop offset="0%" stop-color="#763fd4" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#763fd4" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="monitorShell" x1="88" y1="198" x2="892" y2="796" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1f2735"/>
+      <stop offset="100%" stop-color="#0d121b"/>
+    </linearGradient>
+    <linearGradient id="screenBg" x1="156" y1="246" x2="836" y2="684" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0c111a"/>
+      <stop offset="100%" stop-color="#111824"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="280" y1="280" x2="760" y2="640" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffb56b"/>
+      <stop offset="35%" stop-color="#ff7a2f"/>
+      <stop offset="75%" stop-color="#ff553b"/>
+      <stop offset="100%" stop-color="#cf334f"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="540" y1="330" x2="720" y2="610" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#76f2d1"/>
+      <stop offset="100%" stop-color="#2f9dde"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#03060d" flood-opacity="0.45"/>
+    </filter>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="#ff6a3d" flood-opacity="0.28"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="22" flood-color="#ff6a3d" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <circle cx="806" cy="242" r="260" fill="url(#orangeGlow)"/>
+  <circle cx="176" cy="818" r="220" fill="url(#purpleGlow)"/>
+  <path d="M696 58L786 148L696 238L606 148L696 58Z" fill="#ffffff" opacity="0.03"/>
+  <path d="M884 130L958 204L884 278L810 204L884 130Z" fill="#ff7a2f" opacity="0.05"/>
+  <path d="M118 694L236 812L118 930L0 812L118 694Z" fill="#8453ff" opacity="0.05"/>
+
+  <g transform="translate(102 92) scale(0.22)" filter="url(#glow)">
+    <g fill="none" stroke="url(#accent)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-18 -170C-94 -184 -154 -244 -160 -318C-112 -248 -42 -210 42 -206"/>
+      <path d="M-42 -98C-148 -116 -226 -184 -248 -278C-180 -206 -78 -150 42 -142"/>
+      <path d="M-58 12C-178 -4 -276 -70 -322 -164C-228 -88 -112 -34 24 -28"/>
+      <path d="M12 -182C64 -236 146 -248 230 -220C180 -208 146 -182 126 -148C98 -102 94 -44 112 28"/>
+      <path d="M-6 -172C42 -156 76 -114 84 -60C96 18 74 92 54 162C48 186 48 236 54 304"/>
+      <path d="M54 222C26 270 -8 314 -54 356"/>
+      <path d="M54 222C98 266 148 298 206 318"/>
+    </g>
+    <path d="M74 -112L150 -68L112 44L28 -4Z" fill="none" stroke="url(#teal)" stroke-width="14" stroke-linejoin="round"/>
+  </g>
+
+  <g font-family="'Segoe UI', Aptos, Arial, sans-serif">
+    <text x="170" y="98" fill="#f8f4ef" font-size="48" font-weight="800">SPECTEAM</text>
+    <rect x="172" y="116" width="200" height="30" rx="15" fill="#172033" stroke="#ff9155" stroke-opacity="0.42"/>
+    <text x="194" y="137" fill="#ffc08c" font-size="16" font-weight="700" letter-spacing="3">CODENAME PHOENIX</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="76" y="188" width="872" height="612" rx="26" fill="url(#monitorShell)" stroke="#454f62" stroke-width="3"/>
+    <rect x="120" y="226" width="784" height="470" rx="18" fill="url(#screenBg)" stroke="#242d3a" stroke-width="2"/>
+    <rect x="450" y="800" width="124" height="102" rx="14" fill="#111722"/>
+    <rect x="384" y="902" width="256" height="24" rx="12" fill="#0d121b"/>
+    <circle cx="512" cy="814" r="16" fill="#ff6838" fill-opacity="0.4"/>
+  </g>
+
+  <g font-family="'Segoe UI', Aptos, Arial, sans-serif">
+    <rect x="120" y="226" width="784" height="58" rx="18" fill="#0b1017"/>
+    <g transform="translate(152 253) scale(0.09)">
+      <g fill="none" stroke="url(#accent)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M-18 -170C-94 -184 -154 -244 -160 -318C-112 -248 -42 -210 42 -206"/>
+        <path d="M-42 -98C-148 -116 -226 -184 -248 -278C-180 -206 -78 -150 42 -142"/>
+        <path d="M-58 12C-178 -4 -276 -70 -322 -164C-228 -88 -112 -34 24 -28"/>
+        <path d="M12 -182C64 -236 146 -248 230 -220C180 -208 146 -182 126 -148C98 -102 94 -44 112 28"/>
+        <path d="M-6 -172C42 -156 76 -114 84 -60C96 18 74 92 54 162C48 186 48 236 54 304"/>
+      </g>
+    </g>
+    <text x="182" y="261" fill="#f8f4ef" font-size="22" font-weight="800">SPECTEAM</text>
+    <text x="522" y="261" fill="#c2cad7" font-size="18">Workflow</text>
+    <text x="610" y="261" fill="#c2cad7" font-size="18">Review</text>
+    <text x="688" y="261" fill="#c2cad7" font-size="18">Docs</text>
+    <text x="754" y="261" fill="#c2cad7" font-size="18">Scale</text>
+    <rect x="790" y="238" width="90" height="34" rx="17" fill="url(#accent)" filter="url(#glow)"/>
+    <text x="817" y="260" fill="#fff7f1" font-size="16" font-weight="700">Review</text>
+
+    <text x="236" y="348" fill="#f7f4ef" font-size="60" font-weight="800">ALIGN SPECS.</text>
+    <text x="236" y="414" fill="#f7f4ef" font-size="60" font-weight="800">SHIP DECISIONS.</text>
+    <text x="238" y="454" fill="#99a8bc" font-size="22">A Git-native control surface for divergence review, alignment, and decision sync.</text>
+
+    <rect x="238" y="486" width="120" height="34" rx="17" fill="#161f2f" stroke="#ff8e58" stroke-opacity="0.5"/>
+    <text x="267" y="508" fill="#ffd0aa" font-size="16" font-weight="700">3 Open</text>
+    <rect x="372" y="486" width="146" height="34" rx="17" fill="#161f2f" stroke="#ffbe73" stroke-opacity="0.5"/>
+    <text x="401" y="508" fill="#ffe2be" font-size="16" font-weight="700">2 Proposed</text>
+    <rect x="532" y="486" width="142" height="34" rx="17" fill="#161f2f" stroke="#68d8bf" stroke-opacity="0.52"/>
+    <text x="562" y="508" fill="#d5fff4" font-size="16" font-weight="700">14 Resolved</text>
+
+    <rect x="174" y="544" width="676" height="182" rx="22" fill="#111823" stroke="#ff8b55" stroke-opacity="0.28"/>
+    <rect x="174" y="544" width="90" height="182" rx="22" fill="#0c121b"/>
+    <rect x="190" y="582" width="50" height="36" rx="10" fill="#1b2534" stroke="#ff8249" stroke-opacity="0.5"/>
+    <text x="204" y="606" fill="#ff9a63" font-size="16" font-weight="700">Rev</text>
+    <text x="198" y="644" fill="#6f8098" font-size="14">Divergences</text>
+    <text x="198" y="678" fill="#6f8098" font-size="14">Decisions</text>
+    <text x="198" y="712" fill="#6f8098" font-size="14">Archive</text>
+
+    <rect x="286" y="576" width="286" height="132" rx="18" fill="#121a25" stroke="#ff8249" stroke-opacity="0.6" filter="url(#glow)"/>
+    <text x="312" y="608" fill="#ffc48f" font-size="16" font-weight="700" letter-spacing="1">DIVERGENCE REVIEW</text>
+    <text x="312" y="648" fill="#fff2e8" font-size="24" font-weight="700">D-014 Pricing model</text>
+    <text x="312" y="678" fill="#fff2e8" font-size="24" font-weight="700">mismatch</text>
+    <text x="312" y="708" fill="#e6edf8" font-size="17">PRD: enterprise plan bundle.</text>
+    <text x="312" y="732" fill="#e6edf8" font-size="17">API: seat-based billing tiers.</text>
+    <text x="312" y="756" fill="#ffb98d" font-size="18">Action: /spec-align D-014</text>
+
+    <rect x="596" y="576" width="230" height="132" rx="18" fill="#121a25" stroke="#30475f"/>
+    <text x="620" y="608" fill="#a9b6c7" font-size="16" font-weight="700">ALIGNMENT THREAD</text>
+    <circle cx="624" cy="644" r="4" fill="#ff8f58"/>
+    <text x="638" y="650" fill="#f5f8fd" font-size="16">PM proposes billing-service ownership.</text>
+    <circle cx="624" cy="676" r="4" fill="#ffbf75"/>
+    <text x="638" y="682" fill="#f5f8fd" font-size="16">Eng requests migration guardrails.</text>
+    <circle cx="624" cy="708" r="4" fill="#69dcc1"/>
+    <text x="638" y="714" fill="#f5f8fd" font-size="16">Lead finalizes after confirm step.</text>
+
+    <rect x="312" y="748" width="188" height="38" rx="19" fill="#121c2b" stroke="#49637a"/>
+    <text x="348" y="772" fill="#dfe8f5" font-size="18" font-weight="700">Review Divergences</text>
+    <rect x="520" y="748" width="188" height="38" rx="19" fill="url(#accent)" filter="url(#glow)"/>
+    <text x="560" y="772" fill="#fff7f1" font-size="18" font-weight="700">Finalize Decision</text>
+  </g>
+</svg>
