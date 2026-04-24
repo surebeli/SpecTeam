@@ -1,0 +1,99 @@
+docs/images/ui_mockup.svg
+  0000019dc004de03 1-204
+docs/design/architecture.md
+  0000019dc004de03 1-179
+docs/design/architecture.zh-CN.md
+  0000019dc004de03 1-162
+.github/workflows/validate.yml
+  0000019dc004de03 1-362
+plugin/skills/spec-import/SKILL.md
+  0000019dc004de03 1-53
+.gitignore
+  0000019dc004de03 1-26
+CONTRIBUTING.md
+  0000019dc004de03 1-228
+CHANGELOG.md
+  0000019dc004de03 1-128
+cli/package.json
+  0000019dc004de03 1-51
+cli/scripts/prepack.js
+  0000019dc004de03 1-45
+cli/scripts/postpack.js
+  0000019dc004de03 1-17
+cli/bin/spec.js
+  0000019dc004de03 1-178
+bin/spec.js
+  4675bdcf7350f33c 1-178
+package.json
+  4675bdcf7350f33c 1-51
+scripts/postpack.js
+  4675bdcf7350f33c 1-17
+scripts/prepack.js
+  4675bdcf7350f33c 1-45
+docs/images/favicon.svg
+  0000019dc004de03 1-39
+README.md
+  0000019dc004de03 1-474
+README.zh-CN.md
+  0000019dc004de03 1-469
+.claude-plugin/marketplace.json
+  0000019dc004de03 1-14
+.codex-plugin/plugin.json
+  0000019dc004de03 1-16
+plugin/.claude-plugin/plugin.json
+  0000019dc004de03 1-10
+vscode-extension/package.json
+  0000019dc004de03 1-82
+SPECTEAM.md
+  0000019dc004de03 1-561
+cli/package-lock.json
+  0000019dc004de03 1-99
+vscode-extension/package-lock.json
+  0000019dc004de03 1-48
+---
+{
+    "schema_version":  "authorship/3.0.0",
+    "git_ai_version":  "1.3.4",
+    "base_commit_sha":  "06d54abad60bc02375c2e822b233f56010b93028",
+    "prompts":  {
+                    "4675bdcf7350f33c":  {
+                                             "agent_id":  {
+                                                              "tool":  "claude",
+                                                              "id":  "9b8612ae-ee40-4a36-bdfe-118f8d16cde8",
+                                                              "model":  "claude-opus-4-7"
+                                                          },
+                                             "human_author":  "litianyi",
+                                             "messages":  [],
+                                             "total_additions":  291,
+                                             "total_deletions":  0,
+                                             "accepted_lines":  291,
+                                             "overriden_lines":  0
+                                         },
+                    "0000019dbffcf8bc":  {
+                                             "agent_id":  {
+                                                              "id":  "ai-thread-mockai-1777042520252",
+                                                              "model":  "unknown",
+                                                              "tool":  "mock_ai"
+                                                          },
+                                             "human_author":  "litianyi",
+                                             "messages":  [],
+                                             "total_additions":  0,
+                                             "total_deletions":  0,
+                                             "accepted_lines":  0,
+                                             "overriden_lines":  0
+                                         },
+                    "0000019dc004de03":  {
+                                             "agent_id":  {
+                                                              "id":  "ai-thread-mockai-1777043037699",
+                                                              "model":  "unknown",
+                                                              "tool":  "mock_ai"
+                                                          },
+                                             "human_author":  "litianyi",
+                                             "messages":  [],
+                                             "total_additions":  3445,
+                                             "total_deletions":  0,
+                                             "accepted_lines":  3445,
+                                             "overriden_lines":  0
+                                         }
+                }
+}
