@@ -1,58 +1,179 @@
-# SpecTeam 技术架构设计
+# SpecTeam Technical Architecture
 
-## North Star
+> Chinese version: [architecture.zh-CN.md](./architecture.zh-CN.md)
 
-让每一个 Agent，都在同一页上。SpecTeam 是分布式 AI 团队的上下文一致性基础设施。
+This document describes the architecture that supports the current product thesis:
+**SpecTeam keeps specs, decisions, and AI agents aligned.**
 
-## 三层架构
+It is intentionally narrower than a full "AI collaboration platform" architecture. It
+describes what exists today, and what the [roadmap](./roadmap.md) will add next. It
+does not pre-commit to any real-time, CRDT, server, or database stack — those belong
+to later gates and are explicit non-goals for the current PMF phase.
 
-### L1 - 工程规范层 (Git + MCP Resource)
+## Design Principles
 
-- 存储 THESIS / RULES / SECURITY 等核心文档
-- 自动转换脚本生成 `.cursorrules` / `copilot-instructions` 等工具格式
-- Git 作为强一致版本控制
+1. **Git is the source of truth.** Every collaboration artifact lives in the repo.
+   Specs, decisions, divergence state, and action items are all plain files under
+   `.spec/` so they version, diff, review, and merge like code.
+2. **Prompt skills own judgment; code owns determinism.** Parsing, state scoring,
+   and transition guards belong in code. Framing divergences and proposing decisions
+   stay in prompts. This split is the plan of record for the tooling refactor in
+   the roadmap.
+3. **Every surface consumes the same state.** The CLI, the VS Code extension, and
+   future servers must derive workspace state from one shared engine instead of each
+   re-parsing markdown with its own regex.
+4. **Async first.** The async Git workflow must be complete and trustworthy before
+   any real-time sync or subscription layer is considered.
+5. **Thin product surfaces.** Distribution stays as prompt skills + lightweight CLI
+   + lightweight VS Code view. Heavier surfaces wait for the underlying contract to
+   stabilize.
 
-### L2 - 运行时状态层 (Yjs CRDT + Yunxin 信令)
-
-- Yjs CRDT 实现实时编辑、无冲突合并
-- 网易云信 Yunxin 提供信令广播、在线状态、自定义消息队列
-- 实现 SIGNALS.md 的实时同步
-
-### L3 - 追溯层 (PostgreSQL + Git History + RAG)
-
-- PostgreSQL / Chroma 存储审计日志
-- Git history 提供完整变更追溯
-- 向量检索支持 RAG 查询
-
-## 核心流程
+## Current Components
 
 ```
-多 Agent 并行提案 → 写入 design/ 目录
-    ↓
-检测冲突 → LangGraph 仲裁 Agent（基于 THESIS RAG）生成合并决策
-    ↓
-决策写入 THESIS → MCP 推送 + Yunxin 广播 → 所有工具 ≤5min 冻结旧方案
-    ↓
-开发中 → Yunxin 实时更新 SIGNALS + Yjs 同步
+┌─────────────────────────────────────────────────────────────────┐
+│                        Your Git repository                      │
+│                                                                 │
+│   .spec/                                                        │
+│     ├── THESIS.md          ← North Star + Decision Log          │
+│     ├── COLLABORATORS.md   ← Identity map                       │
+│     ├── DIVERGENCES.md     ← Divergence registry (D-001…)       │
+│     ├── SIGNALS.md         ← Runtime status & blockers          │
+│     ├── RULES.md           ← Code conventions                   │
+│     ├── INDEX.md           ← Auto-generated document index      │
+│     ├── decisions/         ← Per-divergence decision records    │
+│     └── design/{code}/     ← Normalized per-collaborator specs  │
+└───────────────────────────────┬─────────────────────────────────┘
+                                │ read / write
+        ┌───────────────────────┼────────────────────────┐
+        │                       │                        │
+        ▼                       ▼                        ▼
+┌────────────────┐   ┌────────────────────┐   ┌────────────────────┐
+│  Prompt skills │   │     SpecTeam CLI   │   │ VS Code extension  │
+│  (plugin/)     │   │     (cli/)         │   │ (vscode-extension/)│
+│                │   │                    │   │                    │
+│ Invoked inside │   │ `spec install`     │   │ Divergence Review  │
+│ Claude Code /  │   │ `spec init`        │   │ tree view          │
+│ Codex / any    │   │ `spec status`      │   │                    │
+│ LLM tool loop  │   │ `spec sos`         │   │ Launches           │
+│                │   │                    │   │ `/spec-align` in   │
+│ Runs review /  │   │ Thin local         │   │ an integrated      │
+│ align / parse  │   │ dashboard, no      │   │ terminal           │
+│ / update / …   │   │ business logic     │   │                    │
+└────────────────┘   └────────────────────┘   └────────────────────┘
 ```
 
-## 集成方式
+### Prompt skills — the workflow engine
 
-| 优先级 | 方式 | 说明 |
-|--------|------|------|
-| P0 | MCP 客户端 | 直接 MCP 支持 |
-| P1 | Bot-to-Bot | 自带 Agent + Yunxin 信令继承 |
-| P2 | Git hook | Python 自动生成各工具格式 |
+`plugin/skills/spec-*/SKILL.md` defines the entire collaboration loop. Each skill is
+a deterministic prompt executed by the AI tool. The skills enforce:
 
-## 部署
+- identity guard via `git config spec.member-code`,
+- branch guard via `git config spec.main-branch`,
+- the four-state divergence lifecycle `open → proposed → resolved → fully-closed`,
+- the Propose → Approve two-phase decision rule,
+- source-document read-only invariant (only `.spec/` is ever mutated).
 
-- Docker Compose（MCP Server + Yunxin SDK + Yjs Provider）
-- 可选 K8s 水平扩展
-- 全 Docker/K8s 自托管，不依赖公网
+See `plugin/SHARED-CONTEXT.md` for the shared plugin contract and
+`plugin/CLAUDE.md` / `plugin/AGENTS.md` for platform-specific overrides.
 
-## 安全
+### CLI (`specteam-cli`) — zero-token local surface
 
-- RBAC 权限控制
-- Agent 沙箱隔离
-- 敏感内容标记 + 加密
-- 审计日志符合中国数据安全法
+`cli/bin/spec.js` is a thin Node CLI with no business logic. It exists to:
+
+- scaffold `.spec/` and trigger `/spec-init` (`spec init`),
+- install the skill prompts into `.claude/commands/` (`spec install`),
+- render a local dashboard of DIVERGENCES.md status without burning tokens (`spec status`),
+- detect Git tree merge conflicts and hand off to `/spec-sos` (`spec sos`).
+
+Its parsing is intentionally simple today and will move onto the shared state engine
+as part of the roadmap's tooling refactor.
+
+### VS Code extension — lightweight visibility
+
+`vscode-extension/` contributes a `SpecTeam` activity-bar view that renders
+`.spec/DIVERGENCES.md` as a tree and launches `/spec-align D-xxx` in an integrated
+terminal for the user's AI CLI. It does not run resolution logic itself.
+
+## State Model
+
+Everything SpecTeam cares about is derivable from the `.spec/` tree plus local Git
+config. Canonical fields:
+
+| Artifact | Purpose | Written by | Read by |
+|----------|---------|-----------|---------|
+| `THESIS.md` | North Star + Decision Log (append-only) | `spec-init`, `spec-align` finalize | all skills, `spec-status` |
+| `COLLABORATORS.md` | Member code ↔ design directory map, main branch record | `spec-init`, `spec-whoami` | all skills |
+| `DIVERGENCES.md` | D-NNN registry with stable IDs and lifecycle state | `spec-review`, `spec-align` | CLI, VS Code, `spec-push`, `spec-status` |
+| `SIGNALS.md` | Runtime status & blockers | any skill | all surfaces |
+| `decisions/D-NNN.md` | Per-divergence decision + acceptance criteria | `spec-align` | `spec-update`, `spec-review` |
+| `INDEX.md` | Generated document index | `spec-parse` | all surfaces |
+| `last-review.json`, `last-sync.json`, `last-parse.json` | Anchors for incremental work | review / update / parse | review / update / parse |
+
+Local (never committed) identity lives in `git config`: `spec.member-code`,
+`spec.main-branch`.
+
+## Divergence Lifecycle
+
+```
+    open 🔴  ──(spec-align propose)──▶  proposed 🟡
+                                           │
+                       (other collaborator approves)
+                                           │
+                                           ▼
+                                      resolved ✅
+                                           │
+              (spec-update marks all source action items complete)
+                                           │
+                                           ▼
+                                    fully-closed 🔒
+```
+
+Rules:
+
+- `propose` is non-destructive — THESIS is only written after approval.
+- Resolution always records a decision file under `decisions/` with acceptance
+  criteria that `spec-update` later verifies.
+- Resolved entries are never deleted. They are the audit trail.
+
+## What Is Deliberately Not Here Yet
+
+These belong to later roadmap gates and must not be assumed to exist:
+
+- A standalone Spec runtime or server.
+- A shared state engine consumed by both CLI and extension — today each does its
+  own lightweight regex parse.
+- MCP connector catalog. `spec-import` is the extension point, but no connectors
+  are shipped; the skill relies on whatever fetching capability the host AI tool
+  provides.
+- Real-time sync (CRDT, signaling, subscriptions).
+- A web arbitration dashboard.
+- RBAC, audit storage, enterprise deployment, private-cloud packaging.
+
+The [roadmap](./roadmap.md) describes the dependency order in which these would be
+added, and the [PRD](./product-requirements.md) lists them as explicit non-goals for
+the current PMF phase.
+
+## Evolution Path
+
+The near-term foundation work, in dependency order:
+
+1. **Protocol spec** — versioned JSON schemas for `COLLABORATORS`, `THESIS`,
+   `DIVERGENCES`, `decisions/*`, `SIGNALS`, plus a parser contract and fixtures.
+2. **Local state engine** — one library that turns a `.spec/` tree into a typed
+   workspace snapshot, divergence index, pending-approval list, and consistency
+   score. Replaces the duplicated regex paths in CLI and VS Code.
+3. **Decision workflow state machine** — code-enforced transition rules for the
+   four divergence states and the Propose → Approve contract.
+4. **Spec server (optional)** — only after (2) and (3) are stable, expose the
+   engine as an MCP/API surface for external tools and agents.
+
+Everything beyond those four items stays gated behind PMF signal from the current
+wedge.
+
+## Related Documents
+
+- [Product Requirements](./product-requirements.md)
+- [Roadmap](./roadmap.md)
+- [PMF Validation Loop](./pmf-loop.md)
+- [Foundation Execution Plan](./execution-plan.md)

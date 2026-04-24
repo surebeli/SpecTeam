@@ -5,6 +5,24 @@ All notable changes to SpecTeam will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.1] - 2026-04-24
+
+### Removed
+- **Legacy PhoenixTeam surfaces**: removed 6 duplicate `phoenix-*` skill folders, `cli/bin/phoenix.js`, and root `PHOENIXTEAM.md`. The repo now uses `SpecTeam` / `spec-*` exclusively.
+- **`mcp-connectors/` directory**: removed unimplemented Notion and Obsidian placeholders. SpecTeam ships no connectors today — `spec-import` relies on whatever fetch capability the host AI tool already provides. Connector catalog work is a future roadmap item.
+- **Low-quality AI-generated images**: removed `docs/images/logo.png`, `favicon.png`, `ui_mockup.png`, and the stale `docs/design/image2-visual-prompts.md`. Replaced favicon and UI mockup with clean SVG assets.
+
+### Changed
+- **`docs/design/architecture.md`**: fully rewrote to match the current PRD and roadmap (Git-native async workflow, no Yjs/Yunxin/PostgreSQL/LangGraph stack). Added `architecture.zh-CN.md` pair.
+- **CI workflow**: pointed `.github/workflows/validate.yml` at `spec-*` skills and `SPECTEAM.md`.
+- **CLI**: bundled `plugin/skills/` into the published `specteam-cli` npm package so `spec install` works after `npm i -g`. Added `files` whitelist, `repository`/`homepage`/`bugs` metadata, `prepack` script, aligned version strings.
+- **`spec-import` skill**: toned down MCP connector framing to reflect the absence of shipped connectors.
+
+### Fixed
+- CLI version string (`program.version('1.0.0')`) now reads from `package.json` instead of drifting from it.
+- `cli/package.json` no longer declares a non-existent `main: index.js`.
+- `.gitignore` tracked the old `.phoenix/` cache directory; now covers the real `.spec/last-*.json` anchors.
+
 ## [3.0.0] - 2026-04-23
 
 ### Added

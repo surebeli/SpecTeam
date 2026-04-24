@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none" role="img" aria-label="SpecTeam favicon">
+  <defs>
+    <linearGradient id="bg" x1="64" y1="48" x2="448" y2="464" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#07111f"/>
+      <stop offset="60%" stop-color="#0a1730"/>
+      <stop offset="100%" stop-color="#040913"/>
+    </linearGradient>
+    <linearGradient id="ember" x1="-80" y1="-100" x2="120" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffb56b"/>
+      <stop offset="45%" stop-color="#ff7a2f"/>
+      <stop offset="100%" stop-color="#d73547"/>
+    </linearGradient>
+    <linearGradient id="spec" x1="16" y1="-60" x2="88" y2="24" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#77f0d3"/>
+      <stop offset="100%" stop-color="#1ba7d7"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#ff6a3d" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+
+  <g transform="translate(256 256) scale(1.05)">
+    <g filter="url(#glow)" fill="none" stroke="url(#ember)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-12 -104C-58 -112 -94 -150 -98 -194C-68 -152 -26 -128 24 -126"/>
+      <path d="M-26 -60C-92 -72 -140 -112 -154 -170C-112 -126 -48 -92 24 -86"/>
+      <path d="M-38 8C-112 -4 -172 -42 -200 -100C-142 -54 -70 -20 14 -16"/>
+      <path d="M8 -112C40 -144 90 -152 144 -134C112 -126 92 -112 80 -90C64 -62 60 -28 72 18"/>
+      <path d="M0 -106C30 -96 50 -70 56 -36C64 12 50 56 38 98C36 112 36 142 40 184"/>
+    </g>
+    <g>
+      <path d="M46 -68L92 -42L68 28L16 0Z" fill="none" stroke="url(#spec)" stroke-width="10" stroke-linejoin="round"/>
+      <path d="M64 -8L92 -42" stroke="url(#spec)" stroke-width="7" stroke-linecap="round"/>
+      <path d="M34 -18L72 2" stroke="url(#spec)" stroke-width="6" stroke-linecap="round"/>
+    </g>
+    <circle cx="38" cy="184" r="12" fill="#ff6a3d"/>
+  </g>
+</svg>

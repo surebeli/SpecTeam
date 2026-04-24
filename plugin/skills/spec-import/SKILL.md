@@ -1,7 +1,7 @@
 ---
 name: spec-import
-short-description: "Import external docs via MCP/HTTP"
-description: "Import design documents from external sources (Notion, Figma, linear, etc.) via MCP connectors into the local .spec/design/ directory. Use this to sync external context into the Git-native workflow."
+short-description: "Import external docs via the host AI tool's fetch capability"
+description: "Import design documents from an external URL or MCP resource into the local .spec/design/ directory. Relies on whatever fetching ability the host AI tool already has (e.g. Claude Code web fetch, an MCP resource the user has configured) — SpecTeam does not ship connectors. Use this to sync external context into the Git-native workflow."
 user-invocable: true
 argument-hint: "[source_url or mcp_resource_id]"
 triggers: [spec-parse]

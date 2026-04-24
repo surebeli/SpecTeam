@@ -1,7 +1,9 @@
 .claude/settings.local.json
 
-# Phoenix runtime cache
-.phoenix/last-parse.json
+# SpecTeam runtime anchors (machine-local, should not be committed)
+.spec/last-parse.json
+.spec/last-review.json
+.spec/last-sync.json
 
 # OS files
 .DS_Store
@@ -18,3 +20,7 @@ node_modules/
 out/
 dist/
 *.log
+
+# CLI prepack staging (copied from plugin/skills at publish time)
+cli/skills/
+cli/LICENSE

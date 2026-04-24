@@ -36,16 +36,13 @@ This project follows the [Contributor Covenant Code of Conduct](https://www.cont
 - New mock scenarios for edge cases
 - Tutorial / walkthrough content
 
-### Adding MCP Connectors
-- See `mcp-connectors/` for existing connector definitions
-- Follow the MCP resource schema pattern
-
 ## Development Setup
 
 ### Prerequisites
 - Git 2.30+
 - An AI coding tool: Claude Code, Codex CLI, Gemini CLI, or any LLM with tool-use capability
-- No additional dependencies — SpecTeam is pure prompts
+- Node 18+ only if you want to hack on the `cli/` or `vscode-extension/` surfaces —
+  the core workflow is pure prompts and needs no runtime dependencies.
 
 ### Quick Start
 ```bash
@@ -79,23 +76,24 @@ ln -s $(pwd)/plugin ~/.codex/skills/spec-team
 
 ```
 SpecTeam/
-├── plugin/                        # The plugin package
+├── plugin/                        # Prompt skill package
 │   ├── SHARED-CONTEXT.md          # Common context for all platforms
 │   ├── CLAUDE.md                  # Claude Code specific overrides
 │   ├── AGENTS.md                  # Codex CLI specific overrides
-│   ├── .claude-plugin/            # Claude plugin manifest
-│   └── skills/                    # Skill definitions (13 skills)
+│   └── skills/                    # Skill definitions (14 spec-* skills)
 │       └── spec-{name}/
 │           └── SKILL.md           # Skill prompt definition
-├── mcp-connectors/                # MCP connector definitions
-│   └── notion/                    # Notion connector
+├── cli/                           # specteam-cli (Node) — thin local surface
+├── vscode-extension/              # VS Code divergence tree view
 ├── tests/
-│   ├── prompts/                   # Structured test scenarios (10 tests)
+│   ├── prompts/                   # Structured test scenarios
 │   └── mock-scenarios/            # Mock data (3 demos)
-├── docs/design/                   # Example design documents
-├── SPECTEAM.md                 # Standalone all-in-one prompt
+├── docs/
+│   ├── design/                    # PRD, roadmap, architecture, etc.
+│   └── images/                    # Brand assets
+├── SPECTEAM.md                    # Standalone all-in-one prompt
 ├── CHANGELOG.md                   # Version history
-└── README.md / README.zh-CN.md   # Documentation (EN + CN)
+└── README.md / README.zh-CN.md    # Documentation (EN + CN)
 ```
 
 ## Skill Development Guide

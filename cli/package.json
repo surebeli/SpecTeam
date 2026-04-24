@@ -1,22 +1,49 @@
 {
   "name": "specteam-cli",
-  "version": "3.0.0",
-  "description": "CLI for SpecTeam spec review and decision alignment.",
-  "main": "index.js",
+  "version": "3.0.1",
+  "description": "Thin local CLI for SpecTeam — installs prompt skills, renders divergence status, and scaffolds .spec/. All business logic runs in your AI assistant.",
   "bin": {
     "spec": "./bin/spec.js"
   },
+  "files": [
+    "bin/",
+    "skills/",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepack": "node scripts/prepack.js",
+    "postpack": "node scripts/postpack.js",
+    "test": "node --test test/ 2>/dev/null || echo 'No tests yet'"
   },
   "keywords": [
+    "specteam",
     "ai",
     "collaboration",
     "git",
-    "prompt"
+    "prompt",
+    "claude-code",
+    "codex",
+    "spec-review",
+    "decision-alignment"
   ],
-  "author": "SpecTeam",
+  "author": "SpecTeam contributors",
   "license": "MIT",
+  "homepage": "https://github.com/surebeli/SpecTeam#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/surebeli/SpecTeam.git",
+    "directory": "cli"
+  },
+  "bugs": {
+    "url": "https://github.com/surebeli/SpecTeam/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "chalk": "^4.1.2",
     "commander": "^11.1.0"

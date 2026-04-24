@@ -8,6 +8,10 @@ SpecTeam keeps specs, decisions, and AI agents aligned.
 
 > 中文文档: [README.zh-CN.md](./README.zh-CN.md)
 
+<p align="center">
+  <img src="./docs/images/ui_mockup.svg" alt="SpecTeam VS Code extension — Divergence Review sidebar" width="820">
+</p>
+
 ## Overview
 
 SpecTeam is a Git-native workflow for AI-native spec review and decision alignment.
