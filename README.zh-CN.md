@@ -5,7 +5,7 @@ SpecTeam 让 specs、decisions 和 AI agents 保持对齐。
 > English docs: [README.md](./README.md)
 
 <p align="center">
-  <img src="./docs/images/ui_mockup.svg" alt="SpecTeam VS Code 扩展 — Divergence Review 侧边栏" width="820">
+  <img src="./docs/images/ui_mockup.png" alt="SpecTeam VS Code 扩展 — Divergence Review 侧边栏" width="820">
 </p>
 
 ## 概述
