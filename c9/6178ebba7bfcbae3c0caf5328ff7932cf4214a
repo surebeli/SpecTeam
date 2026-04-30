@@ -1,7 +1,7 @@
 packages/spec-fixtures/package.json
-  5328109e9328371e 1-9
+  5328109e9328371e 5-8
 packages/vscode-extension/package.json
-  5328109e9328371e 1-84
+  5328109e9328371e 75-76
 ---
 {
   "schema_version": "authorship/3.0.0",
@@ -16,8 +16,8 @@ packages/vscode-extension/package.json
       },
       "human_author": "litianyi",
       "messages": [],
-      "total_additions": 93,
-      "total_deletions": 0,
+      "total_additions": 6,
+      "total_deletions": 2,
       "accepted_lines": 93,
       "overriden_lines": 0
     }
