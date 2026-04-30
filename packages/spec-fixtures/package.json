@@ -2,5 +2,8 @@
   "name": "@specteam/fixtures",
   "version": "0.1.0",
   "private": true,
-  "description": "Test fixtures for SpecTeam protocol validation"
+  "description": "Test fixtures for SpecTeam protocol validation",
+  "scripts": {
+    "test": "node -e \"console.log('No tests for @specteam/fixtures')\""
+  }
 }

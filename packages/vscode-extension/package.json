@@ -72,7 +72,8 @@
     "vscode:prepublish": "npm run compile",
     "build": "npm run compile",
     "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
+    "watch": "tsc -watch -p ./",
+    "test": "node -e \"console.log('No tests for specteam-vscode')\""
   },
   "dependencies": {},
   "devDependencies": {
