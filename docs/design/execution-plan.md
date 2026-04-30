@@ -65,7 +65,7 @@ Define one machine-readable contract for the core `.spec/` documents so every ru
 
 | Entity | Must become explicit |
 |--------|----------------------|
-| Collaborator | `code`, `role`, `sourceDirectories`, `phoenixPath`, `joinedAt`, optional ownership metadata |
+| Collaborator | `code`, `role`, `sourceDirectories`, `specPath`, `joinedAt`, optional ownership metadata |
 | Divergence | `id`, `status`, `parties`, `priority`, `nature`, `foundAt`, `proposal`, `votes`, `history`, `changeInstructionsRef` |
 | Decision | `decisionId`, `resolutionSummary`, `rationale`, `finalizedBy`, `resolvedAt`, `actionItems` |
 | Action Item | `owner`, `targetFile`, `requiredChanges`, `acceptanceCriterion`, `completionState` |
@@ -212,12 +212,12 @@ The first Spec Server should do four things well:
 
 | Tool | Purpose |
 |------|---------|
-| `phoenix_refresh_state` | Recompute and return current state |
-| `phoenix_propose_resolution` | Submit a proposal for an open divergence |
-| `phoenix_record_vote` | Approve, reject, or modify a proposal |
-| `phoenix_finalize_resolution` | Resolve a divergence and emit decision/action items |
-| `phoenix_update_action_item` | Mark action items complete or stale |
-| `phoenix_validate_workspace` | Validate schemas, references, and workflow invariants |
+| `spec_refresh_state` | Recompute and return current state |
+| `spec_propose_resolution` | Submit a proposal for an open divergence |
+| `spec_record_vote` | Approve, reject, or modify a proposal |
+| `spec_finalize_resolution` | Resolve a divergence and emit decision/action items |
+| `spec_update_action_item` | Mark action items complete or stale |
+| `spec_validate_workspace` | Validate schemas, references, and workflow invariants |
 
 ### Task Breakdown
 
