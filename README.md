@@ -449,7 +449,7 @@ SpecTeam/
 │   └── plugin.json               # Claude Code plugin definition
 ├── .codex-plugin/plugin.json     # Codex CLI plugin manifest
 ├── plugin/                       # Plugin core
-│   ├── skills/                   # 13 Skills (shared across platforms)
+│   ├── skills/                   # 14 Skills (shared across platforms)
 │   │   ├── spec-init/
 │   │   ├── spec-whoami/
 │   │   ├── spec-pull/
@@ -462,13 +462,19 @@ SpecTeam/
 │   │   ├── spec-review/
 │   │   ├── spec-align/
 │   │   ├── spec-archive/
-│   │   └── spec-import/
+│   │   ├── spec-import/
+│   │   └── spec-sos/
 │   ├── CLAUDE.md                 # Shared context (Claude Code)
 │   └── AGENTS.md                 # Shared context (Codex CLI)
-├── SPECTEAM.md                # Standalone prompt version (manual mode)
+├── packages/                     # npm workspaces
+│   ├── cli/                      # specteam-cli — thin local CLI surface
+│   ├── vscode-extension/         # VS Code divergence tree view
+│   ├── spec-schema/              # @specteam/schema — typed protocol schemas + validator
+│   └── spec-fixtures/            # @specteam/fixtures — test fixture states (private)
+├── SPECTEAM.md                   # Standalone prompt version (manual mode)
 ├── README.md                     # This file (English)
 ├── README.zh-CN.md               # Chinese translation
-└── docs/design/                  # Example design documents
+└── docs/design/                  # Design documents and roadmap
 ```
 
 ## License

@@ -7,12 +7,20 @@ on:
       - 'plugin/**'
       - 'tests/**'
       - 'SPECTEAM.md'
+      - 'packages/cli/**'
+      - 'packages/vscode-extension/**'
+      - 'packages/spec-schema/**'
+      - 'packages/spec-fixtures/**'
   pull_request:
     branches: [main]
     paths:
       - 'plugin/**'
       - 'tests/**'
       - 'SPECTEAM.md'
+      - 'packages/cli/**'
+      - 'packages/vscode-extension/**'
+      - 'packages/spec-schema/**'
+      - 'packages/spec-fixtures/**'
 
 jobs:
   validate-structure:

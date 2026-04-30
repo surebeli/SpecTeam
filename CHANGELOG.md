@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Restructure repo to npm workspaces under `packages/` (FN-1): `cli/` → `packages/cli/`, `vscode-extension/` → `packages/vscode-extension/`, `tests/fixtures/states/` → `packages/spec-fixtures/states/`; add `packages/spec-schema/` skeleton (`@specteam/schema` v0.1.0) and `packages/spec-fixtures/` (`@specteam/fixtures` v0.1.0 private).
+
 ## [3.1.0] - 2026-05-01
 
 ### Added

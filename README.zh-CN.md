@@ -444,7 +444,7 @@ SpecTeam/
 │   └── plugin.json               # Claude Code 插件定义
 ├── .codex-plugin/plugin.json     # Codex CLI 插件清单
 ├── plugin/                       # 插件核心
-│   ├── skills/                   # 13 个技能 (跨平台共享)
+│   ├── skills/                   # 14 个技能 (跨平台共享)
 │   │   ├── spec-init/
 │   │   ├── spec-whoami/
 │   │   ├── spec-pull/
@@ -457,13 +457,19 @@ SpecTeam/
 │   │   ├── spec-review/
 │   │   ├── spec-align/
 │   │   ├── spec-archive/
-│   │   └── spec-import/
+│   │   ├── spec-import/
+│   │   └── spec-sos/
 │   ├── CLAUDE.md                 # 共享上下文 (Claude Code)
 │   └── AGENTS.md                 # 共享上下文 (Codex CLI)
-├── SPECTEAM.md                # 独立 Prompt 版本 (手动模式)
+├── packages/                     # npm workspaces
+│   ├── cli/                      # specteam-cli — 轻量本地 CLI
+│   ├── vscode-extension/         # VS Code 分歧树视图
+│   ├── spec-schema/              # @specteam/schema — 协议 schema + 验证器
+│   └── spec-fixtures/            # @specteam/fixtures — 测试 fixture (私有)
+├── SPECTEAM.md                   # 独立 Prompt 版本 (手动模式)
 ├── README.md                     # 此文件 (英文)
 ├── README.zh-CN.md               # 中文翻译
-└── docs/design/                  # 示例设计文档
+└── docs/design/                  # 设计文档与路线图
 ```
 
 ## 许可证

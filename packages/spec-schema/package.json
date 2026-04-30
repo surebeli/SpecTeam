@@ -1,0 +1,15 @@
+{
+  "name": "@specteam/schema",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Machine-readable schemas and validator for the SpecTeam .spec/ protocol",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "node --test test/"
+  },
+  "devDependencies": {
+    "typescript": "^5.1.3"
+  }
+}

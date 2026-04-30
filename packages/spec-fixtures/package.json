@@ -1,0 +1,6 @@
+{
+  "name": "@specteam/fixtures",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Test fixtures for SpecTeam protocol validation"
+}

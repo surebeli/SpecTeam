@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 
 const cliRoot = path.resolve(__dirname, '..');
-const repoRoot = path.resolve(cliRoot, '..');
+const repoRoot = path.resolve(cliRoot, '../..');
 const sourceSkills = path.join(repoRoot, 'plugin', 'skills');
 const targetSkills = path.join(cliRoot, 'skills');
 const sourceLicense = path.join(repoRoot, 'LICENSE');

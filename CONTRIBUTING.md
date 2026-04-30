@@ -83,8 +83,11 @@ SpecTeam/
 │   └── skills/                    # Skill definitions (14 spec-* skills)
 │       └── spec-{name}/
 │           └── SKILL.md           # Skill prompt definition
-├── cli/                           # specteam-cli (Node) — thin local surface
-├── vscode-extension/              # VS Code divergence tree view
+├── packages/                      # npm workspaces (Phase 2+)
+│   ├── cli/                       # specteam-cli (Node) — thin local surface
+│   ├── vscode-extension/          # VS Code divergence tree view
+│   ├── spec-schema/               # @specteam/schema — typed protocol schemas + validator
+│   └── spec-fixtures/             # @specteam/fixtures — test fixture states (private)
 ├── tests/
 │   ├── prompts/                   # Structured test scenarios
 │   └── mock-scenarios/            # Mock data (3 demos)
