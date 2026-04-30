@@ -1,0 +1,38 @@
+docs/design/execution-plan.md
+  0000019dde88fa6f 1-264
+docs/design/execution-plan.zh-CN.md
+  0000019dde88fa6f 1-264
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "4167707f183fbf6833d41a83d5d05f84d391e3a3",
+  "prompts": {
+    "6d9cb96caab21f47": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-1777555008653518500",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019dde88fa6f": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777555012207",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 528,
+      "total_deletions": 0,
+      "accepted_lines": 528,
+      "overriden_lines": 0
+    }
+  }
+}
