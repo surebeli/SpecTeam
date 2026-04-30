@@ -65,7 +65,7 @@
 
 | 实体 | 需要被显式定义的内容 |
 |------|------------------------|
-| Collaborator | `code`、`role`、`sourceDirectories`、`phoenixPath`、`joinedAt` 以及可选归属元数据 |
+| Collaborator | `code`、`role`、`sourceDirectories`、`specPath`、`joinedAt` 以及可选归属元数据 |
 | Divergence | `id`、`status`、`parties`、`priority`、`nature`、`foundAt`、`proposal`、`votes`、`history`、`changeInstructionsRef` |
 | Decision | `decisionId`、`resolutionSummary`、`rationale`、`finalizedBy`、`resolvedAt`、`actionItems` |
 | Action Item | `owner`、`targetFile`、`requiredChanges`、`acceptanceCriterion`、`completionState` |
@@ -212,12 +212,12 @@
 
 | 工具 | 用途 |
 |------|------|
-| `phoenix_refresh_state` | 重算并返回当前状态 |
-| `phoenix_propose_resolution` | 为 open divergence 提交提案 |
-| `phoenix_record_vote` | 批准、驳回或修改提案 |
-| `phoenix_finalize_resolution` | 将 divergence resolve 并产出 decision/action items |
-| `phoenix_update_action_item` | 更新 action item 的完成或过期状态 |
-| `phoenix_validate_workspace` | 校验 schema、引用关系和工作流不变量 |
+| `spec_refresh_state` | 重算并返回当前状态 |
+| `spec_propose_resolution` | 为 open divergence 提交提案 |
+| `spec_record_vote` | 批准、驳回或修改提案 |
+| `spec_finalize_resolution` | 将 divergence resolve 并产出 decision/action items |
+| `spec_update_action_item` | 更新 action item 的完成或过期状态 |
+| `spec_validate_workspace` | 校验 schema、引用关系和工作流不变量 |
 
 ### 任务拆解
 

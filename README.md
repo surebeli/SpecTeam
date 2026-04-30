@@ -4,6 +4,8 @@
 
 # SpecTeam
 
+> **Stage:** prompt-first workflow (stable) · platform foundation (W1 in progress) — see [Roadmap](./docs/design/roadmap.md).
+
 SpecTeam keeps specs, decisions, and AI agents aligned.
 
 > 中文文档: [README.zh-CN.md](./README.zh-CN.md)

@@ -1,5 +1,7 @@
 # SpecTeam
 
+> **当前阶段：** Prompt-first 工作流（已稳定）· 平台底座（W1 进行中）— 详见 [路线图](./docs/design/roadmap.zh-CN.md)。
+
 SpecTeam 让 specs、decisions 和 AI agents 保持对齐。
 
 > English docs: [README.md](./README.md)
