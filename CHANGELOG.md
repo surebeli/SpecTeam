@@ -11,10 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - _(none yet)_
 
 ### Changed
-- _(none yet)_
+- **`docs/design/foundation-tasks.md`**: marked FT-1..FT-3 / FT-2a / FT-2b as completed and pointed forward to `phase-2-tasks.md` so fresh sessions stop re-executing the pack.
 
 ### Fixed
-- _(none yet)_
+- **Foundation-tasks audit verification bug**: the awk range form used to count inconsistencies in `protocol-audit.md` closed on the heading line itself (because `^## ` matched both endpoints), so the assertion always returned 0. Replaced with a flag-driven awk that counts correctly.
 
 ## [3.0.1] - 2026-04-24
 

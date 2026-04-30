@@ -1,5 +1,11 @@
 # SpecTeam Foundation — Short-Term Task Pack
 
+> **Status: completed.** All four tasks landed on `main` as commits
+> `dc6d053` (FT-3), `4167707` (FT-1), `38403c6` (FT-2a), and `de7ef68` (FT-2b).
+> This file is retained as the audit trail for that pack and as a template for
+> future short-term packs. Do not re-execute the steps below on a fresh session.
+> Phase 2 tracking lives in [`phase-2-tasks.md`](./phase-2-tasks.md).
+
 This document is the **strict, line-by-line implementation plan** for three immediate
 follow-ups identified after the 3.0.1 release. It exists so any fresh AI session can
 pick up the work without re-deriving scope.
@@ -235,9 +241,11 @@ test "$(grep -cE '`[a-zA-Z_./-]+:[0-9]+`' docs/design/protocol-audit.md)" -ge 20
 # Spot-check: open three random citations and confirm those lines exist.
 # (Manual step — paste the three citations and the head -n result back to the user.)
 
-# Inconsistencies summary has at least 5 numbered items
-test "$(awk '/^## Summary of inconsistencies found/,/^## /' docs/design/protocol-audit.md \
-  | grep -cE '^[0-9]+\.')" -ge 5
+# Inconsistencies summary has at least 5 numbered items.
+# Note: the awk range form `/start/,/end/` would close on the heading line itself
+# because `^## ` matches both ends — use a flag instead.
+test "$(awk '/^## Summary of inconsistencies found/{f=1; next} /^## /{f=0} f' \
+  docs/design/protocol-audit.md | grep -cE '^[0-9]+\.')" -ge 5
 ```
 
 #### Out of scope for 2a
