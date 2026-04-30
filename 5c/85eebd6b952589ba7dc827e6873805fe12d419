@@ -1,0 +1,23 @@
+.githooks/pre-commit
+  41a5bd7637611930 1-45
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "5c85eebd6b952589ba7dc827e6873805fe12d419",
+  "prompts": {
+    "41a5bd7637611930": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f2d86601-a75c-47cf-948e-b98ad592e27a",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 45,
+      "total_deletions": 0,
+      "accepted_lines": 45,
+      "overriden_lines": 0
+    }
+  }
+}
