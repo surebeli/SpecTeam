@@ -16,3 +16,20 @@ Reuse notes:
 - API protocol fixtures reuse the Alice/Bob REST-vs-GraphQL scenario.
 - Payment fixtures reuse the Alice/Bob/Carol three-way payment architecture scenario.
 - Legacy keeps the same collaborator identities, but intentionally preserves older metadata shape.
+
+## Validator coverage
+
+`tests/validate-divergences.js` accepts four modes — `open`, `proposed`,
+`resolved`, `fully-closed` — and the modern fixtures map to them as follows:
+
+```bash
+node tests/validate-divergences.js tests/fixtures/states/conflicted/DIVERGENCES.md open
+node tests/validate-divergences.js tests/fixtures/states/proposed-multi-party/DIVERGENCES.md proposed
+node tests/validate-divergences.js tests/fixtures/states/resolved-pending-action-items/DIVERGENCES.md resolved
+node tests/validate-divergences.js tests/fixtures/states/fully-closed/DIVERGENCES.md fully-closed
+```
+
+`clean-workspace` has no divergences, so there is nothing to validate. The
+`legacy-pre-3.0` fixture is deliberately validator-incompatible (compact
+single-line shape, no `Role` column, no `Main Branch` header) — it exists as a
+migration target, not a conformance target. Do not run the validator against it.
