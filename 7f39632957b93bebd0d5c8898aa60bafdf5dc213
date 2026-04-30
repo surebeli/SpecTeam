@@ -1,0 +1,66 @@
+docs/design/phase-2-tasks.md
+  0000019ddf4025ba 1-525
+2026-05-01-002944-local-command-caveatcaveat-the-messages-below.txt
+  0000019ddf4025ba 1-1235
+CHANGELOG.md
+  0000019ddf4025ba 1-145
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "7f39632957b93bebd0d5c8898aa60bafdf5dc213",
+  "prompts": {
+    "1aa1c4123ac5b4ca": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-1777566927056155900",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019ddf3ed349": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777566929737",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019ddf3f03a8": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777566942120",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019ddf4025ba": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777567016378"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 1905,
+      "total_deletions": 0,
+      "accepted_lines": 1905,
+      "overriden_lines": 0
+    }
+  }
+}
