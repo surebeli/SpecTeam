@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://specteam.dev/schema/thesis.schema.json",
+  "title": "SpecTeam Thesis",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "envelope": {
+      "$ref": "https://specteam.dev/schema/envelope.schema.json"
+    },
+    "northStar": {
+      "type": "string",
+      "minLength": 1
+    },
+    "decisionLog": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "decisionId": {
+            "type": "string",
+            "pattern": "^D-\\d{3}$"
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1
+          },
+          "finalizedBy": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": ["date", "summary"]
+      }
+    }
+  },
+  "required": ["envelope", "northStar", "decisionLog"]
+}

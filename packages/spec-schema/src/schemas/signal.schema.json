@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://specteam.dev/schema/signal.schema.json",
+  "title": "SpecTeam Signals",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "envelope": {
+      "$ref": "https://specteam.dev/schema/envelope.schema.json"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "type": "string",
+            "minLength": 1
+          },
+          "blocker": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date"
+          },
+          "scope": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": ["message"]
+      }
+    }
+  },
+  "required": ["envelope", "entries"]
+}

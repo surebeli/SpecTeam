@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://specteam.dev/schema/decision.schema.json",
+  "title": "SpecTeam Decision",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "envelope": {
+      "$ref": "https://specteam.dev/schema/envelope.schema.json"
+    },
+    "decisionId": {
+      "type": "string",
+      "pattern": "^D-\\d{3}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "resolutionSummary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "finalizedBy": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "resolvedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1
+    },
+    "actionItems": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "https://specteam.dev/schema/action-item.schema.json"
+      }
+    }
+  },
+  "required": [
+    "envelope",
+    "decisionId",
+    "title",
+    "resolutionSummary",
+    "finalizedBy",
+    "resolvedAt",
+    "actionItems"
+  ]
+}

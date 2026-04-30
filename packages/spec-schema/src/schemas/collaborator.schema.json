@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://specteam.dev/schema/collaborator.schema.json",
+  "title": "SpecTeam Collaborators",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "envelope": {
+      "$ref": "https://specteam.dev/schema/envelope.schema.json"
+    },
+    "mainBranch": {
+      "type": "string",
+      "minLength": 1
+    },
+    "members": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "role": {
+            "type": "string",
+            "enum": ["maintainer", "contributor", "observer"]
+          },
+          "sourceDirectories": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^\\./.+"
+            }
+          },
+          "specPath": {
+            "type": "string",
+            "pattern": "^\\.spec/design/[a-z0-9-]+/$"
+          },
+          "joinedAt": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "required": ["code", "role", "sourceDirectories", "specPath", "joinedAt"]
+      }
+    }
+  },
+  "required": ["envelope", "mainBranch", "members"]
+}

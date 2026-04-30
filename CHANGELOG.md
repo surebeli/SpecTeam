@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `@specteam/schema` v0.1.0 now ships JSON Schema documents, matching TypeScript types, and an AJV validator for the core `.spec/` entities used in Phase 2 (FN-2).
+
 ### Changed
 - Restructure repo to npm workspaces under `packages/` (FN-1): `cli/` → `packages/cli/`, `vscode-extension/` → `packages/vscode-extension/`, `tests/fixtures/states/` → `packages/spec-fixtures/states/`; add `packages/spec-schema/` skeleton (`@specteam/schema` v0.1.0) and `packages/spec-fixtures/` (`@specteam/fixtures` v0.1.0 private).
 

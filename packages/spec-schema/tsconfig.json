@@ -4,7 +4,10 @@
     "module": "commonjs",
     "outDir": "dist",
     "strict": true,
-    "declaration": true
+    "declaration": true,
+    "moduleResolution": "node",
+    "types": ["node"],
+    "lib": ["ES2022"]
   },
   "include": ["src/**/*"]
 }

@@ -11,6 +11,13 @@ PX-{severity}{number}
   I = Info (informational, no action needed)
 ```
 
+Deterministic validation and parsing surfaces introduced in Phase 2 also use:
+
+```
+PX-V{number} = Schema validation failure
+PX-P{number} = Markdown parse failure
+```
+
 ## Fatal Errors (Execution Stops)
 
 | Code | Message | Cause | Recovery |
@@ -45,6 +52,21 @@ PX-{severity}{number}
 | **PX-I003** | No Actionable Divergences | DIVERGENCES.md has no open/proposed items | No action needed |
 | **PX-I004** | Incremental Parse | INDEX.md updated incrementally (not full rewrite) | Informational only |
 | **PX-I005** | Observer Mode | Current user has `observer` role, read-only access | Informational only |
+
+## Validation Errors (Deterministic Schema Checks)
+
+| Code | Message | Cause | Recovery |
+|------|---------|-------|----------|
+| **PX-V001** | Missing Required Field | A schema-required field is absent from the typed entity | Add the missing field or run the relevant migration/parser path |
+| **PX-V002** | Wrong Type | A field's runtime type does not match the schema | Coerce or rewrite the field to the expected scalar/array/object type |
+| **PX-V003** | Unknown Field | Extra fields were supplied under `additionalProperties: false` | Remove unsupported fields or update the typed model generator |
+| **PX-V004** | Invalid Enum Value | A field uses a value outside the allowed enum set | Replace it with one of the documented protocol values |
+| **PX-V005** | Invalid Format | A date/date-time/path-like field fails format validation | Rewrite the field to the documented canonical format |
+| **PX-V006** | Dangling Reference | A collaborator or decision reference points to a missing in-document target | Repair the referenced ID/path so it matches the owning entity |
+| **PX-V007** | Schema Version Unsupported | The entity is missing the current schema version or uses a legacy version | Run the legacy migration path or emit the current schema envelope |
+| **PX-V008** | Reserved Validation Slot | Reserved for future multi-entity consistency validation | n/a |
+| **PX-V009** | Reserved Validation Slot | Reserved for future cache-anchor validation | n/a |
+| **PX-V010** | Generic Validation Failure | Validation failed but did not map to a more specific PX-V code | Inspect the raw validation message and fix the underlying field |
 
 ## Usage in Skills
 
