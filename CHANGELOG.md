@@ -8,13 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- _(none yet)_
+- **`docs/design/W1-decisions.md`**: kicks off Phase 2 by extracting the eight schema decisions enumerated at the end of `protocol-audit.md` into a dedicated decision log. Each entry has explicit options, a "default if no answer", and an open/answered status field. The schema PR (FN-2) is gated on these decisions.
+- **Validator coverage for `open` and `fully-closed` divergences**: `tests/validate-divergences.js` now accepts those modes alongside `proposed` and `resolved`. `fully-closed` additionally asserts every action-item row carries a `✅`. The four modern fixtures under `tests/fixtures/states/` are wired up in `README.md`; `legacy-pre-3.0` is documented as deliberately validator-incompatible.
+- **Cache anchors in fixture pack**: `resolved-pending-action-items/` and `fully-closed/` now ship `last-review.json` + `last-sync.json` so Workstream 2 (state engine) can exercise anchor-driven diff and consistency-score logic against fixture content. Hash values are placeholder sha256-shaped strings.
+- **Protocol audit extensions**: added "Cross-cutting: consistency score surfaces" (catalogues every place the 0-100 score is described today plus open questions on bucket cutoffs and additional factors) and "Out of scope but observed: RULES.md" (records that RULES.md exists in the protocol surface but is not yet enumerated as a W1 entity). Both sections feed two new decisions into the W1 schema-design input list.
 
 ### Changed
-- _(none yet)_
+- **`docs/design/W1-decisions.md`**: resolved D1-D8 with the audit-derived defaults approved by the user on 2026-05-01, unblocking the schema PR (FN-2).
+- **`docs/design/phase-2-tasks.md`**: recorded user approval for all five FN-1 architectural commitments, unblocking the monorepo layout task.
+- **`docs/design/foundation-tasks.md`**: marked FT-1..FT-3 / FT-2a / FT-2b as completed and pointed forward to `phase-2-tasks.md` so fresh sessions stop re-executing the pack.
 
 ### Fixed
-- _(none yet)_
+- **Foundation-tasks audit verification bug**: the awk range form used to count inconsistencies in `protocol-audit.md` closed on the heading line itself (because `^## ` matched both endpoints), so the assertion always returned 0. Replaced with a flag-driven awk that counts correctly.
 
 ## [3.0.1] - 2026-04-24
 

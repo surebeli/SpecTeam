@@ -100,6 +100,50 @@ function validateResolved(entry) {
   assertMatch(entry.body, /\| .+ \| `?\.\/.+`? \| .+ \|/m, `${entry.id} action items row`);
 }
 
+function validateOpen(entry) {
+  assertMatch(entry.body, /\*\*Status\*\*:\s*`open`/m, `${entry.id} open status`);
+  assertMatch(entry.body, /\*\*Parties\*\*:\s*.+/m, `${entry.id} parties`);
+  assertMatch(entry.body, /\*\*Nature\*\*:\s*.+/m, `${entry.id} nature`);
+  assertMatch(entry.body, /\*\*Priority\*\*:\s*.+/m, `${entry.id} priority`);
+  assertMatch(entry.body, /\*\*Found at\*\*:\s*.+/m, `${entry.id} found-at`);
+  if (/\*\*Proposer \(Lead\)\*\*/.test(entry.body) || /\*\*Votes\*\*:/.test(entry.body)) {
+    fail(`${entry.id}: open divergence must not carry proposer/votes (use 'proposed' for that)`);
+  }
+}
+
+function validateFullyClosed(entry) {
+  assertMatch(entry.body, /\*\*Status\*\*:\s*`fully-closed`/m, `${entry.id} fully-closed status`);
+  assertMatch(entry.body, /\*\*Parties\*\*:\s*.+/m, `${entry.id} parties`);
+  assertMatch(entry.body, /\*\*Resolved at\*\*:\s*.+/m, `${entry.id} resolved-at`);
+  assertMatch(entry.body, /\*\*Closed at\*\*:\s*.+/m, `${entry.id} closed-at`);
+  assertMatch(entry.body, /\*\*Decision\*\*:\s*.+/m, `${entry.id} decision`);
+  assertMatch(entry.body, /\*\*Rationale\*\*:\s*.+/m, `${entry.id} rationale`);
+  assertMatch(entry.body, /\*\*Final Votes\*\*:/m, `${entry.id} final votes header`);
+  assertMatch(entry.body, /^-\s+.+:\s*`(propose|approve)`/m, `${entry.id} final vote row`);
+  assertMatch(entry.body, /\*\*Change Instructions\*\*:\s*see\s+`?\.spec\/decisions\/D-\d+\.md`?/m, `${entry.id} change instructions ref`);
+  assertMatch(entry.body, /#### Source Document Action Items/m, `${entry.id} action items header`);
+  assertMatch(entry.body, /\| Collaborator \| Source file \| Status \|/m, `${entry.id} action items table header`);
+
+  const tableMatch = entry.body.match(/\| Collaborator \| Source file \| Status \|[\s\S]*?(?=\n\n|\n#|$)/);
+  if (!tableMatch) {
+    fail(`${entry.id}: action items table not found`);
+    return;
+  }
+  const rows = tableMatch[0]
+    .split('\n')
+    .filter((line) => /^\|/.test(line))
+    .slice(2);
+  if (rows.length === 0) {
+    fail(`${entry.id}: action items table has no rows`);
+    return;
+  }
+  for (const row of rows) {
+    if (!/✅/.test(row)) {
+      fail(`${entry.id}: fully-closed requires every action item to be ✅, got: ${row.trim()}`);
+    }
+  }
+}
+
 function validateTranscript(scenario, filePath) {
   const markers = transcriptRules[scenario];
   if (!markers) {
@@ -115,7 +159,7 @@ function main() {
   const args = process.argv.slice(2);
 
   if (args.length < 2) {
-    console.error('Usage: node tests/validate-divergences.js <file> <proposed|resolved>');
+    console.error('Usage: node tests/validate-divergences.js <file> <open|proposed|resolved|fully-closed>');
     console.error('   or: node tests/validate-divergences.js transcript <scenario> <file>');
     process.exit(1);
   }
@@ -142,7 +186,7 @@ function main() {
   }
 
   if (!filePath || !mode) {
-    console.error('Usage: node tests/validate-divergences.js <file> <proposed|resolved>');
+    console.error('Usage: node tests/validate-divergences.js <file> <open|proposed|resolved|fully-closed>');
     process.exit(1);
   }
 
@@ -154,10 +198,14 @@ function main() {
   }
 
   for (const entry of entries) {
-    if (mode === 'proposed') {
+    if (mode === 'open') {
+      validateOpen(entry);
+    } else if (mode === 'proposed') {
       validateProposed(entry);
     } else if (mode === 'resolved') {
       validateResolved(entry);
+    } else if (mode === 'fully-closed') {
+      validateFullyClosed(entry);
     } else {
       console.error(`Unknown mode: ${mode}`);
       process.exit(1);

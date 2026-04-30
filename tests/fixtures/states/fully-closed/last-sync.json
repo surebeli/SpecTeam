@@ -1,0 +1,12 @@
+{
+  "synced_at": "2026-04-27T09:25:00Z",
+  "member_code": "alice",
+  "source_dirs": ["./alice"],
+  "files": {
+    "./alice/api-design.md": {
+      "hash": "1c5e5ad6f8c2e2d1a9c0bf36b2e5b0d97f4a3c7b1d2e8f6a4b0c9d8e7f6a5b4c",
+      "synced_to": ".spec/design/alice/api-design.md",
+      "synced_at": "2026-04-27T09:25:00Z"
+    }
+  }
+}
