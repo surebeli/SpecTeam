@@ -1,0 +1,243 @@
+2026-05-01-002944-local-command-caveatcaveat-the-messages-below.txt
+  0000019ddf444eb6 1-1235
+.claude-plugin/marketplace.json
+  0000019ddf4a75ef 1-15
+.codex-plugin/plugin.json
+  0000019ddf4a75ef 1-17
+SPECTEAM.md
+  0000019ddf4a75ef 1-562
+cli/package.json
+  0000019ddf4a75ef 1-52
+vscode-extension/package.json
+  0000019ddf4a75ef 1-83
+CHANGELOG.md
+  0000019ddf4af2c5 1-147
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "f5a8d99eb5dccbb451759e79bbf7f0a4a04294bb",
+  "prompts": {
+    "8ca0ffce2017de07": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-1777567171211857000",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019ddf428b9f": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777567173535"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019ddf42e835": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777567197237"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019ddf431bbd": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777567210429",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019ddf431cf7": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777567210743",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019ddf431e0b": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777567211019",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019ddf4387c2": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777567238082",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019ddf43ae11": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777567247889",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019ddf43eb01": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777567263489",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019ddf440f6e": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777567272814"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019ddf4410b1": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777567273137"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019ddf4411c5": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777567273413",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019ddf444c6d": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777567288429",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019ddf444d9e": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777567288734",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019ddf444eb6": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777567289014"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 1235,
+      "total_deletions": 0,
+      "accepted_lines": 1235,
+      "overriden_lines": 0
+    },
+    "0000019ddf4a75ef": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777567692271",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 729,
+      "total_deletions": 0,
+      "accepted_lines": 729,
+      "overriden_lines": 0
+    },
+    "0000019ddf4af2c5": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777567724229",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 147,
+      "total_deletions": 0,
+      "accepted_lines": 147,
+      "overriden_lines": 0
+    }
+  }
+}
