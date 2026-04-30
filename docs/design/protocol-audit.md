@@ -366,6 +366,46 @@ declared canonical format.
 | DIVERGENCES.md `Parties` / votes | COLLABORATORS.md codes | Shared collaborator code strings | No explicit validator beyond line presence | The workflow assumes party codes already exist in the collaborator registry, but no skill describes a referential-integrity check. |
 | last-review.json `per_collaborator` keys | COLLABORATORS.md codes | Shared collaborator code keys inside JSON | `plugin/skills/spec-review/SKILL.md:50`, `plugin/skills/spec-review/SKILL.md:203` | The same member code namespace is reused across markdown and JSON state. |
 
+## Cross-cutting: consistency score surfaces
+
+The consistency score is described in prompt prose, not in code. The surfaces
+that reference it today:
+
+| Surface | Defined in (file:line) | What it specifies |
+|---------|------------------------|-------------------|
+| `spec-status` skill | `plugin/skills/spec-status/SKILL.md:64`, `plugin/skills/spec-status/SKILL.md:65`, `plugin/skills/spec-status/SKILL.md:66`, `plugin/skills/spec-status/SKILL.md:67`, `plugin/skills/spec-status/SKILL.md:68` | Score is bucketed `100 / 70-99 / 40-69 / 0-39` based on open/proposed counts and priority. Factors listed: THESIS alignment, DIVERGENCES.md (open count, proposed count, priorities), SIGNALS blockers. |
+| `spec-status` factor list | `plugin/skills/spec-status/SKILL.md:69` | Single line of factors, no weighting or formula. |
+| Standalone bundle | `SPECTEAM.md:185` | "open/proposed divergences reduce score; blocking divergences reduce sharply." No bucket boundaries, no factor list. |
+| Status test prompt | `tests/prompts/10-status-full.md:53`, `tests/prompts/10-status-full.md:55`, `tests/prompts/10-status-full.md:56`, `tests/prompts/10-status-full.md:57`, `tests/prompts/10-status-full.md:58`, `tests/prompts/10-status-full.md:59`, `tests/prompts/10-status-full.md:60` | Mirrors the SKILL bands and factor list as a checklist. Asserts the score is "displayed", not what value is correct for any given workspace. |
+| Mock scenario assertion | `tests/mock-scenarios/README.md:31` | Asserts a clean workspace produces a score of `100`. The only numeric assertion that exists today. |
+| Roadmap / execution-plan | `docs/design/roadmap.md:36`, `docs/design/execution-plan.md:101`, `docs/design/execution-plan.md:122`, `docs/design/execution-plan.md:128` | Calls out that scoring must move from prompt prose to code with explainable factors (`ConsistencyScore` model, "Why is the consistency score not 100?" query). |
+
+### Open questions
+
+- Are the four bands (`100 / 70-99 / 40-69 / 0-39`) hard cutoffs or guidance? The
+  prompt currently lets the AI choose any number within a band.
+- Is a single blocking divergence enough to drop the score under 40, or does
+  multiplicity matter? No surface specifies.
+- Should "stale sync" (source files changed since last review) and "missing
+  required files" be additional factors, or are they out of scope for the
+  score and reported only via SIGNALS / health surfaces?
+
+## Out of scope but observed
+
+These appear in the protocol surface but were not enumerated as core entities
+in `execution-plan.md`. They should be explicitly in or out of W1 schema scope
+before the schema PR lands.
+
+| Entity | Defined in (file:line) | Observed shape |
+|--------|------------------------|----------------|
+| `RULES.md` | `plugin/SHARED-CONTEXT.md:35`, `plugin/SHARED-CONTEXT.md:72`, `plugin/skills/spec-init/SKILL.md:155`, `plugin/skills/spec-suggest/SKILL.md:36`, `plugin/skills/spec-parse/SKILL.md:20` | Created at init as "Code conventions"; read by suggest; explicitly never written by parse. No template content, no required sections, no validator. Functions today as a free-form bulletin board for code rules. |
+
+### Open question
+
+- Is `RULES.md` part of the schema contract (typed sections, validated content)
+  or a free-form human note surface that should stay outside strict schema
+  enforcement, similar to the question around `SIGNALS.md`?
+
 ## Summary of inconsistencies found
 
 1. `COLLABORATORS.md` role handling is internally inconsistent: shared context says the file includes a `Role` column and defines role semantics (`plugin/SHARED-CONTEXT.md:26`), but the current init template still creates only `Code | Source Directories | Spec Path | Joined` (`plugin/skills/spec-init/SKILL.md:142`).
@@ -395,3 +435,9 @@ freeze a schema:
   explicit conversion rules.
 - Decide whether `INDEX.md` is part of the schema contract or a purely derived
   artifact whose shape can evolve independently of persisted workspace state.
+- Decide whether `RULES.md` is in or out of the W1 schema (see "Out of scope
+  but observed" above).
+- Decide the consistency-score model: bucket boundaries, factor weights, and
+  whether stale-sync / missing-file health checks contribute to the score or
+  are reported separately. The current prompt-bucket form must move to a
+  deterministic function before W2 can implement Gate B.
