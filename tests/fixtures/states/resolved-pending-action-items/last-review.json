@@ -1,0 +1,18 @@
+{
+  "reviewed_at": "2026-04-26T14:05:00Z",
+  "head_commit": "fedcba9",
+  "per_collaborator": {
+    "alice": {
+      "commit": "fedcba9",
+      "source_hashes": {
+        "./alice/api-design.md": "1c5e5ad6f8c2e2d1a9c0bf36b2e5b0d97f4a3c7b1d2e8f6a4b0c9d8e7f6a5b4c"
+      }
+    },
+    "bob": {
+      "commit": "fedcba9",
+      "source_hashes": {
+        "./bob/graphql-proposal.md": "a3f1d2c4e5b6a7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2"
+      }
+    }
+  }
+}

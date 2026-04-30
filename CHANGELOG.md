@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - **Validator coverage for `open` and `fully-closed` divergences**: `tests/validate-divergences.js` now accepts those modes alongside `proposed` and `resolved`. `fully-closed` additionally asserts every action-item row carries a `✅`. The four modern fixtures under `tests/fixtures/states/` are wired up in `README.md`; `legacy-pre-3.0` is documented as deliberately validator-incompatible.
+- **Cache anchors in fixture pack**: `resolved-pending-action-items/` and `fully-closed/` now ship `last-review.json` + `last-sync.json` so Workstream 2 (state engine) can exercise anchor-driven diff and consistency-score logic against fixture content. Hash values are placeholder sha256-shaped strings.
 
 ### Changed
 - **`docs/design/foundation-tasks.md`**: marked FT-1..FT-3 / FT-2a / FT-2b as completed and pointed forward to `phase-2-tasks.md` so fresh sessions stop re-executing the pack.
