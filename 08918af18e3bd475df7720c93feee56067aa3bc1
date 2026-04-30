@@ -1,0 +1,81 @@
+docs/design/W1-decisions.md
+  0000019ddf3e9668 1-249
+docs/design/phase-2-tasks.md
+  0000019ddf3e9668 1-525
+2026-05-01-002944-local-command-caveatcaveat-the-messages-below.txt
+  0000019ddf3e9668 1-1235
+CHANGELOG.md
+  0000019ddf3e9668 1-144
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "08918af18e3bd475df7720c93feee56067aa3bc1",
+  "prompts": {
+    "abe9c21b556fa2b3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a37d9a6f-339a-4f4f-95a5-a840be0c7566",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "6b25326448e45761": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-1777566826243963300",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019ddf3d488c": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777566828684",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019ddf3da4d5": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777566852309"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019ddf3e9668": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777566914152"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 2153,
+      "total_deletions": 0,
+      "accepted_lines": 2153,
+      "overriden_lines": 0
+    }
+  }
+}
