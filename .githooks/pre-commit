@@ -1,0 +1,45 @@
+#!/bin/sh
+#
+# pre-commit: reject zero-byte staged additions and filenames with
+# PUA/C0 codepoints — guards against shell-redirect artifacts
+# (e.g. markdown `>` lines pasted into bash being misread as redirection).
+#
+# Allowlist for intentionally-empty files:
+ALLOWLIST=".gitkeep .keep .npmignore .nojekyll"
+
+fail=0
+
+while IFS= read -r path; do
+  [ -z "$path" ] && continue
+
+  # zero-byte check
+  if [ -f "$path" ] && [ ! -s "$path" ]; then
+    base=$(basename "$path")
+    allowed=0
+    for name in $ALLOWLIST; do
+      [ "$base" = "$name" ] && allowed=1 && break
+    done
+    if [ "$allowed" -eq 0 ]; then
+      echo "  zero-byte file: $path"
+      fail=1
+    fi
+  fi
+
+  # PUA / C0 codepoint check on filename bytes
+  base=$(basename "$path")
+  if printf '%s' "$base" | LC_ALL=C grep -qP '[\x00-\x1f\xee\xef]'; then
+    echo "  bad filename (PUA/control chars): $path"
+    fail=1
+  fi
+done <<STAGED
+$(git diff --cached --name-only --diff-filter=A)
+STAGED
+
+if [ "$fail" -eq 1 ]; then
+  echo ""
+  echo "Commit blocked: shell-redirect artifacts detected in staged files."
+  echo "Hint: git restore --staged <path> && rm <path>"
+  exit 1
+fi
+
+exit 0
