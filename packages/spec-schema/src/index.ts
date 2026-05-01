@@ -17,12 +17,6 @@ export type {
 	EntityType,
 	EntityTypeMap,
 	Envelope,
-	IndexDocument,
-	IndexDivergenceSummary,
-	IndexDocumentTreeGroup,
-	IndexDocumentTreeItem,
-	SignalDocument,
-	SignalEntry,
 	ThesisDecisionLogItem,
 	ThesisDocument,
 } from "./types";
@@ -39,8 +33,6 @@ export {
 	parseCollaborators,
 	parseDecisions,
 	parseDivergences,
-	parseIndex,
-	parseSignals,
 	parseThesis,
 } from "./parsers";
 export type {

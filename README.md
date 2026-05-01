@@ -364,7 +364,7 @@ A zero-logic Node.js CLI that assists with installation and provides a local sta
 - **`spec install`**: Auto-copies skills to your `.claude/commands` directory.
 - **`spec status`**: Displays a visual summary of `DIVERGENCES.md` and repository state (zero-token cost).
 - **`spec init`**: Scaffolds the `.spec/` directory and guides you to the AI `/spec-init` prompt.
-- **`spec validate`**: Runs a deterministic `.spec/` schema check with per-file pass/fail output or machine-readable JSON.
+- **`spec validate`**: Runs a deterministic `.spec/` schema check for `COLLABORATORS.md`, `DIVERGENCES.md`, `THESIS.md`, and `decisions/*.md`, with per-file pass/fail output or machine-readable JSON. `SIGNALS.md` and `INDEX.md` remain out of strict Phase 2 schema scope.
 - **`spec sos`**: Detects Git tree conflicts and provides emergency instructions.
 
 ### VS Code Extension (`packages/vscode-extension/`)

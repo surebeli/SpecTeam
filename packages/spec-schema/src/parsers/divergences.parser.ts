@@ -229,9 +229,13 @@ export function parseDivergences(text: string): ParseResult<DivergenceDocument> 
   const headerMatch = text.match(/^_Last reviewed:\s+([0-9T:-]+Z) @ `?([0-9a-f]{7,40})`? by ([a-z0-9-]+)_$/m);
   const matches = [...text.matchAll(entryHeadingRegex)];
   if (matches.length === 0) {
-    return parseFailure([
-      makeParseError("PX-P001", text, "### ", "No divergence entries were found."),
-    ]);
+    return finalizeParsed("divergence", text, {
+      envelope: currentEnvelope(),
+      reviewedAt: headerMatch?.[1],
+      reviewedCommit: headerMatch?.[2],
+      reviewedBy: headerMatch?.[3],
+      entries: [],
+    });
   }
 
   const entries: DivergenceEntry[] = [];

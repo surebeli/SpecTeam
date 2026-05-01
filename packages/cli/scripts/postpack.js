@@ -8,10 +8,14 @@ const path = require('path');
 const cliRoot = path.resolve(__dirname, '..');
 const stagedSkills = path.join(cliRoot, 'skills');
 const stagedLicense = path.join(cliRoot, 'LICENSE');
+const stagedVendor = path.join(cliRoot, 'vendor');
 
 if (fs.existsSync(stagedSkills)) {
   fs.rmSync(stagedSkills, { recursive: true, force: true });
 }
 if (fs.existsSync(stagedLicense)) {
   fs.rmSync(stagedLicense, { force: true });
+}
+if (fs.existsSync(stagedVendor)) {
+  fs.rmSync(stagedVendor, { recursive: true, force: true });
 }

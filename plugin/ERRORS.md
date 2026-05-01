@@ -30,6 +30,7 @@ PX-P{number} = Markdown parse failure
 | **PX-E006** | Divergence Not Found | D-{N} not found in DIVERGENCES.md | Run `/spec-status` to see valid IDs |
 | **PX-E007** | Insufficient Permissions | Role does not permit this operation (e.g., observer trying to push) | Contact a maintainer |
 | **PX-E008** | Remote Unreachable | `git push` / `git pull` failed due to network or auth | Check network and remote URL |
+| **PX-E009** | No Recognized .spec Files | Validation target exists but does not contain any recognized `.spec` markdown files | Point `spec validate --path` at a `.spec/` workspace or compatible fixture directory |
 
 ## Warnings (Execution Continues)
 

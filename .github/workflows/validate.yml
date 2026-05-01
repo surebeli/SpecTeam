@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
     paths:
+      - 'package.json'
+      - 'package-lock.json'
       - 'plugin/**'
       - 'tests/**'
       - 'SPECTEAM.md'
@@ -14,6 +16,8 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - 'package.json'
+      - 'package-lock.json'
       - 'plugin/**'
       - 'tests/**'
       - 'SPECTEAM.md'
@@ -251,6 +255,29 @@ jobs:
             exit 1
           fi
           echo "All test prompts well-structured ✅"
+
+  validate-node-packages:
+    name: Validate Node Packages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install workspace dependencies
+        run: npm ci
+
+      - name: Build workspace packages
+        run: npm run build
+
+      - name: Run workspace tests
+        run: npm test --workspaces
+
+      - name: Validate clean workspace fixture via CLI
+        run: node packages/cli/bin/spec.js validate --path=packages/spec-fixtures/states/clean-workspace
 
   validate-triggers:
     name: Validate Skill Dependency Graph

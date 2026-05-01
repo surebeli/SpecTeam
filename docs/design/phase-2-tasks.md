@@ -1,12 +1,20 @@
 # SpecTeam Phase 2 — Protocol Crystallization (W1 completion)
 
+> **Status: implementation complete, remediation reviewed.** Phase 2 review and
+> remediation status now live in [phase-2-review.md](./phase-2-review.md).
+> This file remains the execution plan and historical audit trail only.
+> If this task plan conflicts with `W1-decisions.md` or `phase-2-review.md`,
+> the decision/review documents take precedence.
+
 This document is the **strict, line-by-line implementation plan** for Phase 2,
 the work that follows the FT-1..FT-3 short-term pack. It corresponds to
 Workstream 1 tasks 1.2–1.5 in `docs/design/execution-plan.md`, plus the
 groundwork to host them.
 
-> **Source of truth.** If a step here conflicts with prior conversation, this
-> file wins. If something is genuinely ambiguous, stop and ask — do not improvise.
+> **Source of truth.** This file is the execution plan after it has been
+> reconciled with `W1-decisions.md` and `phase-2-review.md`. If those documents
+> conflict with this plan, they win. If something is genuinely ambiguous, stop
+> and ask — do not improvise.
 
 ## Phase goal
 
@@ -15,10 +23,11 @@ typed parser, and a runtime validator — published as a reusable package — so
 later workstreams (state engine, workflow engine, Spec Server) can build on it
 without re-parsing markdown.
 
-**After Phase 2:** the schema is code, every fixture in
+**After Phase 2:** the schema is code, every **in-scope** protocol entity in
 `packages/spec-fixtures/states/` validates against it, a `spec validate` CLI
 command exists for smoke-testing, and the legacy fixture round-trips through a
-migration helper. The existing
+migration helper for those in-scope entities. `SIGNALS.md` and `INDEX.md`
+remain out of strict schema scope per `W1-decisions.md` D4/D6. The existing
 CLI and VS Code extension still parse markdown the old way — their migration
 is **explicitly Phase 3**.
 
@@ -87,6 +96,66 @@ before doing anything in FN-1.
    introduces those paths.
 
 ---
+
+## Execution conclusion and review entry
+
+As of **2026-05-01**, the Phase 2 implementation work is complete on
+`phase-2-foundation`. Review should treat this section as the entry point and
+use the task blocks above as the audit trail for how the result was produced.
+
+### Landed commits
+
+- **FN-1 prerequisite chain already present:** `74634b9`, `d04b2f1`, `9320f15`
+- **FN-2:** `7a3a746` — `@specteam/schema` schemas, types, AJV validator, and tests
+- **FN-3:** `a70eedb` — markdown parsers, legacy-pre-3.0 migration, and tests
+- **FN-4:** `8b2435f` — `specteam-cli` `spec validate` command, tests, and docs
+- **Post-task verification follow-up:** `c96178e` — explicit no-op `test` scripts
+   for workspace packages that previously had no test entry, so the documented
+   root `npm test --workspaces` verification completes successfully
+
+### Review scope
+
+- `packages/spec-schema/`: schema documents, matching TypeScript model types,
+   validator, markdown parsers, migration helpers, and fixture-backed tests
+- `packages/cli/`: deterministic `spec validate [--path=<dir>] [--json]`
+   command with human and machine-readable output
+- `plugin/ERRORS.md`: `PX-V###` and `PX-P###` error catalog additions
+- `README.md`, `README.zh-CN.md`, `packages/cli/README.md`, `CHANGELOG.md`:
+   Phase 2 user-facing and release-note updates
+
+### Local verification completed
+
+- `git status -sb` clean after the implementation and follow-up commit set
+- `npm install` from repo root
+- `npm run build` from repo root
+- `npm test -w @specteam/schema`
+- `npm test -w specteam-cli`
+- `npm test --workspaces`
+- fixture smoke for `node packages/cli/bin/spec.js validate`:
+   - modern fixture states exit `0`
+   - `legacy-pre-3.0` exits `1` with legacy/schema parse failures
+- `node packages/cli/bin/spec.js validate --json` output parses as JSON
+- `npm pack --dry-run --workspace specteam-cli`
+- `bash tests/run-e2e.sh --setup` completed on Windows via a temporary LF/Git
+   compatibility wrapper, without modifying the tracked script
+
+### Remaining merge gates
+
+- `tests/run-e2e.sh --assert-only` is still pending. It was not run in this
+   execution because no initialized `.spec/` workspace was available.
+- `.github/workflows/validate.yml` green on the resulting `main` is still
+   pending merge/push and CI execution.
+
+### Reviewer checklist
+
+1. Review the landed commits in order: FN-2, FN-3, FN-4, then the workspace
+    verification follow-up.
+2. Prioritize `packages/spec-schema/` for protocol-shape correctness and
+    fixture coverage, then confirm the CLI contract in `packages/cli/bin/spec.js`.
+3. Confirm that the extra commit `c96178e` is acceptable as a repository-level
+    verification compatibility fix and does not change Phase 2 runtime behavior.
+4. After merge, close the remaining gates by running CI on `main` and
+    `tests/run-e2e.sh --assert-only` against an initialized `.spec/` workspace.
 
 ## FN-1 — Monorepo layout
 
@@ -211,9 +280,7 @@ function call, not a prompt judgment.
   - `divergence.schema.json`
   - `decision.schema.json`
   - `action-item.schema.json`
-  - `signal.schema.json`
   - `thesis.schema.json`
-  - `index-doc.schema.json`
   - `envelope.schema.json` (shared metadata: `schemaVersion`, generator, timestamps)
 - `packages/spec-schema/src/types/` (NEW dir): one `.ts` per entity matching the schema
 - `packages/spec-schema/src/validator.ts` (NEW — `validate(entityType, data) → ValidationResult`)
@@ -226,9 +293,11 @@ function call, not a prompt judgment.
 
 1. Read `docs/design/protocol-audit.md` end-to-end. Confirm zero `_TODO_` markers
    (else FT-2a is incomplete — stop and report).
-2. For each entity heading in the audit, write its JSON Schema. Every field
+2. For each **in-scope** entity heading in the audit, write its JSON Schema. Every field
    in the audit's "Field inventory" table maps to either a `properties` entry
    or a documented omission (with reason).
+   `SIGNALS.md` and `INDEX.md` stay out of schema in Phase 2 per
+   `W1-decisions.md` D4/D6.
 3. Define `envelope.schema.json` for cross-cutting metadata. Decide based on
    the audit's "Cross-cutting metadata" section whether `schemaVersion` is
    required or optional in v1. Default to **required**, with the audit's
@@ -258,13 +327,13 @@ function call, not a prompt judgment.
 npm run build -w @specteam/schema
 npm test -w @specteam/schema
 
-# Every entity has a schema file
-for e in collaborator divergence decision action-item signal thesis index-doc envelope; do
+# Every in-scope entity has a schema file
+for e in collaborator divergence decision action-item thesis envelope; do
   test -f packages/spec-schema/src/schemas/${e}.schema.json || echo "MISSING: $e"
 done
 
-# Every schema has a matching .ts type
-for e in collaborator divergence decision action-item signal thesis index-doc envelope; do
+# Every in-scope schema has a matching .ts type
+for e in collaborator divergence decision action-item thesis envelope; do
   test -f packages/spec-schema/src/types/${e}.ts || echo "MISSING type: $e"
 done
 
@@ -308,9 +377,7 @@ fixture.
   - `collaborators.parser.ts`
   - `divergences.parser.ts`
   - `decisions.parser.ts`
-  - `signals.parser.ts`
   - `thesis.parser.ts`
-  - `index.parser.ts`
 - `packages/spec-schema/src/migrations/` (NEW dir):
   - `legacy-pre-3.0.ts` (single migration: legacy shape → current shape)
   - `index.ts` (registry: maps detected legacy markers → migration function)
@@ -336,12 +403,16 @@ The `legacy-pre-3.0` migration must:
 - Accept input that fails FN-2 validation with PX-V007 (schema-version unsupported).
 - Produce output that passes FN-2 validation.
 - Be idempotent: running it twice produces the same result as running it once.
+- Leave out-of-schema artifacts (`SIGNALS.md`, `INDEX.md`) outside the strict
+   validation contract.
 
 ### Steps
 
-1. For each entity, write a parser that converts markdown sections (per the
+1. For each **in-scope** entity, write a parser that converts markdown sections (per the
    audit) into the typed model. Hand-rolled section-by-section is fine; lean on
    regex only for terminal fields.
+   `SIGNALS.md` and `INDEX.md` stay out of parser/schema scope in Phase 2 per
+   `W1-decisions.md` D4/D6.
 2. Wire parsers through the FN-2 validator: every parser's success path must
    produce a value that `validate()` accepts. Add an integration test that
    asserts this on every FT-2b fixture.
@@ -361,8 +432,8 @@ The `legacy-pre-3.0` migration must:
 npm run build -w @specteam/schema
 npm test -w @specteam/schema
 
-# Every entity has a parser
-for e in collaborators divergences decisions signals thesis index; do
+# Every in-scope entity has a parser
+for e in collaborators divergences decisions thesis; do
   test -f packages/spec-schema/src/parsers/${e}.parser.ts || echo "MISSING parser: $e"
 done
 
@@ -505,6 +576,19 @@ Plus:
 - `tests/run-e2e.sh --assert-only` (against an initialized workspace) still passes
 - `.github/workflows/validate.yml` green on the resulting `main`
 - `[Unreleased]` in `CHANGELOG.md` has entries for each FN-* task
+
+### Current status on `phase-2-foundation` (2026-05-01)
+
+- [x] FN-1, FN-2, FN-3, and FN-4 implementation commits exist locally on the
+   review branch
+- [x] `git status` clean
+- [x] `npm install` and `npm run build` green from repo root
+- [x] `npm test --workspaces` green from repo root
+- [ ] `tests/run-e2e.sh --assert-only` still pending an initialized `.spec/`
+   workspace
+- [ ] `.github/workflows/validate.yml` green on the resulting `main` pending
+   merge/push
+- [x] `[Unreleased]` in `CHANGELOG.md` includes Phase 2 entries for FN-1..FN-4
 
 ## Phase 2 → Phase 3 hand-off
 

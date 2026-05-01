@@ -93,30 +93,12 @@ test("negative: divergence rejects dangling collaborator references with PX-V006
   assertErrorCode(result, "PX-V006");
 });
 
-test("negative: signal rejects invalid date format with PX-V005", () => {
-  const signal = clone(modernFixtures.resolvedPendingActionItems.signal);
-  signal.entries[0].updatedAt = "2026/04/26";
-
-  const result = validate("signal", signal);
-  assertErrorCode(result, "PX-V005");
-});
-
 test("negative: thesis rejects missing northStar with PX-V001", () => {
   const thesis = clone(modernFixtures.fullyClosed.thesis) as { northStar?: string };
   delete thesis.northStar;
 
   const result = validate("thesis", thesis);
   assertErrorCode(result, "PX-V001");
-});
-
-test("negative: index-doc rejects wrong documentTree type with PX-V002", () => {
-  const indexDoc = clone(modernFixtures.cleanWorkspace["index-doc"]) as {
-    documentTree: unknown;
-  };
-  indexDoc.documentTree = "alice";
-
-  const result = validate("index-doc", indexDoc);
-  assertErrorCode(result, "PX-V002");
 });
 
 test("validator exports current schema version through envelope success path", () => {

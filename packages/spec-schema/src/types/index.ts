@@ -12,13 +12,6 @@ export type {
   DivergenceVoteChoice,
 } from "./divergence";
 export type { Envelope, SchemaVersion } from "./envelope";
-export type {
-  IndexDocument,
-  IndexDivergenceSummary,
-  IndexDocumentTreeGroup,
-  IndexDocumentTreeItem,
-} from "./index-doc";
-export type { SignalDocument, SignalEntry } from "./signal";
 export type { ThesisDecisionLogItem, ThesisDocument } from "./thesis";
 
 import type { ActionItem } from "./action-item";
@@ -26,8 +19,6 @@ import type { CollaboratorDocument } from "./collaborator";
 import type { DecisionDocument } from "./decision";
 import type { DivergenceDocument } from "./divergence";
 import type { Envelope } from "./envelope";
-import type { IndexDocument } from "./index-doc";
-import type { SignalDocument } from "./signal";
 import type { ThesisDocument } from "./thesis";
 
 export interface EntityTypeMap {
@@ -36,8 +27,6 @@ export interface EntityTypeMap {
   decision: DecisionDocument;
   divergence: DivergenceDocument;
   envelope: Envelope;
-  "index-doc": IndexDocument;
-  signal: SignalDocument;
   thesis: ThesisDocument;
 }
 

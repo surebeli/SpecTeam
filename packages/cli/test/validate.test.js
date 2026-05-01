@@ -7,16 +7,19 @@ const repoRoot = path.resolve(__dirname, '..', '..', '..');
 const cliBin = path.join(repoRoot, 'packages', 'cli', 'bin', 'spec.js');
 const fixturesDir = path.join(repoRoot, 'packages', 'spec-fixtures', 'states');
 
-function runValidate(fixtureName, extraArgs = []) {
-  const fixturePath = path.join(fixturesDir, fixtureName);
+function runValidatePath(targetPath, extraArgs = []) {
   return spawnSync(
     process.execPath,
-    [cliBin, 'validate', `--path=${fixturePath}`, ...extraArgs],
+    [cliBin, 'validate', `--path=${targetPath}`, ...extraArgs],
     {
       cwd: repoRoot,
       encoding: 'utf8',
     },
   );
+}
+
+function runValidate(fixtureName, extraArgs = []) {
+  return runValidatePath(path.join(fixturesDir, fixtureName), extraArgs);
 }
 
 test('modern fixtures exit 0 under spec validate', () => {
@@ -49,4 +52,10 @@ test('--json output is parseable', () => {
   assert.equal(parsed.summary.failed, 0);
   assert.ok(Array.isArray(parsed.results));
   assert.ok(parsed.results.length >= 1);
+});
+
+test('existing directory with no recognized .spec files exits 1 with PX-E009', () => {
+  const result = runValidatePath(path.join(repoRoot, 'packages', 'spec-schema'));
+  assert.equal(result.status, 1, 'non-.spec directory should fail validation');
+  assert.match(`${result.stdout}\n${result.stderr}`, /PX-E009/);
 });

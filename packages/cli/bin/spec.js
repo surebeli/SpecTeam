@@ -5,17 +5,35 @@ const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
 const { execSync } = require('child_process');
+
+const pkg = require('../package.json');
+
+function loadSchemaRuntime() {
+  const candidates = [
+    path.resolve(__dirname, '..', 'vendor', 'schema', 'dist'),
+    path.resolve(__dirname, '..', '..', 'spec-schema', 'dist'),
+    '@specteam/schema',
+  ];
+
+  const failures = [];
+  for (const candidate of candidates) {
+    try {
+      return require(candidate);
+    } catch (error) {
+      failures.push(`${candidate}: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  }
+
+  throw new Error(`Unable to load SpecTeam schema runtime. Tried: ${failures.join(' | ')}`);
+}
+
 const {
   parseCollaborators,
   parseDecisions,
   parseDivergences,
-  parseIndex,
-  parseSignals,
   parseThesis,
   validate,
-} = require('@specteam/schema');
-
-const pkg = require('../package.json');
+} = loadSchemaRuntime();
 
 const SPEC_DIR = path.join(process.cwd(), '.spec');
 const DIVERGENCES_FILE = path.join(SPEC_DIR, 'DIVERGENCES.md');
@@ -23,9 +41,7 @@ const DIVERGENCES_FILE = path.join(SPEC_DIR, 'DIVERGENCES.md');
 const VALIDATION_TARGETS = [
   { fileName: 'COLLABORATORS.md', entityType: 'collaborator', parser: parseCollaborators },
   { fileName: 'DIVERGENCES.md', entityType: 'divergence', parser: parseDivergences },
-  { fileName: 'SIGNALS.md', entityType: 'signal', parser: parseSignals },
   { fileName: 'THESIS.md', entityType: 'thesis', parser: parseThesis },
-  { fileName: 'INDEX.md', entityType: 'index-doc', parser: parseIndex },
 ];
 
 // Resolve the skills directory in both packaged (npm install) and repo-dev layouts.
@@ -93,13 +109,6 @@ function collectValidationTargets(targetDir) {
   return targets;
 }
 
-function isEmptyDivergenceRegistry(text) {
-  return !/^###\s+D-\d{3}:/m.test(text)
-    && /_\(No unresolved divergences\)_/m.test(text)
-    && /_\(No proposed divergences\)_/m.test(text)
-    && /_\(No resolved divergences\)_/m.test(text);
-}
-
 function buildValidationReport(targetDir) {
   const report = {
     targetPath: targetDir,
@@ -128,20 +137,26 @@ function buildValidationReport(targetDir) {
   }
 
   const validationTargets = collectValidationTargets(targetDir);
+  if (validationTargets.length === 0) {
+    report.results.push({
+      file: targetDir,
+      entityType: null,
+      ok: false,
+      errors: [
+        {
+          code: 'PX-E009',
+          path: '/',
+          message: `No recognized .spec files found in validation target: ${targetDir}`,
+        },
+      ],
+    });
+    report.summary.failed = 1;
+    return report;
+  }
+
   for (const target of validationTargets) {
     const relativeFile = formatValidationFile(targetDir, target.filePath);
     const text = fs.readFileSync(target.filePath, 'utf8');
-
-    if (target.entityType === 'divergence' && isEmptyDivergenceRegistry(text)) {
-      report.results.push({
-        file: relativeFile,
-        entityType: target.entityType,
-        ok: true,
-        errors: [],
-      });
-      report.summary.passed += 1;
-      continue;
-    }
 
     const parsed = target.parser(text);
     if (!parsed.ok) {

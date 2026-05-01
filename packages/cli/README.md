@@ -4,7 +4,7 @@
 
 SpecTeam is a Git-native workflow for AI-native spec review and decision alignment. This lightweight Node CLI provides a local UX layer for installing SpecTeam, checking divergence state, and running the `spec-*` command surface locally.
 
-**Note:** This CLI contains no workflow business logic. Divergence resolution still runs in your AI assistant; the only deterministic local logic is the thin `spec validate` smoke command backed by `@specteam/schema`.
+**Note:** This CLI contains no workflow business logic. Divergence resolution still runs in your AI assistant; the only deterministic local logic is the thin `spec validate` smoke command backed by the bundled `@specteam/schema` runtime.
 
 ## Installation
 
@@ -50,7 +50,7 @@ spec validate --path=packages/spec-fixtures/states/clean-workspace
 spec validate --json
 ```
 
-Validates the recognized `.spec/` markdown files in the target directory using the Phase 2 markdown parsers and AJV schemas from `@specteam/schema`. Human output lists per-file pass/fail and PX-P/PX-V codes, while `--json` emits a machine-readable report and preserves the same exit semantics: `0` when all files pass, `1` when any file fails.
+Validates the recognized Phase 2 `.spec/` markdown files in the target directory using the bundled `@specteam/schema` parsers and AJV schemas. In-scope files are `COLLABORATORS.md`, `DIVERGENCES.md`, `THESIS.md`, and `decisions/*.md`. Per W1 decisions D4/D6, `SIGNALS.md` and `INDEX.md` remain out of strict schema scope and are not validated by default. Human output lists per-file pass/fail and PX-P/PX-V/PX-E codes, while `--json` emits a machine-readable report and preserves the same exit semantics: `0` when all recognized files pass, `1` when any file fails. Pointing `--path` at an existing directory with no recognized `.spec` files now fails with `PX-E009`.
 
 ## License
 MIT

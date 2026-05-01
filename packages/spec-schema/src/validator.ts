@@ -45,8 +45,6 @@ const validators = {
   decision: ajv.getSchema("https://specteam.dev/schema/decision.schema.json") as ValidateFunction<EntityTypeMap["decision"]>,
   divergence: ajv.getSchema("https://specteam.dev/schema/divergence.schema.json") as ValidateFunction<EntityTypeMap["divergence"]>,
   envelope: ajv.getSchema("https://specteam.dev/schema/envelope.schema.json") as ValidateFunction<EntityTypeMap["envelope"]>,
-  "index-doc": ajv.getSchema("https://specteam.dev/schema/index-doc.schema.json") as ValidateFunction<EntityTypeMap["index-doc"]>,
-  signal: ajv.getSchema("https://specteam.dev/schema/signal.schema.json") as ValidateFunction<EntityTypeMap["signal"]>,
   thesis: ajv.getSchema("https://specteam.dev/schema/thesis.schema.json") as ValidateFunction<EntityTypeMap["thesis"]>,
 } satisfies { [K in EntityType]: ValidateFunction<EntityTypeMap[K]> };
 

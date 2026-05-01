@@ -235,6 +235,7 @@ the chosen option letter.
 - 2026-05-01: **D4 → A** (`SIGNALS.md` free-form, out of schema). Schema does not constrain SIGNALS; state engine surfaces blockers via `WorkspaceHealth` derived from DIVERGENCES + last-sync staleness.
 - 2026-05-01: **D5 → B** (Mixed by surface). JSON state uses ISO 8601. Markdown event lines keep `tool @ commit (date)`. Markdown human-readable fields (`Joined`, `Resolved at` without commit) keep date-only. Schema declares the format per field.
 - 2026-05-01: **D6 → A** (`INDEX.md` derived artifact, out of schema). State engine regenerates it from THESIS / DIVERGENCES / COLLABORATORS; templates may evolve.
+- 2026-05-01 remediation: Phase 2 implementation was realigned to D4/D6. `@specteam/schema` and `spec validate` no longer treat `SIGNALS.md` or `INDEX.md` as strict schema-validation targets.
 - 2026-05-01: **D7 → A** (`RULES.md` out of schema). Free-form code-conventions surface; spec-suggest reads it as prose.
 - 2026-05-01: **D8 → A** (Bands as cutoffs, additive penalties). Start at 100. Open blocking: -30. Open directional: -15. Open detail: -5. Proposed (any priority): -5. Floor at 0. SIGNALS blockers and stale-sync are reported via `WorkspaceHealth`, not the score.
 

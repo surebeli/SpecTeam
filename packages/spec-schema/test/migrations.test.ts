@@ -36,8 +36,6 @@ test("legacy-pre-3.0 migration yields schema-valid current documents", () => {
   assert.equal(validate("collaborator", result.value.collaborator).ok, true);
   assert.equal(validate("divergence", result.value.divergence).ok, true);
   assert.equal(validate("thesis", result.value.thesis).ok, true);
-  assert.equal(validate("signal", result.value.signal).ok, true);
-  assert.equal(validate("index-doc", result.value["index-doc"]).ok, true);
 });
 
 test("legacy-pre-3.0 migration is idempotent", () => {

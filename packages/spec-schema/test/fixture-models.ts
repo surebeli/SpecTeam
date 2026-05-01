@@ -4,8 +4,6 @@ import type {
   CollaboratorDocument,
   DecisionDocument,
   DivergenceDocument,
-  IndexDocument,
-  SignalDocument,
   ThesisDocument,
 } from "../src/types";
 
@@ -16,14 +14,6 @@ export function clone<T>(value: T): T {
 const schemaEnvelope = {
   schemaVersion: CURRENT_SCHEMA_VERSION,
 } as const;
-
-function parseEnvelope(generatedAt: string) {
-  return {
-    ...schemaEnvelope,
-    generator: "parse" as const,
-    generatedAt,
-  };
-}
 
 const apiCollaborators: CollaboratorDocument["members"] = [
   {
@@ -93,44 +83,6 @@ export const modernFixtures = {
         "Ship a stable REST-first user API that keeps product and engineering documents aligned.",
       decisionLog: [],
     } satisfies ThesisDocument,
-    signal: {
-      envelope: schemaEnvelope,
-      entries: [],
-    } satisfies SignalDocument,
-    "index-doc": {
-      envelope: parseEnvelope("2026-04-24T09:00:00Z"),
-      northStar:
-        "Ship a stable REST-first user API that keeps product and engineering documents aligned.",
-      northStarSource: "THESIS.md (last updated: init123 2026-04-24)",
-      decisionLog: [],
-      divergences: {
-        open: 0,
-        proposed: 0,
-        resolved: 0,
-        notes: ["✅ No pending divergences"],
-      },
-      signals: [],
-      documentTree: [
-        {
-          collaborator: "alice",
-          documents: [
-            {
-              path: "design/alice/api-design.md",
-              summary: "REST-first user API baseline",
-            },
-          ],
-        },
-        {
-          collaborator: "bob",
-          documents: [
-            {
-              path: "design/bob/api-design.md",
-              summary: "matching REST-first implementation notes",
-            },
-          ],
-        },
-      ],
-    } satisfies IndexDocument,
   },
   conflicted: {
     divergence: {
@@ -150,18 +102,6 @@ export const modernFixtures = {
         },
       ],
     } satisfies DivergenceDocument,
-    signal: {
-      envelope: schemaEnvelope,
-      entries: [
-        {
-          status: "open",
-          source: "D-001",
-          updatedAt: "2026-04-24",
-          blocker: "API Protocol Choice is blocking source alignment between alice and bob.",
-          message: "API Protocol Choice is blocking source alignment between alice and bob.",
-        },
-      ],
-    } satisfies SignalDocument,
   },
   proposedMultiParty: {
     collaborator: {
@@ -195,53 +135,6 @@ export const modernFixtures = {
         },
       ],
     } satisfies DivergenceDocument,
-    "index-doc": {
-      envelope: parseEnvelope("2026-04-26T08:10:00Z"),
-      northStar:
-        "Design a payment platform that keeps PayPal support, meets PCI expectations, and stays understandable for a small product team.",
-      northStarSource: "THESIS.md (last updated: pay001 2026-04-25)",
-      decisionLog: [],
-      divergences: {
-        open: 0,
-        proposed: 1,
-        resolved: 0,
-        notes: [
-          "D-001: Payment Architecture Choice (proposed, blocking) — alice, bob, carol",
-        ],
-      },
-      signals: [
-        "[2026-04-26] 🟡 D-001: Proposed architecture is awaiting Carol's confirmation.",
-      ],
-      documentTree: [
-        {
-          collaborator: "alice",
-          documents: [
-            {
-              path: "design/alice/payment-architecture.md",
-              summary: "microservices proposal with PCI Level 1",
-            },
-          ],
-        },
-        {
-          collaborator: "bob",
-          documents: [
-            {
-              path: "design/bob/payment-architecture.md",
-              summary: "monolithic proposal with PostgreSQL",
-            },
-          ],
-        },
-        {
-          collaborator: "carol",
-          documents: [
-            {
-              path: "design/carol/payment-architecture.md",
-              summary: "serverless proposal without PayPal",
-            },
-          ],
-        },
-      ],
-    } satisfies IndexDocument,
   },
   resolvedPendingActionItems: {
     collaborator: {
@@ -281,18 +174,6 @@ export const modernFixtures = {
       resolvedAt: "2026-04-26",
       actionItems: [validActionItem],
     } satisfies DecisionDocument,
-    signal: {
-      envelope: schemaEnvelope,
-      entries: [
-        {
-          updatedAt: "2026-04-26",
-          source: "D-001",
-          status: "resolved",
-          message:
-            "API Protocol Choice resolved; bob still has a pending source document update.",
-        },
-      ],
-    } satisfies SignalDocument,
   },
   fullyClosed: {
     divergence: {
@@ -334,57 +215,6 @@ export const modernFixtures = {
         },
       ],
     } satisfies ThesisDocument,
-    signal: {
-      envelope: schemaEnvelope,
-      entries: [
-        {
-          updatedAt: "2026-04-27",
-          source: "D-001",
-          status: "fully-closed",
-          message:
-            "API Protocol Choice — all source documents updated, divergence fully closed.",
-        },
-      ],
-    } satisfies SignalDocument,
-    "index-doc": {
-      envelope: parseEnvelope("2026-04-27T10:45:00Z"),
-      northStar:
-        "Ship a REST-first public API that stays easy to document and review across collaborators.",
-      northStarSource: "THESIS.md (last updated: update902 2026-04-27)",
-      decisionLog: [
-        "[2026-04-26] **D-001: API Protocol Choice**: Keep a REST-first API with a thin GraphQL compatibility layer for external consumers.",
-      ],
-      divergences: {
-        open: 0,
-        proposed: 0,
-        resolved: 0,
-        fullyClosed: 1,
-        notes: ["✅ No pending divergences"],
-      },
-      signals: [
-        "[2026-04-27] 🔒 D-001: API Protocol Choice — all source documents updated, divergence fully closed.",
-      ],
-      documentTree: [
-        {
-          collaborator: "alice",
-          documents: [
-            {
-              path: "design/alice/api-design.md",
-              summary: "REST-first user API baseline",
-            },
-          ],
-        },
-        {
-          collaborator: "bob",
-          documents: [
-            {
-              path: "design/bob/graphql-proposal.md",
-              summary: "updated to REST-first with GraphQL compatibility notes",
-            },
-          ],
-        },
-      ],
-    } satisfies IndexDocument,
   },
 } as const;
 
